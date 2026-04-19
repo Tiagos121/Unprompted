@@ -101,3 +101,114 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   .values-section { grid-template-columns: 1fr; }
   .hero-text-block h1 { font-size: 2.5rem; }
 }
+
+/* === ESTILOS DAS PÁGINAS INTERNAS (SOBRE E NOVIDADES) === */
+.page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  min-height: 80vh;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  letter-spacing: -1.5px;
+  margin-bottom: 15px;
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  color: var(--cor-cinza);
+}
+
+/* Equipa (Sobre) */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.team-member {
+  text-align: center;
+}
+
+.member-photo {
+  width: 100%;
+  height: 300px;
+  background-color: #E5E5E5;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  /* Dica: Podes substituir por URLs do Unsplash ou imagens da vossa equipa */
+}
+
+.legal-text {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #999;
+  border-top: 1px solid #EEE;
+  padding-top: 20px;
+}
+
+.easter-egg-link {
+  color: #CCC;
+  text-decoration: none;
+  font-family: var(--fonte-mono);
+  transition: color 0.3s;
+}
+
+.easter-egg-link:hover {
+  color: var(--cor-vermelho);
+}
+
+/* Notícias (Novidades) */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.news-card {
+  background: #F9F9FB;
+  padding: 40px;
+  border-radius: 16px;
+  border-left: 4px solid var(--cor-preto);
+}
+
+.news-date {
+  font-family: var(--fonte-mono);
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.news-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.news-card p {
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--cor-preto);
+  color: var(--cor-preto);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background: var(--cor-preto);
+  color: var(--cor-branco);
+}
