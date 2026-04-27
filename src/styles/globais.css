@@ -70,7 +70,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 .divider-image {
   width: 100%; height: 40vh;
   background-color: #D5D5D5; /* Placeholder */
-  background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop');
+  background-image: url('../assets/imagem1_edificio.png');
   background-size: cover; background-position: center; background-attachment: fixed;
 }
 
@@ -79,13 +79,70 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 .section-subtitle { font-size: 1rem; color: var(--text-muted, #86868B); margin-bottom: 50px; }
 
 .products-carousel {
-  display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;             /* Permite que os itens desçam de linha em ecrãs mais pequenos */
+  justify-content: center;     /* A MAGIA: Centra os itens todos no meio do ecrã */
+  gap: 20px;                   /* O espaço entre cada cartão */
+  max-width: 1200px;           /* Garante que não ficam demasiado esticados em ecrãs gigantes */
+  margin: 0 auto;              /* Centra a própria caixa do carrossel na página */
+  padding: 20px;
 }
 
+/* --- CARTÕES DE PRODUTOS --- */
 .product-card {
-  min-width: 300px; height: 350px; background: #F5F5F7;
-  border-radius: 20px; display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 30px; text-align: left;
+  flex: 1 1 200px;          /* Aumentámos a largura base de 200px para 240px */
+  min-height: 350px;           
+  background-color: var(--section-grey);
+  border-radius: 16px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* Empurra o conteúdo de texto para o fundo */
+  
+  /* Configurações da Imagem de Fundo */
+  background-size: cover;
+  background-position: center;
+  position: relative;          /* Necessário para o efeito de sombra abaixo */
+  overflow: hidden;            /* Garante que o efeito de sombra não sai das bordas arredondadas */
+  
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* Efeito Hover (Levanta ligeiramente o cartão ao passar o rato) */
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* A Sombra Escura (Degradê) sobre a imagem para o texto ficar legível */
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+  z-index: 1;
+}
+
+/* O Contentor do Texto */
+.product-info {
+  position: relative;
+  z-index: 2;                  /* Coloca o texto por cima da sombra escura */
+  color: #FFFFFF;              /* Texto branco para contrastar */
+}
+
+.product-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.product-info p {
+  font-size: 0.9rem;
+  opacity: 0.85;               /* Ligeiramente transparente para hierarquia visual */
+  line-height: 1.4;
 }
 
 .values-section { 
@@ -93,7 +150,12 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; 
 }
 .values-image { 
-  width: 100%; height: 400px; background-color: #E5E5E5; border-radius: 20px; 
+  width: 100%; height: 400px; 
+  background-color: #E5E5E5; 
+  border-radius: 20px;
+  background-image: url('../assets/imagem1_valores.jpg');
+  background-size: cover;     
+  background-position: center;
 }
 
 /* Responsividade básica */
@@ -217,53 +279,109 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 
 
 /* === ESTILOS DOS PRODUTOS E CATÁLOGO === */
+
+/* === PÁGINA CATÁLOGO DE PRODUTOS === */
 .catalog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;             
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .catalog-card {
+  flex: 1 1 350px; /* O '1' inicial é o flex-grow: permite que o cartão estique o que for preciso! */
+  
+  /* Retiramos o max-width que o impedia de crescer */
+  
+  background-color: var(--bg-color);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 16px;
+  overflow: hidden; 
   text-decoration: none;
   color: inherit;
-  background: var(--cor-branco);
-  border: 1px solid #E5E5E5;
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .catalog-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
-.catalog-image-placeholder {
+/* Área superior da Imagem */
+.catalog-image {
   width: 100%;
-  height: 200px;
-  background-color: #F5F5F7;
+  height: 300px; /* Podes aumentar um pouco a altura para compensar a largura extra */
+  background-color: var(--section-grey);
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.3s ease;
 }
 
+/* Área inferior do Texto */
 .catalog-info {
-  padding: 25px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
+.catalog-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.catalog-info p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Estilos das Badges Verdes/Vermelhas */
 .status-badge {
-  display: inline-block;
+  align-self: flex-start;
   font-size: 0.75rem;
-  font-family: var(--fonte-mono);
-  background: #E8F5E9;
-  color: #2E7D32;
-  padding: 4px 10px;
-  border-radius: 20px;
-  margin-bottom: 15px;
+  font-weight: 700;
   text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.available {
+  background-color: #E8F5E9; /* Verde claro */
+  color: #2E7D32;            /* Verde escuro */
 }
 
 .status-badge.sold-out {
-  background: #FFEBEE;
-  color: var(--cor-vermelho);
+  background-color: #FFEBEE; /* Vermelho claro */
+  color: #C62828;            /* Vermelho escuro */
 }
+
+/* === CATÁLOGO NO MODO BUG (UNPROMPTED) === */
+.tema-bug .catalog-card {
+  background-color: #050505;
+  border-color: #222;
+}
+
+.tema-bug .catalog-info h3 {
+  color: var(--glitch-red);
+  font-family: 'Space Mono', monospace;
+  text-shadow: 2px 2px black;
+}
+
+.tema-bug .status-badge {
+  background-color: rgba(255, 0, 0, 0.15);
+  color: var(--glitch-red);
+  border: 1px solid var(--glitch-red);
+}
+
+
 
 /* Detalhe do Produto (BCI Form) */
 .product-detail-layout {
@@ -454,4 +572,172 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 .btn-glitch:hover {
   background: var(--cor-vermelho);
   color: white;
+}
+
+
+/* === BLOCO DE TESTEMUNHOS (HOMEPAGE) === */
+.testimonials-section { 
+  padding: 100px 5%; 
+  text-align: center; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 40px; 
+  background-color: var(--bg-color); /* Usa a cor de fundo do tema */
+}
+
+.nav-arrow { 
+  background: none; 
+  border: none; 
+  font-size: 2.5rem; 
+  cursor: pointer; 
+  color: var(--text-muted); 
+  transition: all 0.3s ease; 
+}
+
+.nav-arrow:hover { 
+  color: var(--text-main);
+  transform: scale(1.2);
+}
+
+.testimonial-content { 
+  max-width: 600px; 
+}
+
+.testimonial-image { 
+  width: 150px; 
+  height: 150px; 
+  border-radius: 50%; 
+  object-fit: cover; 
+  margin: 0 auto 20px auto; 
+  border: 4px solid var(--section-grey);
+  transition: all 0.5s ease;
+}
+
+.testimonial-quote { 
+  font-size: 1.5rem; 
+  font-weight: 500; 
+  font-style: italic; 
+  margin-bottom: 15px; 
+  line-height: 1.4;
+}
+
+.testimonial-author { 
+  font-size: 0.9rem; 
+  color: var(--text-muted); 
+  font-weight: 600; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+}
+
+/* === REAÇÃO AO MODO BUG (UNPROMPTED) === */
+.tema-bug .testimonial-quote {
+  color: var(--glitch-red);
+  font-family: 'Space Mono', monospace;
+  text-shadow: 2px 2px black;
+}
+
+.tema-bug .nav-arrow {
+  color: var(--glitch-red);
+}
+
+
+
+/* === ESTILOS DO FOOTER === */
+.footer-container {
+  padding: 60px 5% 20px 5%;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: inherit; /* Segue a cor do tema */
+  margin-top: 50px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 50px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-logo {
+  margin-bottom: 15px;
+}
+
+.social-icons {
+  font-size: 1.2rem;
+  letter-spacing: 5px;
+  color: var(--text-muted);
+}
+
+.footer-column strong {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.footer-column a {
+  display: block;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.footer-column a:hover {
+  color: var(--text-main);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 20px;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* === FOOTER NO MODO BUG (UNPROMPTED) === */
+.tema-bug .footer-container {
+  border-top: 1px solid var(--glitch-red);
+}
+
+.tema-bug .footer-bottom {
+  border-top: 1px solid rgba(255, 59, 48, 0.3);
+}
+
+.tema-bug .footer-column a {
+  font-family: 'Space Mono', monospace;
+  color: #CCC;
+}
+
+.tema-bug .footer-column a:hover {
+  color: var(--glitch-red);
+  text-shadow: 2px 0 var(--cor-verde);
+}
+
+.easter-egg-bug {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--glitch-red);
+  letter-spacing: 1px;
+}
+
+/* Responsividade: para ecrãs de telemóvel, passa a 2 colunas e depois a 1 */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
 }

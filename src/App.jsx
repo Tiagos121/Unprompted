@@ -6,6 +6,7 @@ import { useTema } from './hooks/useTema';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import GlitchOverlay from './components/GlitchOverlay';
+import ScrollToTop from './components/ScrollToTop';
 
 // Páginas
 import Home from './pages/Home';
@@ -29,6 +30,7 @@ function App() {
     <div className={isBugged ? 'tema-bug' : 'tema-urwell'}>
       <Router>
         {/* Camada de Glitch por cima de tudo quando ativado */}
+        <ScrollToTop />
         <GlitchOverlay isBugged={isBugged} />
         
         <Navbar toggleBug={() => setIsBugged(!isBugged)} isBugged={isBugged} />
