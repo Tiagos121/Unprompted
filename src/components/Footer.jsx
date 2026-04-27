@@ -12,24 +12,25 @@ function Footer({ isBugged }) {
             {isBugged ? <span className="logo-unprompted-text">unprompted</span> : <span className="logo-urwell-text">UrWell</span>}
           </div>
           <div className="social-icons">
-            {isBugged ? 'SINAL_INTERCEPTADO' : 'X 📸 in'}
           </div>
         </div>
 
         {/* Coluna 2: Links da Empresa */}
         <div className="footer-column">
           <strong>{isBugged ? 'ARQUIVOS_MORTOS' : 'Sobre Nós'}</strong>
-          <Link to="/sobre">{isBugged ? 'A_Verdade' : 'A Empresa'}</Link>
-          <a href="#">{isBugged ? 'Esquemas_Vazados.pdf' : 'O Nosso Hardware'}</a>
-          <a href="#">{isBugged ? 'Quem_Os_Financia?' : 'Investidores'}</a>
+          <Link to="/sobre">{isBugged ? 'A_Verdade' : 'Missão'}</Link>
+          <a href="/sobre">{isBugged ? 'Esquemas_Vazados.pdf' : 'Visão'}</a>
+          <a href="/sobre">{isBugged ? 'Quem_Os_Financia?' : 'Pilares'}</a>
         </div>
 
         {/* Coluna 3: Produtos */}
         <div className="footer-column">
           <strong>{isBugged ? 'FERRAMENTAS_DE_CONTROLO' : 'Produtos'}</strong>
           <Link to="/produtos/1">{isBugged ? 'UrSync (CUIDADO)' : 'UrSync'}</Link>
+          <Link to="/produtos/2">{isBugged ? 'Lavador_Cerebral' : 'Vision BCI'}</Link>
           <Link to="/produtos/3">{isBugged ? 'Eles_Roubam_Sonhos' : 'UrMate'}</Link>
           <Link to="/produtos/4">{isBugged ? 'Censura_Ativa' : 'UrDigest'}</Link>
+          <Link to="/produtos/5">{isBugged ? 'Pensamento_Controlado' : 'UrAssist'}</Link>
         </div>
 
         {/* Coluna 4: Legal */}

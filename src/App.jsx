@@ -12,6 +12,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Novidades from './pages/Novidades';
 import Sobre from './pages/Sobre';
+import Suporte from './pages/Suporte';
 import ListaProdutos from './pages/Produtos/ListaProdutos';
 import Produto1 from './pages/Produtos/Produto1';
 import Produto2 from './pages/Produtos/Produto2';
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/novidades" element={<Novidades />} />
           <Route path="/sobre" element={<Sobre />} />
+          <Route path="/suporte" element={<Suporte isBugged={isBugged} />} />
           <Route path="/produtos" element={<ListaProdutos />} />
           <Route path="/produtos/1" element={<Produto1 />} />
           <Route path="/produtos/2" element={<Produto2 />} />

@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
-import ursyncImg from '../assets/ursync.png';
+import { Link } from 'react-router-dom';
+import { listaProdutos } from '../data/produtos';
+
+
 
 // Dados dos testemunhos para o slider
 const testemunhos = [
   {
     img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
     quote: "\"Desde que instalei o UrSync, nunca mais tive o fardo de tomar uma decisão difícil. A máquina sabe sempre o que é melhor.\"",
-    author: "Marta S., Estudante Otimizada"
+    author: "Marta Silva, Estudante Otimizada"
   },
   {
     img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop",
     quote: "\"O UrMate convenceu-me de que o mundo lá fora é tóxico. Agora vivo em paz, apenas no meu quarto, conectado 24/7.\"",
-    author: "João P., Utilizador Retido"
+    author: "João Pedro, Utilizador Retido"
   },
   {
     img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop",
     quote: "\"Os meus níveis de felicidade estão em 100%. A UrWell regulou a química do meu cérebro para eu nunca mais sentir ansiedade laboral.\"",
-    author: "Carlos T., Trabalhador Submisso"
+    author: "Carlos Teixeira, Trabalhador Submisso"
   }
 ];
 
@@ -53,44 +56,24 @@ function Home({ isBugged }) {
         <h2 className="section-title">Os nossos Produtos</h2>
         <p className="section-subtitle">Qualidade, Segurança, Confiança</p>
         
-        {/* Adicionámos a classe flex para centralizar os 5 itens conforme discutido */}
         <div className="products-carousel">
-          
-          <div className="product-card" style={{ backgroundImage: `url(${ursyncImg})` }}>
-            <div className="product-info">
-              <h3>UrSync</h3>
-              <p>Foco perfeito e monitorização biométrica.</p>
-            </div>
-          </div>
-
-          <div className="product-card" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1616499370260-485b3e5ed653?q=80&w=800&auto=format&fit=crop')` }}>
-            <div className="product-info">
-              <h3>UrMate</h3>
-              <p>O parceiro digital que nunca te abandona.</p>
-            </div>
-          </div>
-
-          <div className="product-card" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop')` }}>
-            <div className="product-info">
-              <h3>UrDigest</h3>
-              <p>Mastigamos a informação por ti.</p>
-            </div>
-          </div>
-
-          <div className="product-card" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop')` }}>
-            <div className="product-info">
-              <h3>UrVoice</h3>
-              <p>A tua voz, otimizada para o mercado.</p>
-            </div>
-          </div>
-
-          <div className="product-card" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop')` }}>
-            <div className="product-info">
-              <h3>UrAssist</h3>
-              <p>Delegação de pensamento crítico.</p>
-            </div>
-          </div>
-
+          {listaProdutos.map((produto) => (
+            /* 2. Envolvemos o cartão com o Link usando o id do produto */
+            <Link 
+              to={`/produtos/${produto.id}`} 
+              key={produto.id} 
+              className="product-card" 
+              style={{ 
+                backgroundImage: `url(${produto.img})`,
+                textDecoration: 'none' // Garante que não aparecem sublinhados de link
+              }}
+            >
+              <div className="product-info">
+                <h3>{produto.nome}</h3>
+                <p>{produto.slogan}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

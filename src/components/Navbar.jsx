@@ -21,6 +21,7 @@ function Navbar({ toggleBug, isBugged }) {
           <li><Link to="/novidades">Novidades</Link></li>
           <li><Link to="/sobre">Sobre</Link></li>
           <li><Link to="/produtos">Produtos</Link></li>
+          <li><Link to="/suporte">Suporte</Link></li>
         </ul>
 
         {/* O GATILHO DO ARG: O ponto final escondido */}
