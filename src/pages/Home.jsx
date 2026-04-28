@@ -60,7 +60,7 @@ function Home({ isBugged }) {
           {listaProdutos.map((produto) => (
             /* 2. Envolvemos o cartão com o Link usando o id do produto */
             <Link 
-              to={`/produtos/${produto.id}`} 
+              to={`/detalhes/${produto.id}`} 
               key={produto.id} 
               className="product-card" 
               style={{ 

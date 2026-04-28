@@ -14,6 +14,9 @@ import Novidades from './pages/Novidades';
 import Sobre from './pages/Sobre';
 import Suporte from './pages/Suporte';
 import ListaProdutos from './pages/Produtos/ListaProdutos';
+import DetalheProduto from './pages/Produtos/DetalheProduto';
+
+// Páginas dos Desafios / Minijogos (A Armadilha)
 import Produto1 from './pages/Produtos/Produto1';
 import Produto2 from './pages/Produtos/Produto2';
 import Produto3 from './pages/Produtos/Produto3';
@@ -37,16 +40,25 @@ function App() {
         <Navbar toggleBug={() => setIsBugged(!isBugged)} isBugged={isBugged} />
         
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/novidades" element={<Novidades />} />
-          <Route path="/sobre" element={<Sobre />} />
+          {/* 1. PÁGINAS PRINCIPAIS */}
+          <Route path="/" element={<Home isBugged={isBugged} />} />
+          <Route path="/novidades" element={<Novidades isBugged={isBugged} />} />
+          <Route path="/sobre" element={<Sobre isBugged={isBugged} />} />
           <Route path="/suporte" element={<Suporte isBugged={isBugged} />} />
-          <Route path="/produtos" element={<ListaProdutos />} />
-          <Route path="/produtos/1" element={<Produto1 />} />
-          <Route path="/produtos/2" element={<Produto2 />} />
-          <Route path="/produtos/3" element={<Produto3 />} />
-          <Route path="/produtos/4" element={<Produto4 />} />
-          <Route path="/produtos/5" element={<Produto5 />} />
+          
+          {/* 2. CATÁLOGO DE PRODUTOS */}
+          <Route path="/produtos" element={<ListaProdutos isBugged={isBugged} />} />
+          
+          {/* 3. A PONTE (Página Intermédia Corporativa Limpa) */}
+          {/* Usa o :id para carregar os dados corretos dinamicamente */}
+          <Route path="/detalhes/:id" element={<DetalheProduto isBugged={isBugged} />} />
+          
+          {/* 4. A ARMADILHA (Páginas independentes com os Desafios/Minijogos) */}
+          <Route path="/produto/1" element={<Produto1 isBugged={isBugged} />} />
+          <Route path="/produto/2" element={<Produto2 isBugged={isBugged} />} />
+          <Route path="/produto/3" element={<Produto3 isBugged={isBugged} />} />
+          <Route path="/produto/4" element={<Produto4 isBugged={isBugged} />} />
+          <Route path="/produto/5" element={<Produto5 isBugged={isBugged} />} />
         </Routes>
 
         <Footer isBugged={isBugged} />
