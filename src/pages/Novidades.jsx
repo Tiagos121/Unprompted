@@ -1,32 +1,335 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+// IMPORTANTE: Adicionámos aqui o updateDoc!
+import { collection, getDocs, addDoc, deleteDoc, updateDoc, doc, orderBy, query } from 'firebase/firestore';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { db, auth } from '../config/firebase';
+import Swal from 'sweetalert2';
 
-function Novidades() {
-  return (
-    <div className="page-container">
+function Novidades({ isBugged }) {
+  const [novidades, setNovidades] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [carregando, setCarregando] = useState(true);
+  const [atualizarLista, setAtualizarLista] = useState(0);
+
+  // Paginação
+  const [limiteVisivel, setLimiteVisivel] = useState(3);
+
+  // Formulário de Criação
+  const [mostrarForm, setMostrarForm] = useState(false);
+  const [novoTitulo, setNovoTitulo] = useState('');
+  const [novaData, setNovaData] = useState('');
+  const [novoSubtitulo, setNovoSubtitulo] = useState('');
+
+  // ESTADOS DE EDIÇÃO (A nova magia!)
+  const [editandoId, setEditandoId] = useState(null); // Guarda o ID do cartão que está a ser editado
+  const [editTitulo, setEditTitulo] = useState('');
+  const [editData, setEditData] = useState('');
+  const [editSubtitulo, setEditSubtitulo] = useState('');
+
+  // 1. Verifica o Admin
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAdmin(!!user); 
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // 2. Buscar Novidades
+  useEffect(() => {
+    const buscarNovidades = async () => {
+      try {
+        const q = query(collection(db, "novidades"), orderBy("data", "asc"));
+        const querySnapshot = await getDocs(q);
+        const listaNovidades = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setNovidades(listaNovidades);
+      } catch { 
+        console.log("Erro a ligar aos servidores da UrWell."); 
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    buscarNovidades();
+  }, [atualizarLista]);
+
+  // 3. Adicionar Novidade
+  const handleAdicionar = async (e) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, "novidades"), {
+        titulo: novoTitulo,
+        data: novaData,
+        subtitulo: novoSubtitulo
+      });
       
-      <section className="page-header">
-        <h1>Comunicados Oficiais</h1>
-        <p>As últimas atualizações do ecossistema UrWell.</p>
-      </section>
+      setNovoTitulo(''); setNovaData(''); setNovoSubtitulo('');
+      setMostrarForm(false);
+      setAtualizarLista(prev => prev + 1); 
+      
+      Swal.fire({
+        title: "Registo Criado",
+        text: "A nova comunicação corporativa foi propagada.",
+        icon: "success",
+        confirmButtonColor: "#000000"
+      });
+    } catch {
+      Swal.fire("Erro", "Falha ao adicionar novidade no servidor.", "error");
+    }
+  };
 
-      <div className="news-list">
+  // 4. Apagar Novidade
+  const handleApagar = (id) => {
+    Swal.fire({
+      title: "Purgar Registo?",
+      text: "Esta ação é irreversível e os dados serão eliminados do sistema.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FF0000",
+      cancelButtonColor: "#CCCCCC",
+      confirmButtonText: "Sim, Purgar!",
+      cancelButtonText: "Cancelar"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteDoc(doc(db, "novidades", id));
+          setAtualizarLista(prev => prev + 1); 
+          Swal.fire("Purgado!", "A informação foi apagada da existência.", "success");
+        } catch {
+          Swal.fire("Erro", "Os ficheiros não puderam ser apagados.", "error");
+        }
+      }
+    });
+  };
+
+  // 5. INICIAR EDIÇÃO (Copia os dados do cartão para os inputs)
+  const iniciarEdicao = (item) => {
+    setEditandoId(item.id);
+    setEditTitulo(item.titulo);
+    setEditData(item.data);
+    setEditSubtitulo(item.subtitulo);
+  };
+
+  // 6. GUARDAR EDIÇÃO
+  const guardarEdicao = async (id) => {
+    try {
+      await updateDoc(doc(db, "novidades", id), {
+        titulo: editTitulo,
+        data: editData,
+        subtitulo: editSubtitulo
+      });
+      setEditandoId(null); // Sai do modo de edição
+      setAtualizarLista(prev => prev + 1); // Recarrega a lista
+      
+      Swal.fire({
+        title: "Atualizado!",
+        text: "O registo foi reescrito com sucesso.",
+        icon: "success",
+        confirmButtonColor: "#000000",
+        timer: 1500, // Fecha sozinho passado 1.5s
+        showConfirmButton: false
+      });
+    } catch {
+      Swal.fire("Erro", "Não foi possível modificar o registo.", "error");
+    }
+  };
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Encerrar Sessão?",
+      text: "Vai desligar-se da rede administrativa da UrWell.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#000000",
+      cancelButtonColor: "#CCCCCC",
+      confirmButtonText: "Sim, Desconectar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOut(auth).then(() => {
+          Swal.fire({
+            title: "Desconectado",
+            text: "A sua ligação corporativa foi terminada com sucesso.",
+            icon: "info",
+            confirmButtonColor: "#000000",
+            timer: 1500,
+            showConfirmButton: false
+          });
+        });
+      }
+    });
+  };
+
+  const mostrarMais = () => {
+    setLimiteVisivel(prev => prev + 3);
+  };
+
+  if (carregando) return <div className="page-container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>A carregar dados dos servidores UrWell...</div>;
+
+  const novidadesVisiveis = novidades.slice(0, limiteVisivel);
+
+  return (
+    <div className={isBugged ? 'tema-bug' : 'tema-urwell'} style={{ minHeight: '100vh', transition: 'all 0.5s ease' }}>
+      <div className="page-container">
         
-        {/* Post Normal */}
-        <article className="news-card">
-          <div className="news-date">12 de Maio, 2026</div>
-          <h3>UrWell atinge 1 Milhão de Mentes Sincronizadas</h3>
-          <p>É com orgulho que anunciamos um marco histórico. Mais de um milhão de utilizadores já abdicaram do stress diário em prol da nossa otimização algorítmica. O futuro é sereno.</p>
-        </article>
+        {/* CABEÇALHO */}
+        <section className="page-header" style={{ position: 'relative' }}>
+          <h1 style={isBugged ? { color: 'var(--cor-vermelho)' } : {}}>
+            {isBugged ? 'Registos de Purga' : 'Comunicados Oficiais'}
+          </h1>
+          <p style={isBugged ? { color: '#888' } : {}}>
+            {isBugged ? 'Acesso não autorizado detetado.' : 'As últimas atualizações do ecossistema UrWell.'}
+          </p>
 
-        {/* Post com "Red Flags" (Pista ARG) */}
-        <article className="news-card">
-          <div className="news-date">04 de Abril, 2026</div>
-          <h3>Atualização de Firmware: UrSync v2.4</h3>
-          <p>A nova atualização melhora a estabilidade de conexão. Nota: Alguns utilizadores relataram memórias que não lhes pertencem. A UrWell garante que isto é um efeito secundário temporário da otimização. Não resistam à recalibração.</p>
-        </article>
+          {/* CONTROLOS DE ADMIN */}
+          {isAdmin && (
+            <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '15px' }}>
+              <button 
+                onClick={() => setMostrarForm(!mostrarForm)}
+                style={{ background: 'var(--cor-preto)', color: 'var(--cor-branco)', padding: '10px 20px', border: 'none', borderRadius: '5px', fontWeight: 'bold' }}
+              >
+                {mostrarForm ? 'Cancelar' : '+ Adicionar Comunicado'}
+              </button>
+              <button 
+                onClick={handleLogout}
+                style={{ background: 'var(--cor-vermelho)', color: 'var(--cor-branco)', padding: '10px 20px', border: 'none', borderRadius: '5px', fontWeight: 'bold' }}
+              >
+                Terminar Sessão
+              </button>
+            </div>
+          )}
+        </section>
+
+        {/* FORMULÁRIO DE ADICIONAR */}
+        {isAdmin && mostrarForm && (
+          <form onSubmit={handleAdicionar} style={{ background: '#f5f5f5', padding: '30px', borderRadius: '16px', marginBottom: '40px', border: '1px solid #ddd', color: 'black' }}>
+            <h3 style={{ marginBottom: '20px' }}>Criar Novo Registo</h3>
+            <div style={{ display: 'flex', gap: '20px', marginBottom: '15px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px' }}>Título</label>
+                <input required type="text" value={novoTitulo} onChange={e => setNovoTitulo(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px' }}>Data</label>
+                <input required type="date" value={novaData} onChange={e => setNovaData(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} />
+              </div>
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px' }}>Subtítulo / Descrição</label>
+              <textarea required value={novoSubtitulo} onChange={e => setNovoSubtitulo(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', minHeight: '100px' }} />
+            </div>
+            <button type="submit" className="btn-primary">Publicar</button>
+          </form>
+        )}
+
+        {/* LISTA DE NOVIDADES */}
+        <div className="news-list">
+          {novidadesVisiveis.length === 0 ? (
+            <p style={{ textAlign: 'center', color: 'var(--cor-cinza)' }}>Nenhum comunicado disponível.</p>
+          ) : (
+            novidadesVisiveis.map((item) => (
+              <article 
+                key={item.id} 
+                className="news-card" 
+                style={isBugged ? { 
+                  background: '#0a0a0a', 
+                  borderLeftColor: 'var(--cor-vermelho)', 
+                  color: 'var(--cor-branco)',
+                  position: 'relative'
+                } : { position: 'relative' }}
+              >
+                
+                {/* LÓGICA DE EDIÇÃO vs MODO NORMAL */}
+                {editandoId === item.id ? (
+                  // ----- MODO DE EDIÇÃO IN-LINE -----
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', color: 'black' }}>
+                    <div style={{ display: 'flex', gap: '15px' }}>
+                      <input 
+                        type="date" 
+                        value={editData} 
+                        onChange={(e) => setEditData(e.target.value)} 
+                        style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+                      />
+                      <input 
+                        type="text" 
+                        value={editTitulo} 
+                        onChange={(e) => setEditTitulo(e.target.value)} 
+                        style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', flex: 1, fontSize: '1.2rem', fontWeight: 'bold' }}
+                      />
+                    </div>
+                    <textarea 
+                      value={editSubtitulo} 
+                      onChange={(e) => setEditSubtitulo(e.target.value)} 
+                      style={{ padding: '10px', border: '1px solid #ccc', borderRadius: '4px', minHeight: '100px', width: '100%' }}
+                    />
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <button onClick={() => guardarEdicao(item.id)} style={{ background: '#007AFF', color: 'white', padding: '8px 15px', border: 'none', borderRadius: '4px', fontWeight: 'bold' }}>Guardar Alterações</button>
+                      <button onClick={() => setEditandoId(null)} style={{ background: '#ccc', color: 'black', padding: '8px 15px', border: 'none', borderRadius: '4px', fontWeight: 'bold' }}>Cancelar</button>
+                    </div>
+                  </div>
+                ) : (
+                  // ----- MODO DE LEITURA NORMAL -----
+                  <>
+                    {/* BOTÕES DE AÇÃO (Lápis e Lixo - Só para Admin) */}
+                    {isAdmin && (
+                      <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px' }}>
+                        {/* Lápis (Editar) */}
+                        <button 
+                          onClick={() => iniciarEdicao(item)}
+                          style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#007AFF' }}
+                          title="Editar Registo"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                          </svg>
+                        </button>
+                        {/* Lixo (Apagar) */}
+                        <button 
+                          onClick={() => handleApagar(item.id)}
+                          style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--cor-vermelho)' }}
+                          title="Purgar Registo"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+
+                    <div className="news-date" style={isBugged ? { color: 'var(--cor-vermelho)' } : {}}>
+                      {item.data}
+                    </div>
+                    
+                    <h3 style={isBugged ? { color: 'var(--cor-vermelho)', paddingRight: isAdmin ? '60px' : '0' } : { paddingRight: isAdmin ? '60px' : '0' }}>
+                      {item.titulo}
+                    </h3>
+                    
+                    <p style={{ whiteSpace: 'pre-wrap' }}>
+                      {item.subtitulo}
+                    </p>
+                  </>
+                )}
+              </article>
+            ))
+          )}
+        </div>
+
+        {/* PAGINAÇÃO (Ver mais) */}
+        {limiteVisivel < novidades.length && (
+          <div style={{ textAlign: 'center', marginTop: '50px' }}>
+            <button 
+              onClick={mostrarMais}
+              className="btn-secondary"
+              style={isBugged ? { borderColor: 'var(--cor-vermelho)', color: 'var(--cor-vermelho)' } : {}}
+            >
+              Ver Comunicados Anteriores ↓
+            </button>
+          </div>
+        )}
 
       </div>
-
     </div>
   );
 }

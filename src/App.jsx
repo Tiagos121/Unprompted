@@ -15,6 +15,7 @@ import Sobre from './pages/Sobre';
 import Suporte from './pages/Suporte';
 import ListaProdutos from './pages/Produtos/ListaProdutos';
 import DetalheProduto from './pages/Produtos/DetalheProduto';
+import AdminLogin from './pages/AdminLogin';
 
 // Páginas dos Desafios / Minijogos (A Armadilha)
 import Produto1 from './pages/Produtos/Produto1';
@@ -40,20 +41,23 @@ function App() {
         <Navbar toggleBug={() => setIsBugged(!isBugged)} isBugged={isBugged} />
         
         <Routes>
-          {/* 1. PÁGINAS PRINCIPAIS */}
+          {/* PÁGINAS PRINCIPAIS */}
           <Route path="/" element={<Home isBugged={isBugged} />} />
           <Route path="/novidades" element={<Novidades isBugged={isBugged} />} />
           <Route path="/sobre" element={<Sobre isBugged={isBugged} />} />
           <Route path="/suporte" element={<Suporte isBugged={isBugged} />} />
+
+          {/* ROTA SECRETA AQUI! */}
+          <Route path="/ur-admin" element={<AdminLogin />} />
           
-          {/* 2. CATÁLOGO DE PRODUTOS */}
+          {/* CATÁLOGO DE PRODUTOS */}
           <Route path="/produtos" element={<ListaProdutos isBugged={isBugged} />} />
           
-          {/* 3. A PONTE (Página Intermédia Corporativa Limpa) */}
+          {/* A PONTE (Página Intermédia Corporativa Limpa) */}
           {/* Usa o :id para carregar os dados corretos dinamicamente */}
           <Route path="/detalhes/:id" element={<DetalheProduto isBugged={isBugged} />} />
           
-          {/* 4. A ARMADILHA (Páginas independentes com os Desafios/Minijogos) */}
+          {/* A ARMADILHA (Páginas independentes com os Desafios/Minijogos) */}
           <Route path="/produto/1" element={<Produto1 isBugged={isBugged} />} />
           <Route path="/produto/2" element={<Produto2 isBugged={isBugged} />} />
           <Route path="/produto/3" element={<Produto3 isBugged={isBugged} />} />

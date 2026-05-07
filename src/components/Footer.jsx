@@ -48,7 +48,18 @@ function Footer({ isBugged }) {
         {isBugged ? (
           <span className="easter-egg-bug">SYS_STATUS: COMPROMETIDO // [O_O] // PWD_LEAK: STOP_THE_SLOP</span>
         ) : (
-          <span className="copyright">© 2026 UrWell Corp. Todos os direitos reservados. O seu bem-estar é propriedade nossa.</span>
+          <span className="copyright">
+            © 2026{' '}
+            {/* O SEGREDO ESTÁ AQUI: Link escondido na palavra UrWell */}
+            <Link 
+              to="/ur-admin" 
+              style={{ cursor: 'text', color: 'inherit', textDecoration: 'none', outline: 'none' }}
+              title=""
+            >
+              UrWell
+            </Link>
+            {' '}Corp. Todos os direitos reservados. O seu bem-estar é propriedade nossa.
+          </span>
         )}
       </div>
     </footer>
