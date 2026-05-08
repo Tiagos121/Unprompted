@@ -20,7 +20,7 @@ function ListaProdutos({ isBugged }) {
       <div className="catalog-grid">
         {/* MÁGICA: Agora percorremos a listaProdutos que vem do ficheiro centralizado */}
         {listaProdutos.map((produto) => (
-          <Link to={`/detalhes/${produto.id}`} key={produto.id} className="catalog-card">
+          <Link to={`/captcha/${produto.id}`} className="catalog-card">
             
             {/* Imagem do produto com filtro de glitch opcional */}
             <div 

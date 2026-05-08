@@ -16,13 +16,7 @@ import Suporte from './pages/Suporte';
 import ListaProdutos from './pages/Produtos/ListaProdutos';
 import DetalheProduto from './pages/Produtos/DetalheProduto';
 import AdminLogin from './pages/AdminLogin';
-
-// Páginas dos Desafios / Minijogos (A Armadilha)
-import Produto1 from './pages/Produtos/Produto1';
-import Produto2 from './pages/Produtos/Produto2';
-import Produto3 from './pages/Produtos/Produto3';
-import Produto4 from './pages/Produtos/Produto4';
-import Produto5 from './pages/Produtos/Produto5';
+import CaptchaRandom from './pages/CaptchaRandom'; // <-- 1. NOVO IMPORT
 
 import './styles/globais.css';
 
@@ -34,7 +28,6 @@ function App() {
   return (
     <div className={isBugged ? 'tema-bug' : 'tema-urwell'}>
       <Router>
-        {/* Camada de Glitch por cima de tudo quando ativado */}
         <ScrollToTop />
         <GlitchOverlay isBugged={isBugged} />
         
@@ -47,22 +40,22 @@ function App() {
           <Route path="/sobre" element={<Sobre isBugged={isBugged} />} />
           <Route path="/suporte" element={<Suporte isBugged={isBugged} />} />
 
-          {/* ROTA SECRETA AQUI! */}
+          {/* ROTA SECRETA */}
           <Route path="/ur-admin" element={<AdminLogin />} />
           
           {/* CATÁLOGO DE PRODUTOS */}
           <Route path="/produtos" element={<ListaProdutos isBugged={isBugged} />} />
           
-          {/* A PONTE (Página Intermédia Corporativa Limpa) */}
-          {/* Usa o :id para carregar os dados corretos dinamicamente */}
-          <Route path="/detalhes/:id" element={<DetalheProduto isBugged={isBugged} />} />
+          {/* 2. A ROLETA (A nova ponte obrigatória) */}
+          {/* Quando o utilizador clica num produto, vai primeiro para aqui */}
+          <Route path="/captcha/:id" element={<CaptchaRandom isBugged={isBugged} />} />
           
-          {/* A ARMADILHA (Páginas independentes com os Desafios/Minijogos) */}
-          <Route path="/produto/1" element={<Produto1 isBugged={isBugged} />} />
-          <Route path="/produto/2" element={<Produto2 isBugged={isBugged} />} />
-          <Route path="/produto/3" element={<Produto3 isBugged={isBugged} />} />
-          <Route path="/produto/4" element={<Produto4 isBugged={isBugged} />} />
-          <Route path="/produto/5" element={<Produto5 isBugged={isBugged} />} />
+          {/* 3. PÁGINA FINAL DO PRODUTO */}
+          {/* Agora usamos o caminho /produtos/:id para ficar mais profissional */}
+          <Route path="/produtos/:id" element={<DetalheProduto isBugged={isBugged} />} />
+          
+          {/* NOTA: As rotas individuais /produto/1, /produto/2, etc., foram REMOVIDAS 
+              porque agora o CaptchaRandom carrega esses componentes dinamicamente. */}
         </Routes>
 
         <Footer isBugged={isBugged} />

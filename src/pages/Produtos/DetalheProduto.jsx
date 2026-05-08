@@ -1,37 +1,51 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { listaProdutos } from '../../data/produtos';
+import VideoPlayer from '../../components/VideoPlayer';
+// 1. O IMPORT FICA AQUI!
+import { videosDoYoutube } from '../../data/videos';
 
 function DetalheProduto({ isBugged }) {
   const { id } = useParams();
-  const navigate = useNavigate(); 
+  const location = useLocation(); 
+
+  // 2. APAGÁMOS A LISTA QUE ESTAVA AQUI ESCRITA!
+  // Agora ele vai buscar diretamente o ID à lista que importou lá de cima.
+  const videoId = videosDoYoutube[id?.toString()] || "dQw4w9WgXcQ";
   
-  const [loading, setLoading] = useState(false);
-  const [progresso, setProgresso] = useState(0);
+  // 3. A MÁGICA DO CAPTCHA: Lê a chave secreta enviada pelos desafios!
+  const isUnlocked = location.state?.unlocked || false;
+
+  const [mostrarVideo, setMostrarVideo] = useState(false);
 
   const produto = listaProdutos.find(p => p.id === parseInt(id));
 
-  if (!produto) {
-    return <div className="p-20 text-center">Produto não encontrado.</div>;
-  }
+  // 4. O EFEITO DE RESSINCRONIZAÇÃO DA RESISTÊNCIA
+  useEffect(() => {
+    if (isUnlocked) {
+      // Finge que está a carregar durante 2.5 segundos
+      const timer = setTimeout(() => {
+        setMostrarVideo(true);
+      }, 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [isUnlocked]);
 
-  const iniciarSincronia = () => {
-    setLoading(true);
-    let interval = setInterval(() => {
-      setProgresso((prev) => {
-        if (prev >= 98) {
-          clearInterval(interval);
-          setTimeout(() => navigate(`/produto/${id}`), 1500);
-          return 99;
-        }
-        return prev + 1;
-      });
-    }, 50);
-  };
+
+  if (!produto) {
+    return <div className="p-20 text-center text-white">Produto não encontrado na base de dados UrWell.</div>;
+  }
 
   return (
     <div className={`min-h-screen transition-colors duration-500 ${isBugged ? 'bg-black text-red-600' : 'bg-white text-neutral-900'}`}>
       
+      {/* MENSAGEM DE SUCESSO DA RESISTÊNCIA NO TOPO */}
+      {isUnlocked && mostrarVideo && (
+        <div className="bg-green-900/30 border-y border-green-500 text-green-500 py-4 text-center animate-pulse font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+          SINAL INTERCETADO: EPISÓDIO {id} DISPONÍVEL ABAIXO
+        </div>
+      )}
+
       {/* 1. HERO SECTION */}
       <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
@@ -45,42 +59,54 @@ function DetalheProduto({ isBugged }) {
             {isBugged ? 'A tua individualidade é um erro que estamos a corrigir.' : produto.desc}
           </p>
           <div className="text-3xl font-light py-4">
-            {/* O PREÇO AGORA É DINÂMICO */}
             {isBugged ? 'PREÇO: A TUA ALMA' : produto.preco || '999,00€'}
           </div>
           
-          {!loading ? (
-            <button 
-              onClick={iniciarSincronia}
-              className={`px-10 py-4 rounded-full font-bold transition-all transform hover:scale-105 ${
-                isBugged ? 'bg-red-600 text-white' : 'bg-black text-white hover:bg-neutral-800'
-              }`}
-            >
-              {isBugged ? 'ACEITAR SUBMISSÃO' : `Adquirir ${produto.nome}`}
-            </button>
-          ) : (
-            <div className="w-full max-w-xs space-y-2">
-              <p className="text-sm font-mono text-red-600 font-bold">
-                {progresso === 99 ? 'ERRO CRÍTICO NO SISTEMA...' : `A Sincronizar: ${progresso}%`}
-              </p>
-              <div className="w-full h-2 bg-neutral-200 overflow-hidden rounded-full">
-                <div 
-                  className={`h-full transition-all duration-100 ${progresso === 99 ? 'bg-red-600 animate-pulse' : 'bg-blue-600'}`} 
-                  style={{ width: `${progresso}%` }}
-                ></div>
-              </div>
-            </div>
-          )}
+          {/* BOTÃO MÁGICO - Muda se o jogador venceu o desafio! */}
+          <div className="pt-4">
+            {isUnlocked ? (
+              <a 
+                href={`https://www.youtube.com/watch?v=${videoId}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block px-10 py-4 bg-red-600 text-white font-bold rounded-full shadow-[0_0_20px_rgba(220,38,38,0.5)] hover:bg-red-700 hover:scale-105 transition-all transform tracking-widest uppercase"
+              >
+                ▶ ASSISTIR NO YOUTUBE
+              </a>
+            ) : (
+              <button 
+                className={`px-10 py-4 rounded-full font-bold cursor-default ${
+                  isBugged ? 'bg-red-600 text-white opacity-50' : 'bg-black text-white opacity-50'
+                }`}
+              >
+                {isBugged ? 'ACEITAR SUBMISSÃO (BLOQUEADO)' : `Adquirir ${produto.nome}`}
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="relative group">
-          <img 
-            src={produto.img} 
-            alt={produto.nome}
-            className={`relative w-full h-[500px] object-cover rounded-2xl shadow-2xl transition-all duration-700 ${
-              isBugged ? 'grayscale contrast-150 scale-95' : 'grayscale-0'
-            }`}
-          />
+        {/* ÁREA MULTIMÉDIA: IMAGEM NORMAL vs VÍDEO HACKEADO */}
+        <div className="relative group w-full h-[500px]">
+          {!isUnlocked ? (
+            <img 
+              src={produto.img} 
+              alt={produto.nome}
+              className={`absolute inset-0 w-full h-full object-cover rounded-2xl shadow-2xl transition-all duration-700 ${
+                isBugged ? 'grayscale contrast-150 scale-95' : 'grayscale-0'
+              }`}
+            />
+          ) : !mostrarVideo ? (
+            <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black border-2 border-green-500/50 rounded-2xl shadow-lg">
+               <div className="animate-spin w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full mb-4"></div>
+               <p className="text-green-500 font-mono font-bold animate-pulse text-center px-4">
+                 A RESSINCRONIZAR SINAL DA UNPROMPTED...
+               </p>
+            </div>
+          ) : (
+            <div className="absolute inset-0 w-full h-full bg-black rounded-2xl overflow-hidden border-2 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.3)]">
+              <VideoPlayer idProduto={id} />
+            </div>
+          )}
         </div>
       </div>
 
