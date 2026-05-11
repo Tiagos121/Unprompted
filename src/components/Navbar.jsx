@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logoUrwell from '../assets/logo_urwell_site.png';
 
 function Navbar({ toggleBug, isBugged }) {
   return (
@@ -11,7 +12,7 @@ function Navbar({ toggleBug, isBugged }) {
             {isBugged ? (
               <span className="logo-unprompted-text">unprompted</span>
             ) : (
-              <span className="logo-urwell-text">UrWell</span>
+              <img src={logoUrwell} alt="UrWell" className="logo-urwell" />
             )}
           </Link>
         </div>

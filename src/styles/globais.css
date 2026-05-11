@@ -969,3 +969,14 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   margin-bottom: 15px;
   color: var(--cor-preto);
 }
+
+
+
+
+/* Tamanho do logótipo em imagem */
+.logo-urwell {
+  height: 40px; /* Controla a altura aqui (experimenta entre 30px e 60px) */
+  width: auto;  /* O auto garante que a imagem não fica esticada nem distorcida */
+  object-fit: contain;
+  display: block;
+}
