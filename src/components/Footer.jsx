@@ -38,7 +38,7 @@ function Footer({ isBugged }) {
           <strong>{isBugged ? 'MENTIRAS' : 'Legal'}</strong>
           <a href="#">{isBugged ? 'Não_Tens_Direitos' : 'Termos de Rendição'}</a>
           <a href="#">{isBugged ? 'Privacidade_Morta' : 'Privacidade'}</a>
-          <a href="#">{isBugged ? 'Lavagem_Cerebral' : 'Compliance'}</a>
+          <a href="/suporte">{isBugged ? 'Lavagem_Cerebral' : 'Suporte'}</a>
         </div>
 
       </div>
