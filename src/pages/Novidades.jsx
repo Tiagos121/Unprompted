@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // IMPORTANTE: Adicionámos aqui o updateDoc!
 import { collection, getDocs, addDoc, deleteDoc, updateDoc, doc, orderBy, query } from 'firebase/firestore';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '../config/firebase';
 import Swal from 'sweetalert2';
 
@@ -136,32 +136,6 @@ function Novidades({ isBugged }) {
     }
   };
 
-  const handleLogout = () => {
-    Swal.fire({
-      title: "Encerrar Sessão?",
-      text: "Vai desligar-se da rede administrativa da UrWell.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#000000",
-      cancelButtonColor: "#CCCCCC",
-      confirmButtonText: "Sim, Desconectar",
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        signOut(auth).then(() => {
-          Swal.fire({
-            title: "Desconectado",
-            text: "A sua ligação corporativa foi terminada com sucesso.",
-            icon: "info",
-            confirmButtonColor: "#000000",
-            timer: 1500,
-            showConfirmButton: false
-          });
-        });
-      }
-    });
-  };
-
   const mostrarMais = () => {
     setLimiteVisivel(prev => prev + 3);
   };
@@ -191,12 +165,6 @@ function Novidades({ isBugged }) {
                 style={{ background: 'var(--cor-preto)', color: 'var(--cor-branco)', padding: '10px 20px', border: 'none', borderRadius: '5px', fontWeight: 'bold' }}
               >
                 {mostrarForm ? 'Cancelar' : '+ Adicionar Comunicado'}
-              </button>
-              <button 
-                onClick={handleLogout}
-                style={{ background: 'var(--cor-vermelho)', color: 'var(--cor-branco)', padding: '10px 20px', border: 'none', borderRadius: '5px', fontWeight: 'bold' }}
-              >
-                Terminar Sessão
               </button>
             </div>
           )}

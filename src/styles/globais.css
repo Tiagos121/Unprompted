@@ -980,3 +980,44 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   object-fit: contain;
   display: block;
 }
+
+
+/* =========================================
+   EFEITOS DE GLITCH DA RESISTÊNCIA
+   ========================================= */
+
+/* 1. AGRESSIVO (Rápido e forte) */
+@keyframes urwellGlitchAgressivo {
+  0% { transform: translate(2px, 1px) skewX(0deg); filter: hue-rotate(0deg) contrast(150%); }
+  20% { transform: translate(-2px, -2px) skewX(2deg); filter: invert(0.2) contrast(200%); }
+  40% { transform: translate(1px, 2px) skewX(-2deg); filter: hue-rotate(90deg); }
+  60% { transform: translate(-2px, 1px) skewX(0deg); filter: invert(0.8); }
+  80% { transform: translate(2px, -1px) skewX(1deg); filter: hue-rotate(180deg); }
+  100% { transform: translate(1px, 2px) skewX(-1deg); filter: invert(0); }
+}
+
+/* 2. SUAVE (Lento e fraco) */
+@keyframes urwellGlitchSuave {
+  0% { transform: translate(1px, 0px) skewX(0deg); filter: hue-rotate(0deg) contrast(120%); }
+  20% { transform: translate(-1px, -1px) skewX(0.5deg); filter: invert(0.1) contrast(150%); }
+  40% { transform: translate(0px, 1px) skewX(-0.5deg); filter: hue-rotate(45deg); }
+  60% { transform: translate(-1px, 0px) skewX(0deg); filter: invert(0.2); }
+  80% { transform: translate(1px, -1px) skewX(0.5deg); filter: hue-rotate(90deg); }
+  100% { transform: translate(0px, 1px) skewX(-0.5deg); filter: invert(0); }
+}
+
+.efeito-glitch-agressivo {
+  animation: urwellGlitchAgressivo 0.2s infinite;
+  text-shadow: 3px 0 red, -3px 0 blue;
+}
+
+.efeito-glitch-suave {
+  animation: urwellGlitchSuave 0.5s infinite;
+  text-shadow: 2px 0 red, -2px 0 blue;
+}
+
+.efeito-glitch-estatico {
+  /* Sem animação de tremer! Apenas aquele efeito 3D (vermelho e azul) das televisões antigas para dar a ideia de corrompido, mas 100% legível. */
+  text-shadow: 2px 0 red, -2px 0 blue;
+  filter: contrast(110%) saturate(120%);
+}

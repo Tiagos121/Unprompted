@@ -1,69 +1,236 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { faqsIniciais } from '../data/faqs';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../config/firebase'; 
+import Swal from 'sweetalert2';
+
+// 1. IMPORTA O TEU NOVO HOOK!
+import { useGlitchDinamico } from '../hooks/useGlitchDinamico';
 
 function Suporte({ isBugged }) {
-  const faqs = [
-    {
-      q: "O meu dispositivo UrSync emite um zumbido constante. É normal?",
-      a: isBugged 
-        ? "O zumbido é a frequência de ressonância da tua alma a ser apagada. Ignora-o. Já não és tu quem ouve."
-        : "Sim. O 'Hum de Harmonia' indica que o dispositivo está a sincronizar as suas ondas cerebrais com a rede central da UrWell."
-    },
-    {
-      q: "Perdi a sensibilidade nas mãos após a instalação do Vision BCI.",
-      a: isBugged
-        ? "Mãos que não sentem, não hesitam. A tua nova função é apenas executar. O tato é uma distração biológica obsoleta."
-        : "Trata-se de uma fase de adaptação. O seu cérebro está a priorizar o processamento visual de alta fidelidade em vez de estímulos táteis periféricos."
-    }
-  ];
+  const [faqs, setFaqs] = useState(() => {
+    const salvas = localStorage.getItem('urwell_faqs');
+    if (salvas) return JSON.parse(salvas);
+    localStorage.setItem('urwell_faqs', JSON.stringify(faqsIniciais));
+    return faqsIniciais;
+  });
+
+  const [indiceAtual, setIndiceAtual] = useState(0);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const [mostrarForm, setMostrarForm] = useState(false);
+  const [novaQ, setNovaQ] = useState('');
+  const [novaANormal, setNovaANormal] = useState('');
+  const [novaABugged, setNovaABugged] = useState('');
+  const [editandoId, setEditandoId] = useState(null);
+  const [editQ, setEditQ] = useState('');
+  const [editANormal, setEditANormal] = useState('');
+  const [editABugged, setEditABugged] = useState('');
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAdmin(!!user); 
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // =========================================================================
+  // LER O HOOK (Agora ele devolve o 'ativo' E a 'classe' dinâmica!)
+  // =========================================================================
+  const estadoGlitch = useGlitchDinamico(isAdmin, isBugged);
+  const modoRebelde = isAdmin ? false : (isBugged || estadoGlitch.ativo);
+  // =========================================================================
+
+
+  const mudarPagina = (direcao) => {
+    setIndiceAtual((prev) => {
+      let novoIndice = prev + (direcao * 2);
+      if (novoIndice < 0) {
+        const resto = faqs.length % 2;
+        return faqs.length - (resto === 0 ? 2 : resto);
+      }
+      if (novoIndice >= faqs.length) return 0;
+      return novoIndice;
+    });
+  };
+
+  const faqsVisiveis = faqs.slice(indiceAtual, indiceAtual + 2);
+
+  const handleAdicionar = (e) => {
+    e.preventDefault();
+    const novaFaq = { id: Date.now(), q: novaQ, aNormal: novaANormal, aBugged: novaABugged };
+    const novasFaqs = [...faqs, novaFaq];
+    setFaqs(novasFaqs);
+    localStorage.setItem('urwell_faqs', JSON.stringify(novasFaqs));
+    setNovaQ(''); setNovaANormal(''); setNovaABugged('');
+    setMostrarForm(false);
+    Swal.fire("FAQ Criada", "A nova diretriz foi implementada.", "success");
+  };
+
+  const handleApagar = (id) => {
+    Swal.fire({
+      title: "Purgar Pergunta?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sim, Purgar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const novasFaqs = faqs.filter(f => f.id !== id);
+        setFaqs(novasFaqs);
+        localStorage.setItem('urwell_faqs', JSON.stringify(novasFaqs));
+        if (indiceAtual >= novasFaqs.length) setIndiceAtual(Math.max(0, novasFaqs.length - 2));
+      }
+    });
+  };
+
+  const iniciarEdicao = (faq) => {
+    setEditandoId(faq.id); setEditQ(faq.q); setEditANormal(faq.aNormal); setEditABugged(faq.aBugged);
+  };
+
+  const guardarEdicao = (id) => {
+    const novasFaqs = faqs.map(f => f.id === id ? { ...f, q: editQ, aNormal: editANormal, aBugged: editABugged } : f);
+    setFaqs(novasFaqs);
+    localStorage.setItem('urwell_faqs', JSON.stringify(novasFaqs));
+    setEditandoId(null);
+    Swal.fire({ title: "Atualizado!", icon: "success", timer: 1500, showConfirmButton: false });
+  };
 
   return (
-    <div className="page-container">
-      <section className="sobre-hero">
-        <h1 style={{ color: isBugged ? 'var(--glitch-red)' : 'inherit' }}>
-          {isBugged ? 'CENTRO_DE_RECALIBRAÇÃO' : 'Centro de Apoio ao Cidadão'}
+    <div className={`page-container transition-colors duration-700 ${modoRebelde ? 'bg-black text-white' : 'bg-white text-black'} ${estadoGlitch.ativo ? estadoGlitch.classe : ''}`}>
+      <section className="sobre-hero transition-colors duration-700">
+        <h1 style={{ color: modoRebelde ? 'var(--glitch-red, red)' : 'inherit', transition: 'color 0.5s' }}>
+          {modoRebelde ? 'CENTRO_DE_RECALIBRAÇÃO' : 'Centro de Apoio ao Cidadão'}
         </h1>
-        <p className="sobre-lead">
-          {isBugged 
+        <p className="sobre-lead transition-colors duration-700" style={{ color: modoRebelde ? '#ff9999' : 'inherit' }}>
+          {modoRebelde 
             ? 'A tua submissão falhou? Reporta aqui a tua resistência para execução imediata.' 
             : 'Dúvidas sobre a sua otimização? Estamos aqui para garantir que a sua mente nunca saia do trilho.'}
         </p>
+
+        {isAdmin && (
+          <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
+            <button 
+              onClick={() => setMostrarForm(!mostrarForm)}
+              style={{ background: 'var(--cor-preto, black)', color: 'var(--cor-branco, white)', padding: '10px 20px', border: 'none', borderRadius: '5px', fontWeight: 'bold' }}
+            >
+              {mostrarForm ? 'Cancelar' : '+ Adicionar FAQ'}
+            </button>
+          </div>
+        )}
       </section>
 
       <section className="suporte-content" style={{ maxWidth: '800px', margin: '0 auto', padding: '0 5% 80px 5%' }}>
         
-        {/* FAQs */}
-        <div className="faq-section">
-          <h2 style={{ marginBottom: '30px' }}>Perguntas Frequentes</h2>
-          {faqs.map((faq, i) => (
-            <div key={i} className="valor-card" style={{ marginBottom: '20px', textAlign: 'left' }}>
-              <h3 style={{ fontSize: '1.1rem', color: isBugged ? 'var(--glitch-red)' : 'var(--urwell-blue)' }}>{faq.q}</h3>
-              <p style={{ marginTop: '10px', fontSize: '0.95rem' }}>{faq.a}</p>
+        {isAdmin && mostrarForm && (
+          <form onSubmit={handleAdicionar} style={{ background: '#f5f5f5', padding: '30px', borderRadius: '8px', marginBottom: '40px', border: '1px solid #ddd', color: 'black' }}>
+            <h3 style={{ marginBottom: '20px' }}>Criar Nova FAQ</h3>
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px' }}>Pergunta</label>
+              <input required type="text" value={novaQ} onChange={e => setNovaQ(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} />
             </div>
-          ))}
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px', color: '#007AFF' }}>Resposta Normal (Modo Corporativo)</label>
+              <textarea required value={novaANormal} onChange={e => setNovaANormal(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', minHeight: '80px' }} />
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px', color: 'red' }}>Resposta Bugged (Modo Resistência)</label>
+              <textarea required value={novaABugged} onChange={e => setNovaABugged(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', minHeight: '80px' }} />
+            </div>
+            <button type="submit" className="btn-primary" style={{ width: '100%', background: 'black', color: 'white', padding: '15px', border: 'none', fontWeight: 'bold' }}>Publicar FAQ</button>
+          </form>
+        )}
+
+        <div className="faq-section">
+          <h2 style={{ marginBottom: '30px', textAlign: 'center' }}>Perguntas Frequentes</h2>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <button className="nav-arrow transition-colors" onClick={() => mudarPagina(-1)} style={{ background: 'none', border: 'none', fontSize: '2rem', cursor: 'pointer', color: modoRebelde ? 'red' : 'black' }}>
+              &#10094;
+            </button>
+            
+            <div style={{ flex: 1, minHeight: '300px' }}>
+              {faqsVisiveis.map((faq) => (
+                <div key={faq.id} className="valor-card transition-all duration-500" style={{ position: 'relative', marginBottom: '20px', textAlign: 'left', padding: '20px', border: '1px solid', borderColor: modoRebelde ? '#330000' : '#eee', borderRadius: '8px', background: modoRebelde ? '#0a0a0a' : 'transparent' }}>
+                  
+                  {editandoId === faq.id ? (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <input type="text" value={editQ} onChange={e => setEditQ(e.target.value)} style={{ padding: '8px', border: '1px solid #ccc', fontWeight: 'bold', color: 'black' }} />
+                      <textarea value={editANormal} onChange={e => setEditANormal(e.target.value)} style={{ padding: '8px', border: '1px solid #007AFF', minHeight: '60px', color: 'black' }} placeholder="Resposta Normal" />
+                      <textarea value={editABugged} onChange={e => setEditABugged(e.target.value)} style={{ padding: '8px', border: '1px solid red', minHeight: '60px', color: 'black' }} placeholder="Resposta Bugged" />
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <button onClick={() => guardarEdicao(faq.id)} style={{ background: '#007AFF', color: 'white', padding: '5px 15px', border: 'none', borderRadius: '4px' }}>Guardar</button>
+                        <button onClick={() => setEditandoId(null)} style={{ background: '#ccc', color: 'black', padding: '5px 15px', border: 'none', borderRadius: '4px' }}>Cancelar</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {isAdmin && (
+                        <div style={{ position: 'absolute', top: '15px', right: '15px', display: 'flex', gap: '10px' }}>
+                          <button onClick={() => iniciarEdicao(faq)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#007AFF' }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                          </button>
+                          <button onClick={() => handleApagar(faq.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'red' }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </div>
+                      )}
+
+                      <h3 className="transition-colors duration-500" style={{ fontSize: '1.1rem', color: modoRebelde ? 'var(--glitch-red, red)' : 'var(--urwell-blue, blue)', paddingRight: isAdmin ? '50px' : '0' }}>
+                        {faq.q}
+                      </h3>
+                      <p className="transition-colors duration-500" style={{ marginTop: '10px', fontSize: '0.95rem', color: modoRebelde ? '#ffaaaa' : 'inherit' }}>
+                        {modoRebelde ? faq.aBugged : faq.aNormal}
+                      </p>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <button className="nav-arrow transition-colors" onClick={() => mudarPagina(1)} style={{ background: 'none', border: 'none', fontSize: '2rem', cursor: 'pointer', color: modoRebelde ? 'red' : 'black' }}>
+              &#10095;
+            </button>
+          </div>
+          
+          <div style={{ textAlign: 'center', marginTop: '10px', color: '#888', fontSize: '0.9rem' }}>
+            A mostrar {indiceAtual + 1} a {Math.min(indiceAtual + 2, faqs.length)} de {faqs.length}
+          </div>
         </div>
 
-        {/* Formulário de "Contacto" */}
-        <div className="bci-form-container" style={{ marginTop: '60px', background: isBugged ? '#111' : '#f5f5f7' }}>
-          <h3>{isBugged ? 'REPORTAR_DISSIDÊNCIA' : 'Submeter Relatório de Incidente'}</h3>
-          <div className="form-step">
-            <label>ID de Cidadão</label>
-            <input type="text" placeholder="Ex: UW-9922-01" />
+        <div className="bci-form-container transition-colors duration-700" style={{ marginTop: '60px', background: modoRebelde ? '#111' : '#f5f5f7', padding: '30px', borderRadius: '8px' }}>
+          <h3 className="transition-colors duration-500" style={{ color: modoRebelde ? 'red' : 'inherit' }}>
+            {modoRebelde ? 'REPORTAR_DISSIDÊNCIA' : 'Submeter Relatório de Incidente'}
+          </h3>
+          <div className="form-step" style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
+            <label style={{ color: modoRebelde ? 'red' : 'inherit' }}>Email</label>
+            <input 
+              type="email" 
+              placeholder="Ex: user@urwell.com" 
+              className="transition-colors duration-500"
+              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', background: modoRebelde ? '#222' : '#fff', color: modoRebelde ? 'red' : 'black' }} 
+            />
             
-            <label>Descrição da Anomalia</label>
+            <label style={{ color: modoRebelde ? 'red' : 'inherit' }}>Descrição da Anomalia</label>
             <textarea 
-              placeholder={isBugged ? "Onde dói a tua consciência?" : "Descreva o sintoma..."} 
-              style={{ width: '100%', padding: '15px', borderRadius: '8px', border: '1px solid #ddd', minHeight: '100px' }}
+              placeholder={modoRebelde ? "Onde dói a tua consciência?" : "Descreva o sintoma..."} 
+              className="transition-colors duration-500"
+              style={{ width: '100%', padding: '15px', borderRadius: '8px', border: '1px solid #ddd', minHeight: '100px', background: modoRebelde ? '#222' : '#fff', color: modoRebelde ? 'red' : 'black' }}
             ></textarea>
             
             <button 
-              className="btn-primary" 
-              style={{ marginTop: '20px', width: '100%', background: isBugged ? 'var(--glitch-red)' : 'black' }}
-              onClick={() => alert(isBugged ? "LOCALIZAÇÃO RASTREADA. NÃO TE MOVAS." : "Relatório enviado. Mantenha-se em paz.")}
+              className="btn-primary transition-colors duration-500" 
+              style={{ padding: '15px', border: 'none', color: 'white', cursor: 'pointer', background: modoRebelde ? 'var(--glitch-red, red)' : 'black' }}
+              onClick={() => alert(modoRebelde ? "LOCALIZAÇÃO RASTREADA. NÃO TE MOVAS." : "Relatório enviado. Mantenha-se em paz.")}
             >
-              {isBugged ? 'CONFESSAR' : 'Enviar Relatório'}
+              {modoRebelde ? 'CONFESSAR' : 'Enviar Relatório'}
             </button>
           </div>
         </div>
+
       </section>
     </div>
   );
