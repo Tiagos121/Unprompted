@@ -3,6 +3,7 @@ import { faqsIniciais } from '../data/faqs';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase'; 
 import Swal from 'sweetalert2';
+import emailjs from '@emailjs/browser'; // Certifica-te de ter o emailjs instalado e configurado
 
 // 1. IMPORTA O TEU NOVO HOOK!
 import { useGlitchDinamico } from '../hooks/useGlitchDinamico';
@@ -201,34 +202,101 @@ function Suporte({ isBugged }) {
           </div>
         </div>
 
+        {/* FORMULÁRIO DE CONTACTO DA URWELL / RESISTÊNCIA */}
         <div className="bci-form-container transition-colors duration-700" style={{ marginTop: '60px', background: modoRebelde ? '#111' : '#f5f5f7', padding: '30px', borderRadius: '8px' }}>
           <h3 className="transition-colors duration-500" style={{ color: modoRebelde ? 'red' : 'inherit' }}>
             {modoRebelde ? 'REPORTAR_DISSIDÊNCIA' : 'Submeter Relatório de Incidente'}
           </h3>
-          <div className="form-step" style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
-            <label style={{ color: modoRebelde ? 'red' : 'inherit' }}>Email</label>
-            <input 
-              type="email" 
-              placeholder="Ex: user@urwell.com" 
-              className="transition-colors duration-500"
-              style={{ padding: '10px', borderRadius: '4px', border: '1px solid #ccc', background: modoRebelde ? '#222' : '#fff', color: modoRebelde ? 'red' : 'black' }} 
-            />
+          
+          <form 
+            className="form-step" 
+            style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              
+              // Mostra Loading
+              Swal.fire({
+                title: modoRebelde ? "A ROUBAR DADOS..." : "A Processar...",
+                text: "Por favor, aguarde.",
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+              });
+
+              // Preparar os dados para o EmailJS (Apanha a data e hora em tempo real!)
+              const dataAtual = new Date().toLocaleString('pt-PT');
+              
+              const templateParams = {
+                id_cidadao: e.target.idCidadao.value,
+                user_email: e.target.userEmail.value,
+                mensagem: e.target.descricao.value,
+                data_hora: dataAtual
+              };
+
+              // ENVIO DO EMAILJS
+              emailjs.send(
+                'service_2q1vbq6',    // <-- SUBSTITUIR AQUI
+                'template_xq5zxkf',   // <-- SUBSTITUIR AQUI
+                templateParams,
+                '9CWyUbcfYsNLVZ9gl'     // <-- SUBSTITUIR AQUI
+              )
+              .then(() => {
+                Swal.fire({
+                  icon: "success",
+                  title: modoRebelde ? "LOCALIZAÇÃO RASTREADA." : "Relatório Enviado",
+                  text: modoRebelde ? "Não te movas. Eles sabem onde estás." : "Verifique o seu email para a confirmação corporativa.",
+                  background: modoRebelde ? "#0a0a0a" : "#fff",
+                  color: modoRebelde ? "red" : "#000",
+                  confirmButtonColor: modoRebelde ? "red" : "#000"
+                });
+                e.target.reset(); // Limpa o formulário
+              })
+              .catch(() => {
+                Swal.fire("Erro de Ligação", "Os servidores da UrWell estão em baixo.", "error");
+              });
+            }}
+          >
+            <div style={{ display: 'flex', gap: '15px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ color: modoRebelde ? 'red' : 'inherit' }}>Nome</label>
+                <input 
+                  name="idCidadao"
+                  required
+                  type="text" 
+                  placeholder="Ex: User" 
+                  className="transition-colors duration-500"
+                  style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', background: modoRebelde ? '#222' : '#fff', color: modoRebelde ? 'red' : 'black', marginTop: '5px' }} 
+                />
+              </div>
+              <div style={{ flex: 2 }}>
+                <label style={{ color: modoRebelde ? 'red' : 'inherit' }}>Email de Contacto (Obrigatório)</label>
+                <input 
+                  name="userEmail"
+                  required
+                  type="email" 
+                  placeholder="user@exemplo.com" 
+                  className="transition-colors duration-500"
+                  style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid #ccc', background: modoRebelde ? '#222' : '#fff', color: modoRebelde ? 'red' : 'black', marginTop: '5px' }} 
+                />
+              </div>
+            </div>
             
             <label style={{ color: modoRebelde ? 'red' : 'inherit' }}>Descrição da Anomalia</label>
             <textarea 
-              placeholder={modoRebelde ? "Onde dói a tua consciência?" : "Descreva o sintoma..."} 
+              name="descricao"
+              required
+              placeholder={modoRebelde ? "Diz a verdade!" : "Descreva a anomalia"} 
               className="transition-colors duration-500"
               style={{ width: '100%', padding: '15px', borderRadius: '8px', border: '1px solid #ddd', minHeight: '100px', background: modoRebelde ? '#222' : '#fff', color: modoRebelde ? 'red' : 'black' }}
             ></textarea>
             
             <button 
+              type="submit"
               className="btn-primary transition-colors duration-500" 
               style={{ padding: '15px', border: 'none', color: 'white', cursor: 'pointer', background: modoRebelde ? 'var(--glitch-red, red)' : 'black' }}
-              onClick={() => alert(modoRebelde ? "LOCALIZAÇÃO RASTREADA. NÃO TE MOVAS." : "Relatório enviado. Mantenha-se em paz.")}
             >
               {modoRebelde ? 'CONFESSAR' : 'Enviar Relatório'}
             </button>
-          </div>
+          </form>
         </div>
 
       </section>
