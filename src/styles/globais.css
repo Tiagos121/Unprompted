@@ -819,8 +819,10 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 
 .valores-grid {
   display: grid;
+  /* A solução: Forçamos a grelha a ter SEMPRE 3 colunas do mesmo tamanho (1fr) */
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }

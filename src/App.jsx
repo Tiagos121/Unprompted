@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useTema } from './hooks/useTema';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import GlitchOverlay from './components/GlitchOverlay';
 import ScrollToTop from './components/ScrollToTop';
 
 // Páginas
@@ -29,7 +28,6 @@ function App() {
     <div className={isBugged ? 'tema-bug' : 'tema-urwell'}>
       <Router>
         <ScrollToTop />
-        <GlitchOverlay isBugged={isBugged} />
         
         <Navbar toggleBug={() => setIsBugged(!isBugged)} isBugged={isBugged} />
         
@@ -58,7 +56,10 @@ function App() {
               porque agora o CaptchaRandom carrega esses componentes dinamicamente. */}
         </Routes>
 
-        <Footer isBugged={isBugged} />
+        <Footer 
+          isBugged={isBugged} 
+          toggleBugMode={() => setIsBugged(!isBugged)} 
+        />
       </Router>
     </div>
   );
