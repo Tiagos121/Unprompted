@@ -20,16 +20,30 @@ import CaptchaRandom from './pages/CaptchaRandom'; // <-- 1. NOVO IMPORT
 import './styles/globais.css';
 
 function App() {
-  const [isBugged, setIsBugged] = useState(false);
+  // 1. INICIALIZAÇÃO INTELIGENTE: Lê o localStorage ao abrir o site
+  const [isBugged, setIsBugged] = useState(() => {
+    const guardado = localStorage.getItem('urwell_modo_bug');
+    return guardado === 'true'; // Retorna true se a Resistência já estava ativa
+  });
 
   useTema(isBugged);
+
+  // 2. A FUNÇÃO DE ALTERAÇÃO: Muda o estado e guarda a escolha no navegador
+  const toggleBugMode = () => {
+    setIsBugged((estadoAnterior) => {
+      const novoEstado = !estadoAnterior;
+      localStorage.setItem('urwell_modo_bug', novoEstado);
+      return novoEstado;
+    });
+  };
 
   return (
     <div className={isBugged ? 'tema-bug' : 'tema-urwell'}>
       <Router>
         <ScrollToTop />
         
-        <Navbar toggleBug={() => setIsBugged(!isBugged)} isBugged={isBugged} />
+        {/* 3. Atualizamos a Navbar para usar a nova função */}
+        <Navbar toggleBug={toggleBugMode} isBugged={isBugged} />
         
         <Routes>
           {/* PÁGINAS PRINCIPAIS */}
@@ -45,20 +59,16 @@ function App() {
           <Route path="/produtos" element={<ListaProdutos isBugged={isBugged} />} />
           
           {/* 2. A ROLETA (A nova ponte obrigatória) */}
-          {/* Quando o utilizador clica num produto, vai primeiro para aqui */}
           <Route path="/captcha/:id" element={<CaptchaRandom isBugged={isBugged} />} />
           
           {/* 3. PÁGINA FINAL DO PRODUTO */}
-          {/* Agora usamos o caminho /produtos/:id para ficar mais profissional */}
           <Route path="/produtos/:id" element={<DetalheProduto isBugged={isBugged} />} />
-          
-          {/* NOTA: As rotas individuais /produto/1, /produto/2, etc., foram REMOVIDAS 
-              porque agora o CaptchaRandom carrega esses componentes dinamicamente. */}
         </Routes>
 
+        {/* 4. Atualizamos o Footer para usar a nova função */}
         <Footer 
           isBugged={isBugged} 
-          toggleBugMode={() => setIsBugged(!isBugged)} 
+          toggleBugMode={toggleBugMode} 
         />
       </Router>
     </div>
