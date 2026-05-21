@@ -292,7 +292,7 @@ function Novidades({ isBugged }) {
               className="btn-secondary"
               style={isBugged ? { borderColor: 'var(--cor-vermelho)', color: 'var(--cor-vermelho)' } : {}}
             >
-              Ver Comunicados Anteriores ↓
+              Ver Mais Comunicados ↓
             </button>
           </div>
         )}

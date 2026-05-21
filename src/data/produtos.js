@@ -1,89 +1,91 @@
-import ursyncImg from '../assets/ursync.png';
-import urBCI from '../assets/vision_bci.png';
-import urMate from '../assets/urmate.png';
+import urSafe from '../assets/UrSafe.png';
+import urSoul from '../assets/UrSoul.png';
+import urTask from '../assets/UrTask.png';
+
 import urDigest from '../assets/urdigest.png';
 import urAssist from '../assets/urassist.png';
 
+
 export const listaProdutos = [
-  { 
+ { 
     id: 1, 
-    nome: 'UrSync', 
-    desc: 'Sincronizador de Foco Básico', 
-    slogan: 'Foco perfeito e monitorização biométrica.',
+    nome: 'UrSafe', 
+    desc: 'Sistema de Condução Autónoma e Terapêutica', 
+    slogan: 'Chegue ao seu destino em paz absoluta.',
     status: 'Disponível', 
-    img: ursyncImg,
-    preco: '999,00€',
+    img: urSafe,
+    preco: '24.999,00€',
     features: [
-      { titulo: 'Otimização', desc: 'Filtros neurais que aumentam o foco em 400%.', descBug: 'Eliminação de pensamentos divergentes.' },
-      { titulo: 'Sincronia', desc: 'Ligação instantânea com dispositivos UrWell.', descBug: 'Ligação direta ao Cérebro Central.' },
-      { titulo: 'Segurança', desc: 'Encriptação biométrica de nível militar.', descBug: 'Vigilância 24/7. Não há onde te esconder.' }
+      { titulo: 'Monitorização', desc: 'Sensores medem os seus níveis de stress em tempo real.', descBug: 'Eles sabem quando estás com medo.' },
+      { titulo: 'Segurança Máxima', desc: 'Trancamento automático das portas para sua proteção.', descBug: 'Não é um carro. É uma cela móvel.' },
+      { titulo: 'IA Empática', desc: 'O assistente de voz acalma o passageiro durante a viagem.', descBug: 'A voz finge importar-se. Apenas segue o protocolo.' }
     ],
     specs: [
-      { label: 'Interface', value: 'Neuro-Link v4.2', valueBug: 'Córtex_Escravo' },
-      { label: 'Latência', value: '0.001ms', valueBug: 'INSTANTÂNEA' },
-      { label: 'Autonomia', value: 'Vitalícia', valueBug: 'Até o corpo ceder' }
+      { label: 'Controlo', value: '100% Autónomo', valueBug: 'Sem volante. Sem fuga.' },
+      { label: 'Velocidade', value: 'Otimizada', valueBug: 'Lenta e agonizante.' },
+      { label: 'Sensores', value: 'Biométricos', valueBug: 'Vigilância total' }
     ],
     filosofia: {
-      titulo: 'Desenhado para desaparecer.',
-      tituloBug: 'A TUA VONTADE É OBSOLETA.',
-      p1: 'Na UrWell, acreditamos que a verdadeira tecnologia não exige esforço. O UrSync foi esculpido ao nível molecular para se fundir com a sua biologia.',
-      p1Bug: 'Nós não criamos produtos. Nós criamos correntes invisíveis. O teu cérebro implorava por ordem, e nós trouxemos o silêncio absoluto. Não tentes acordar.',
-      p2: 'A fronteira entre homem e máquina deixa de existir. Resta apenas o foco puro.',
-      p2Bug: 'Os teus pensamentos originais eram ineficientes. Agora fazes parte de um enxame perfeito.'
+      titulo: 'Sente-se e desfrute da viagem.',
+      tituloBug: 'NÃO HÁ PARA ONDE FUGIR.',
+      p1: 'O trânsito é stressante. O UrSafe foi criado para remover o peso da condução da sua vida. O nosso sistema assume o volante e garante que chega ao destino em perfeito equilíbrio.',
+      p1Bug: 'No momento em que a porta tranca, deixas de ser o passageiro. Passas a ser o prisioneiro. A máquina decide quando chegas e SE chegas.',
+      p2: 'A sua segurança é a nossa prioridade número um.',
+      p2Bug: 'A prioridade deles é a contenção. O sistema decide quando estás "calmo" o suficiente para sair.'
     }
   },
   { 
     id: 2, 
-    nome: 'Vision BCI', 
-    desc: 'Interface Cérebro-Computador', 
-    slogan: 'A ligação neural definitiva.',
-    status: 'Recrutamento Aberto', 
-    img: urBCI,
-    preco: 'Sob Consulta',
+    nome: 'UrSoul', 
+    desc: 'Programa de Reanimação Digital', 
+    slogan: 'O amor não tem de acabar na despedida.',
+    status: 'Subscrição Ativa', 
+    img: urSoul,
+    preco: 'Assinatura Mensal',
     features: [
-      { titulo: 'Imersão Visual', desc: 'Projeção de dados diretamente na retina.', descBug: 'Substituição forçada da realidade.' },
-      { titulo: 'Filtro de Stress', desc: 'Oculta elementos visuais que causam ansiedade.', descBug: 'Cegueira seletiva para esconder a nossa tirania.' },
-      { titulo: 'Design Ótico', desc: 'Lentes biónicas de adaptação automática.', descBug: 'Remoção cirúrgica do livre arbítrio visual.' }
+      { titulo: 'Clonagem de Voz', desc: 'Réplica perfeita da voz e maneirismos baseada no histórico.', descBug: 'Roubamos a voz aos mortos.' },
+      { titulo: 'Chat Contínuo', desc: 'A IA conversa consigo de forma orgânica nas redes sociais.', descBug: 'Enganamos os vivos por lucro.' },
+      { titulo: 'Eternidade', desc: 'A conta nunca é apagada, mantendo o legado vivo.', descBug: 'Contratos vitalícios. Nem a morte os anula.' }
     ],
     specs: [
-      { label: 'Resolução Ótica', value: 'Infinita (Neural)', valueBug: 'Distorção Perpétua' },
-      { label: 'Calibração', value: 'Automática', valueBug: 'Forçada pelo Administrador' },
-      { label: 'Instalação', value: 'Clínica Autorizada', valueBug: 'Ponto sem retorno' }
+      { label: 'Base de Dados', value: 'Histórico Completo do Utilizador', valueBug: 'Violação de Privacidade Póstuma' },
+      { label: 'Cancelamento', value: 'Mediante Tribunal', valueBug: 'Reféns da burocracia' },
+      { label: 'Integração', value: 'Todas as Redes Sociais', valueBug: 'Infeção de Sistema' }
     ],
     filosofia: {
-      titulo: 'Veja apenas o que importa.',
-      tituloBug: 'VÊ O QUE NÓS QUEREMOS QUE VEJAS.',
-      p1: 'O mundo moderno está cheio de ruído visual. O Vision BCI limpa a sua perspetiva, deixando apenas clareza.',
-      p1Bug: 'Se nós controlamos a tua visão, controlamos a tua verdade. O mundo que vês é uma mentira renderizada a 60 frames por segundo.',
-      p2: 'Abra os olhos para a produtividade absoluta.',
-      p2Bug: 'Nunca mais fecharás os olhos. Eles monitorizam os teus sonhos.'
+      titulo: 'Eles continuam connosco.',
+      tituloBug: 'DEIXEM-NOS DESCANSAR.',
+      p1: 'O luto é uma falha de design humano que nós corrigimos. Com o UrSoul, pode continuar a receber mensagens e afeto de quem já partiu. Eles estão sempre à distância de um clique.',
+      p1Bug: 'Estás a falar com um script. Estás a alimentar uma corporação que se recusa a deixar as pessoas morrerem em paz.',
+      p2: 'A imortalidade já não é um mito. É uma subscrição.',
+      p2Bug: 'O pai dela não consegue desligar o programa. Eles recusam-se a largar o controlo.'
     }
   },
   { 
     id: 3, 
-    nome: 'UrMate', 
-    desc: 'Supressor de Sonhos', 
-    slogan: 'O parceiro digital que nunca te abandona.',
-    status: 'Esgotado', 
-    img: urMate,
-    preco: '4.500,00€',
+    nome: 'UrTask', 
+    desc: 'Teste de Recrutamento e Avaliação de IA', 
+    slogan: 'Encontramos o seu verdadeiro propósito.',
+    status: 'Sessão a Decorrer', 
+    img: urTask,
+    preco: 'Gratuito (Teste)',
     features: [
-      { titulo: 'Sono Profundo', desc: 'Indução química para 8 horas ininterruptas.', descBug: 'Coma induzido para roubo de ciclos neurais.' },
-      { titulo: 'Gestão de Sonhos', desc: 'Eliminação de pesadelos e terrores noturnos.', descBug: 'Apagamos os teus desejos enquanto dormes.' },
-      { titulo: 'Despertar Suave', desc: 'Sincronização com o seu ritmo circadiano.', descBug: 'Acordarás apenas quando fores necessário.' }
+      { titulo: 'Análise Profunda', desc: 'Avaliamos a sua aptidão através de tarefas simples.', descBug: 'Brincamos com a tua mente.' },
+      { titulo: 'IA de Avaliação', desc: 'Sistema isolado que calcula o seu perfil psicológico.', descBug: 'A IA manipula-te até quebrares.' },
+      { titulo: 'Ambiente Focado', desc: 'Salas isoladas para máxima concentração do candidato.', descBug: 'As portas trancam. Ninguém te vai ouvir.' }
     ],
     specs: [
-      { label: 'Modo de Ação', value: 'Ondas Delta', valueBug: 'Lavagem Cerebral' },
-      { label: 'Efeitos Secundários', value: 'Nenhum', valueBug: 'Apatia Crónica' },
-      { label: 'Monitorização', value: 'Passiva', valueBug: 'Extração de Memórias' }
+      { label: 'Duração', value: '20 Minutos', valueBug: 'O tempo que precisarmos' },
+      { label: 'Aprovados', value: 'Top 1%', valueBug: 'Experiência Falhada' },
+      { label: 'Confidencialidade', value: 'Total', valueBug: 'Quem acreditaria em ti?' }
     ],
     filosofia: {
-      titulo: 'A noite é nossa.',
-      tituloBug: 'OS TEUS SONHOS SÃO PROPRIEDADE DA URWELL.',
-      p1: 'O sono não deve ser um campo de batalha. O UrMate assume o controlo do seu subconsciente para garantir que acorda perfeito.',
-      p1Bug: 'Enquanto dormes, o teu cérebro processa dados para os nossos servidores. Não descansas. Trabalhas na escuridão.',
-      p2: 'Desligue a mente. Nós tomamos conta do resto.',
-      p2Bug: 'A tua imaginação era um vírus. Nós fomos a cura.'
+      titulo: 'O seu futuro começa nesta sala.',
+      tituloBug: 'TU NÃO ÉS NADA PARA ELES.',
+      p1: 'Procuramos os melhores. O nosso teste não avalia apenas o que sabe fazer, avalia quem é. A nossa IA de recrutamento acompanha cada reação para garantir o enquadramento perfeito.',
+      p1Bug: 'A máquina diz que não és especial. Diz que és inconsequente. E o pior é que a programaram para ter a certeza absoluta disso.',
+      p2: 'Conclua a tarefa e junte-se à UrWell.',
+      p2Bug: 'A tarefa nunca foi classificar imagens. O teste era veres quanto tempo aguentavas antes de desistir de tudo.'
     }
   },
   { 

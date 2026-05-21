@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { listaProdutos } from '../data/produtos';
 
 function Footer({ isBugged, toggleBugMode }) {
   const navigate = useNavigate();
@@ -175,11 +176,18 @@ function Footer({ isBugged, toggleBugMode }) {
         {/* Coluna 3: Produtos */}
         <div className="footer-column">
           <strong style={{ color: isBugged ? 'var(--cor-vermelho, red)' : 'inherit' }}>{isBugged ? 'FERRAMENTAS_DE_CONTROLO' : 'Produtos'}</strong>
-          <a href="/produtos/1" onClick={(e) => irParaProduto(e, 1)} style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'UrSync (CUIDADO)' : 'UrSync'}</a>
-          <a href="/produtos/2" onClick={(e) => irParaProduto(e, 2)} style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'Lavador_Cerebral' : 'Vision BCI'}</a>
-          <a href="/produtos/3" onClick={(e) => irParaProduto(e, 3)} style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'Eles_Roubam_Sonhos' : 'UrMate'}</a>
-          <a href="/produtos/4" onClick={(e) => irParaProduto(e, 4)} style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'Censura_Ativa' : 'UrDigest'}</a>
-          <a href="/produtos/5" onClick={(e) => irParaProduto(e, 5)} style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'Pensamento_Controlado' : 'UrAssist'}</a>
+          
+          {listaProdutos.map((produto) => (
+            <a 
+              key={produto.id} 
+              href={`/produtos/${produto.id}`} 
+              onClick={(e) => irParaProduto(e, produto.id)} 
+              style={{ color: isBugged ? '#ccc' : 'inherit' }}
+            >
+              {isBugged ? produto.nome.toUpperCase() + '_[VIGIADO]' : produto.nome}
+            </a>
+          ))}
+          
         </div>
 
         {/* Coluna 4: Legal e O GATILHO */}
