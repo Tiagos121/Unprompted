@@ -55,7 +55,7 @@ function Desafio5({ isBugged, idProduto }) {
       <div className="max-w-3xl w-full border border-current p-12 rounded-lg shadow-2xl bg-black relative overflow-hidden">
         
         <h1 className="text-3xl font-bold mb-8 border-b border-current pb-4 text-red-600">
-          TERMINAL URASSIST // GESTOR DE LIVRE ARBÍTRIO
+          TERMINAL URWELL // GESTOR DE LIVRE ARBÍTRIO
         </h1>
 
         {!desbloqueado ? (

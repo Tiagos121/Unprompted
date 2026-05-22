@@ -48,7 +48,7 @@ function Desafio1({ isBugged, idProduto }) {
       <div className="max-w-3xl w-full border border-current p-12 rounded-lg shadow-2xl bg-black relative overflow-hidden pointer-events-none">
         
         <h1 className="text-3xl font-bold mb-8 border-b border-current pb-4 text-blue-500">
-          CALIBRAÇÃO URSYNC // SENSOR DE FOCO
+          CALIBRAÇÃO URWELL // SENSOR DE FOCO
         </h1>
 
         {!desbloqueado ? (

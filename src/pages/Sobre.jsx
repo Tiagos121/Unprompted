@@ -91,7 +91,13 @@ function Sobre({ isBugged: isBuggedGlobal }) {
               : 'Desenvolver interfaces neurais passivas que filtram, processam e decidem por si. Garantimos uma vida sem stress.'}
           </p>
 
-          <h2 style={{ marginTop: '40px' }} className="transition-colors duration-300">
+          <h2 
+            style={{ 
+              marginTop: '40px', 
+              color: modoRebelde ? 'var(--glitch-red, red)' : 'inherit' 
+            }} 
+            className="transition-colors duration-300"
+          >
             {modoRebelde ? 'O_FUTURO_MORTO' : 'A Nossa Visão'}
           </h2>
           <p className="texto-distorcer-futuro">

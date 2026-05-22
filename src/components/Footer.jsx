@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { listaProdutos } from '../data/produtos';
+import logoUnprompted from '../assets/unprompted_logo1.png';
 
 function Footer({ isBugged, toggleBugMode }) {
   const navigate = useNavigate();
@@ -159,7 +160,7 @@ function Footer({ isBugged, toggleBugMode }) {
         {/* Coluna 1: Marca e Redes */}
         <div className="footer-column">
           <div className="footer-logo">
-            {isBugged ? <span className="logo-unprompted-text" style={{ color: 'var(--cor-vermelho, red)' }}>unprompted</span> : <span className="logo-urwell-text">UrWell</span>}
+            {isBugged ? <img src={logoUnprompted} alt="Unprompted" className="logo-unprompted" /> : <span className="logo-urwell-text">UrWell</span>}
           </div>
           <div className="social-icons">
           </div>
@@ -168,9 +169,9 @@ function Footer({ isBugged, toggleBugMode }) {
         {/* Coluna 2: Links da Empresa */}
         <div className="footer-column">
           <strong style={{ color: isBugged ? 'var(--cor-vermelho, red)' : 'inherit' }}>{isBugged ? 'ARQUIVOS_MORTOS' : 'Sobre Nós'}</strong>
-          <Link to="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'A_Verdade' : 'Missão'}</Link>
-          <a href="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'Esquemas_Vazados.pdf' : 'Visão'}</a>
-          <a href="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'Quem_Os_Financia?' : 'Pilares'}</a>
+          <Link to="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'O_NOSSO_VÍRUS' : 'Missão'}</Link>
+          <a href="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'O_FUTURO_MORTO' : 'Visão'}</a>
+          <a href="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'PROTOCOLO_DE_CONTROLO' : 'Pilares'}</a>
         </div>
 
         {/* Coluna 3: Produtos */}
@@ -192,7 +193,9 @@ function Footer({ isBugged, toggleBugMode }) {
 
         {/* Coluna 4: Legal e O GATILHO */}
         <div className="footer-column">
-          <strong>{isBugged ? 'MENTIRAS' : 'Apoio'}</strong>
+          <strong style={{ color: isBugged ? 'var(--cor-vermelho, red)' : 'inherit' }}>
+            {isBugged ? 'MENTIRAS' : 'Apoio'}
+          </strong>
           
           {/* === O GATILHO 100% CAMUFLADO === */}
           <a 
@@ -206,8 +209,8 @@ function Footer({ isBugged, toggleBugMode }) {
             {isBugged ? '> Termos de Rendição <' : 'Termos de Condição'}
           </a>
 
-          <Link to="/novidades">{isBugged ? 'A_Verdade' : 'Novidades'}</Link>
-          <Link to="/suporte">{isBugged ? 'Lavagem_Cerebral' : 'Suporte'}</Link>
+          <Link to="/novidades">{isBugged ? 'REGISTOS_DA_PURGA' : 'Novidades'}</Link>
+          <Link to="/suporte">{isBugged ? 'CENTRO_DE_REACALIBRAÇÃO' : 'Suporte'}</Link>
         </div>
       </div>
 

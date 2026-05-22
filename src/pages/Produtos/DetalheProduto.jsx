@@ -55,9 +55,14 @@ function DetalheProduto({ isBugged }) {
           <h1 className="text-6xl font-bold tracking-tighter leading-none">
             {isBugged ? produto.nome.toUpperCase() + ' // MONITOR' : produto.nome}
           </h1>
+          
+          {/* ======================================================== */}
+          {/* A CORREÇÃO ESTÁ AQUI: Substituí a frase fixa por descBug */}
+          {/* ======================================================== */}
           <p className="text-xl text-neutral-500 leading-relaxed">
-            {isBugged ? 'A tua individualidade é um erro que estamos a corrigir.' : produto.desc}
+            {isBugged ? produto.descBug : produto.desc}
           </p>
+          
           <div className="text-3xl font-light py-4">
             {isBugged ? 'PREÇO: A TUA ALMA' : produto.preco || '999,00€'}
           </div>

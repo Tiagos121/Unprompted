@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logoUrwell from '../assets/logo_urwell_site.png';
+import logoUnprompted from '../assets/unprompted_logo2.png';
 
 // IMPORTAÇÕES DO FIREBASE E ALERTS
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -19,29 +20,32 @@ function Navbar({ toggleBug, isBugged }) {
     return () => unsubscribe();
   }, []);
 
-  // 2. FUNÇÃO DE TERMINAR SESSÃO (Igual à das Novidades)
+  // 2. FUNÇÃO DE TERMINAR SESSÃO
   const handleLogout = () => {
     Swal.fire({
-      title: "Encerrar Sessão?",
-      text: "Vai desligar-se da rede administrativa da UrWell.",
+      title: isBugged ? "FORÇAR DESCONEXÃO?" : "Encerrar Sessão?",
+      text: isBugged ? "Desconectar do terminal central encriptado." : "Vai desligar-se da rede administrativa da UrWell.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#000000",
+      confirmButtonColor: isBugged ? "#ff0000" : "#000000",
       cancelButtonColor: "#CCCCCC",
-      confirmButtonText: "Sim, Desconectar",
-      cancelButtonText: "Cancelar"
+      confirmButtonText: isBugged ? "TERMINAR_SESSÃO" : "Sim, Desconectar",
+      cancelButtonText: "Cancelar",
+      background: isBugged ? "#0a0a0a" : "#fff",
+      color: isBugged ? "#ff0000" : "#000"
     }).then((result) => {
       if (result.isConfirmed) {
         signOut(auth).then(() => {
           Swal.fire({
-            title: "Desconectado",
-            text: "A sua ligação corporativa foi terminada com sucesso.",
+            title: isBugged ? "SISTEMA_OFFLINE" : "Desconectado",
+            text: isBugged ? "Sessão administrative purgada." : "A sua ligação corporativa foi terminada com sucesso.",
             icon: "info",
-            confirmButtonColor: "#000000",
+            confirmButtonColor: isBugged ? "#ff0000" : "#000000",
+            background: isBugged ? "#0a0a0a" : "#fff",
+            color: isBugged ? "#ff0000" : "#000",
             timer: 1500,
             showConfirmButton: false
           });
-          // Opcional: Mandar o admin para a página inicial ao fazer logout
           navigate('/'); 
         });
       }
@@ -49,13 +53,23 @@ function Navbar({ toggleBug, isBugged }) {
   };
 
   return (
-    <nav className="navbar">
-      <div className="nav-container">
+    <nav 
+      className="navbar" 
+      style={{ 
+        background: isBugged ? '#000000' : 'inherit', // Fundo preto como o footer
+        borderBottom: isBugged ? '2px solid #ff0000' : '1px solid #eee', // Linha vermelha de erro
+        fontFamily: isBugged ? 'monospace' : 'inherit', // Fonte hacker
+        transition: 'all 0.5s ease',
+        padding: '15px 0'
+      }}
+    >
+      <div className="nav-container" style={{ display: 'flex', justifyContent: 'between', alignItems: 'center', width: '90%', margin: '0 auto' }}>
+        
         {/* LOGÓTIPO DINÂMICO */}
         <div className="nav-logo">
           <Link to="/">
             {isBugged ? (
-              <span className="logo-unprompted-text">unprompted</span>
+              <img src={logoUnprompted} alt="Unprompted" className="logo-unprompted" />
             ) : (
               <img src={logoUrwell} alt="UrWell" className="logo-urwell" />
             )}
@@ -63,11 +77,59 @@ function Navbar({ toggleBug, isBugged }) {
         </div>
         
         {/* LINKS DE NAVEGAÇÃO E BOTÃO LOGOUT */}
-        <ul className="nav-links" style={{ display: 'flex', alignItems: 'center' }}>
-          <li><Link to="/novidades">Novidades</Link></li>
-          <li><Link to="/sobre">Sobre</Link></li>
-          <li><Link to="/produtos">Produtos</Link></li>
-          <li><Link to="/suporte">Suporte</Link></li>
+        <ul className="nav-links" style={{ display: 'flex', alignItems: 'center', listStyle: 'none', gap: '25px', margin: 0, padding: 0 }}>
+          
+          <li>
+            <Link 
+              to="/novidades" 
+              style={{ 
+                color: isBugged ? '#ff4444' : 'inherit',
+                textDecoration: 'none',
+                fontWeight: isBugged ? 'bold' : 'normal'
+              }}
+            >
+              {isBugged ? 'A_PURGA' : 'Novidades'}
+            </Link>
+          </li>
+          
+          <li>
+            <Link 
+              to="/sobre" 
+              style={{ 
+                color: isBugged ? '#ff4444' : 'inherit',
+                textDecoration: 'none',
+                fontWeight: isBugged ? 'bold' : 'normal'
+              }}
+            >
+              {isBugged ? 'ARQUIVOS_MORTOS' : 'Sobre'}
+            </Link>
+          </li>
+          
+          <li>
+            <Link 
+              to="/produtos" 
+              style={{ 
+                color: isBugged ? '#ff4444' : 'inherit',
+                textDecoration: 'none',
+                fontWeight: isBugged ? 'bold' : 'normal'
+              }}
+            >
+              {isBugged ? 'FERRAMENTAS_CONTROLO' : 'Produtos'}
+            </Link>
+          </li>
+          
+          <li>
+            <Link 
+              to="/suporte" 
+              style={{ 
+                color: isBugged ? '#ff4444' : 'inherit',
+                textDecoration: 'none',
+                fontWeight: isBugged ? 'bold' : 'normal'
+              }}
+            >
+              {isBugged ? 'CENTRAL_RECALIBRAGEM' : 'Suporte'}
+            </Link>
+          </li>
           
           {/* BOTÃO DE LOGOUT (SÓ APARECE PARA O ADMIN!) */}
           {isAdmin && (
@@ -76,26 +138,27 @@ function Navbar({ toggleBug, isBugged }) {
                 onClick={handleLogout}
                 style={{ 
                   background: 'transparent', 
-                  border: '1px solid var(--cor-vermelho, red)', 
-                  color: 'var(--cor-vermelho, red)', 
+                  border: '1px solid #ff0000', 
+                  color: '#ff0000', 
                   padding: '6px 12px', 
-                  borderRadius: '4px', 
+                  borderRadius: isBugged ? '0px' : '4px', // Fica quadrangular no modo bugged!
                   cursor: 'pointer', 
                   fontWeight: 'bold',
+                  fontFamily: isBugged ? 'monospace' : 'inherit',
                   transition: 'all 0.3s'
                 }}
-                onMouseOver={(e) => { e.target.style.background = 'var(--cor-vermelho, red)'; e.target.style.color = 'white'; }}
-                onMouseOut={(e) => { e.target.style.background = 'transparent'; e.target.style.color = 'var(--cor-vermelho, red)'; }}
+                onMouseOver={(e) => { e.target.style.background = '#ff0000'; e.target.style.color = isBugged ? '#000' : 'white'; }}
+                onMouseOut={(e) => { e.target.style.background = 'transparent'; e.target.style.color = '#ff0000'; }}
               >
-                Sair (Admin)
+                {isBugged ? 'DESCONECTAR_SYS' : 'Sair (Admin)'}
               </button>
             </li>
           )}
         </ul>
 
         {/* O GATILHO DO ARG: O ponto final escondido */}
-        <div className="nav-trigger" onClick={toggleBug}>
-          <span>.</span>
+        <div className="nav-trigger" onClick={toggleBug} style={{ cursor: 'pointer', opacity: isBugged ? 0.3 : 0.1 }}>
+          <span style={{ color: isBugged ? '#ff0000' : 'inherit' }}>.</span>
         </div>
       </div>
     </nav>

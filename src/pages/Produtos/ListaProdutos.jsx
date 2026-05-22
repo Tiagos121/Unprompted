@@ -10,11 +10,14 @@ function ListaProdutos({ isBugged }) {
       <section className="page-header" style={{ textAlign: 'center', marginBottom: '50px', marginTop: '40px' }}>
         <h1 style={{ 
           fontFamily: isBugged ? 'var(--fonte-mono)' : 'inherit', 
-          color: isBugged ? 'var(--glitch-red)' : 'inherit' 
+          // O segredo está aqui: adicionar ", red" dentro do var()
+          color: isBugged ? 'var(--glitch-red, red)' : 'inherit' 
         }}>
           {isBugged ? 'CATÁLOGO_DE_CONTROLO' : 'Catálogo de Otimização'}
         </h1>
-        <p>{isBugged ? 'Eles escolhem o teu futuro. Tu apenas pagas.' : 'Escolha o módulo perfeito para a sua recalibração mental.'}</p>
+        <p style={{ color: isBugged ? '#888' : 'inherit' }}>
+          {isBugged ? 'Eles escolhem o teu futuro. Tu apenas pagas.' : 'Escolha o módulo perfeito para a sua recalibração mental.'}
+        </p>
       </section>
 
       <div className="catalog-grid">
@@ -40,8 +43,12 @@ function ListaProdutos({ isBugged }) {
               {/* Nome do Produto (muda para MAIÚSCULAS no modo bug) */}
               <h3>{isBugged ? produto.nome.toUpperCase() + '_[VIGIADO]' : produto.nome}</h3>
               
-              {/* Descrição técnica do produto */}
-              <p>{produto.desc}</p>
+             {/* Descrição técnica do produto */}
+            <p style={{ color: isBugged ? '#ffaaaa' : 'inherit' }}>
+                {isBugged 
+                  ? (produto.descBug || "ERRO_404: INFORMAÇÃO OCULTADA PELA URWELL") 
+                  : (produto.desc || produto.slogan)}
+              </p>
             </div>
           </Link>
         ))}

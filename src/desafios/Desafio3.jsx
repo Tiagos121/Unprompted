@@ -72,7 +72,7 @@ function Desafio3({ isBugged, idProduto }) {
       <div className="max-w-4xl w-full border border-current p-8 rounded-lg shadow-2xl bg-black relative overflow-hidden">
         
         <h1 className="text-3xl font-bold mb-4 border-b border-current pb-4 text-purple-600">
-          URMATE // SUPRESSOR DE SONHOS
+          URWELL // SUPRESSOR DE SONHOS
         </h1>
 
         {(statusJogo === 'idle' || statusJogo === 'lost') && (
