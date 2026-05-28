@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { useSobreGlitch } from '../hooks/useSobreGlitch'; // Certifica-te do nome do ficheiro
+import { useSobreGlitch } from '../hooks/useSobreGlitch';
+import { Link } from 'react-router-dom';
 
 function Sobre({ isBugged: isBuggedGlobal }) {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -50,7 +51,22 @@ function Sobre({ isBugged: isBuggedGlobal }) {
                   onMouseOut={(e) => e.target.style.color = 'inherit'}
                 >
                   UrWell
-                </a> foi fundada com um único propósito: libertar a humanidade do fardo exaustivo do pensamento crítico.
+                </a> foi fundada com um único propósito: libertar a humanidade do fardo exaustivo do pensamento crítico. Mantemos uma{' '}
+                
+                {/* ======================================================== */}
+                {/* O TEU NOVO LINK SECRETO ESTÁ AQUI */}
+                {/* ======================================================== */}
+                <Link 
+                  to="/diario-secreto" 
+                  style={{ 
+                    color: 'inherit', 
+                    textDecoration: 'none', 
+                    cursor: modoRebelde ? 'pointer' : 'text' 
+                  }}
+                >
+                  documentação
+                </Link>
+                {' '}rigorosa da nossa evolução.
               </>
             )}
         </p>
