@@ -15,7 +15,8 @@ import Suporte from './pages/Suporte';
 import ListaProdutos from './pages/Produtos/ListaProdutos';
 import DetalheProduto from './pages/Produtos/DetalheProduto';
 import AdminLogin from './pages/AdminLogin';
-import CaptchaRandom from './pages/CaptchaRandom'; // <-- 1. NOVO IMPORT
+import CaptchaRandom from './pages/CaptchaRandom';
+import DiarioSecreto from './pages/DiarioSecreto';
 
 import './styles/globais.css';
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/" element={<Home isBugged={isBugged} />} />
           <Route path="/novidades" element={<Novidades isBugged={isBugged} />} />
           <Route path="/sobre" element={<Sobre isBugged={isBugged} />} />
+          <Route path="/diario-secreto" element={<DiarioSecreto isBugged={isBugged} />} />
           <Route path="/suporte" element={<Suporte isBugged={isBugged} />} />
 
           {/* ROTA SECRETA */}
