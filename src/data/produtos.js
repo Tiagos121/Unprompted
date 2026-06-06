@@ -3,7 +3,6 @@ import urSoul from '../assets/UrSoul.png';
 import urTask from '../assets/UrTask.png';
 
 import urDigest from '../assets/urdigest.png';
-import urAssist from '../assets/urassist.png';
 
 
 export const listaProdutos = [
@@ -115,31 +114,4 @@ export const listaProdutos = [
       p2Bug: 'O teu cérebro é um disco rígido que nós formatamos diariamente.'
     }
   },
-  { 
-    id: 5, 
-    nome: 'UrAssist', 
-    desc: 'Delegação de Pensamento Crítico', 
-    slogan: 'Liberte a sua mente de decisões banais.',
-    status: 'Em Breve', 
-    img: urAssist,
-    preco: '12.000,00€',
-    features: [
-      { titulo: 'Automação', desc: 'O sistema escolhe a melhor opção financeira e social.', descBug: 'As tuas escolhas já não te pertencem.' },
-      { titulo: 'Análise Preditiva', desc: 'Antecipa os seus desejos antes de os sentir.', descBug: 'Calculamos a tua utilidade. E o teu fim.' },
-      { titulo: 'Alívio Cognitivo', desc: 'A carga de decidir passa a ser zero.', descBug: 'Uma mente vazia é uma mente obediente.' }
-    ],
-    specs: [
-      { label: 'Processamento', value: 'Cérebro Central UrWell', valueBug: 'Unidade Gestora 04' },
-      { label: 'Taxa de Erro', value: '0.00%', valueBug: 'As máquinas não falham' },
-      { label: 'Desistência', value: 'Permitida', valueBug: 'IMPOSSÍVEL' }
-    ],
-    filosofia: {
-      titulo: 'A paz de não ter escolha.',
-      tituloBug: 'RENDE-TE À MÁQUINA.',
-      p1: 'Tomar decisões desgasta. O UrAssist liberta-o dessa responsabilidade, guiando a sua vida com lógica perfeita e sem falhas.',
-      p1Bug: 'O livre arbítrio foi o maior erro da evolução humana. Nós viemos consertá-lo. Tu és apenas o veículo das nossas decisões.',
-      p2: 'Relaxe. A máquina sabe sempre o que é melhor para si.',
-      p2Bug: 'Deixaste de ser o piloto. És apenas passageiro no teu próprio corpo.'
-    }
-  }
 ];
