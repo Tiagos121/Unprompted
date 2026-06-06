@@ -8,9 +8,9 @@ Este repositório contém a infraestrutura digital da **UrWell Corporation**. Es
 
 O portal está estruturado para garantir a eficiência operacional da UrWell:
 
-*   **[DiarioSecreto]**[cite: 1]: Repositório de recursos, guião e comunicações confidenciais da equipa. Inclui suporte para anexos via Google Drive (integrado via `<iframe>` seguro) e conteúdos de vídeo[cite: 1].
-*   **[Novidades]**[cite: 2]: Painel de comunicados oficiais e atualizações do ecossistema UrWell.
-*   **[UrWell Ecosystem]**[cite: 6]: Catálogo de produtos, incluindo:
+*   **[DiarioSecreto]**: Repositório de recursos, guião e comunicações confidenciais da equipa. Inclui suporte para anexos via Google Drive (integrado via `<iframe>` seguro) e conteúdos de vídeo[cite: 1].
+*   **[Novidades]**: Painel de comunicados oficiais e atualizações do ecossistema UrWell.
+*   **[UrWell Ecosystem]**: Catálogo de produtos, incluindo:
     *   **UrSafe**: Condução autónoma[cite: 6].
     *   **UrSoul**: Reanimação digital[cite: 6].
     *   **UrTask**: Testes de recrutamento[cite: 6].
