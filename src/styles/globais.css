@@ -33,7 +33,7 @@ body {
 .tema-bug {
   background-color: var(--cor-preto);
   color: var(--cor-branco);
-  cursor: crosshair; /* Detalhe para parecer hackeado */
+  cursor: crosshair; 
 }
 
 h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: bold; }
@@ -42,8 +42,8 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 /* === ESTILOS DA HOMEPAGE === */
 .hero-image-block {
   width: 100%; height: 50vh;
-  background-color: #E5E5E5; /* Placeholder cinza */
-  background-image: url('../assets/fundo_bci1.png'); /* Substituir por uma imagem real */
+  background-color: #E5E5E5; 
+  background-image: url('../assets/fundo_bci1.png'); 
   background-size: cover; background-position: center;
 }
 
@@ -74,12 +74,12 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 .divider-image {
   width: 100%; 
   height: 40vh;
-  background-color: #D5D5D5; /* Placeholder normal */
+  background-color: #D5D5D5; 
   background-image: url('../assets/imagem1_edificio.png');
   background-size: cover; 
   background-position: center; 
   background-attachment: fixed;
-  transition: all 0.5s ease; /* Adiciona uma transição suave ao trocar de imagem */
+  transition: all 0.5s ease; 
 }
 
 /* ESTILO PARA O MODO BUGGED */
@@ -96,43 +96,43 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 
 .products-carousel {
   display: flex;
-  flex-wrap: wrap;             /* Permite que os itens desçam de linha em ecrãs mais pequenos */
-  justify-content: center;     /* A MAGIA: Centra os itens todos no meio do ecrã */
-  gap: 20px;                   /* O espaço entre cada cartão */
-  max-width: 1200px;           /* Garante que não ficam demasiado esticados em ecrãs gigantes */
-  margin: 0 auto;              /* Centra a própria caixa do carrossel na página */
+  flex-wrap: wrap;             
+  justify-content: center;     
+  gap: 20px;                  
+  max-width: 1200px;         
+  margin: 0 auto;              
   padding: 20px;
 }
 
 /* --- CARTÕES DE PRODUTOS --- */
 .product-card {
-  flex: 1 1 200px;          /* Aumentámos a largura base de 200px para 240px */
+  flex: 1 1 200px;          
   min-height: 350px;           
   background-color: var(--section-grey);
   border-radius: 16px;
   padding: 25px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;   /* Empurra o conteúdo de texto para o fundo */
+  justify-content: flex-end;   
   
   /* Configurações da Imagem de Fundo */
   background-size: cover;
   background-position: center;
-  position: relative;          /* Necessário para o efeito de sombra abaixo */
-  overflow: hidden;            /* Garante que o efeito de sombra não sai das bordas arredondadas */
+  position: relative;         
+  overflow: hidden;            
   
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
-/* Efeito Hover (Levanta ligeiramente o cartão ao passar o rato) */
+/* Efeito Hover */
 .product-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-/* A Sombra Escura (Degradê) sobre a imagem para o texto ficar legível */
+/* A Sombra Escura (Degradê) */
 .product-card::before {
   content: '';
   position: absolute;
@@ -144,8 +144,8 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 /* O Contentor do Texto */
 .product-info {
   position: relative;
-  z-index: 2;                  /* Coloca o texto por cima da sombra escura */
-  color: #FFFFFF;              /* Texto branco para contrastar */
+  z-index: 2;                  
+  color: #FFFFFF;              
 }
 
 .product-info h3 {
@@ -157,7 +157,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 
 .product-info p {
   font-size: 0.9rem;
-  opacity: 0.85;               /* Ligeiramente transparente para hierarquia visual */
+  opacity: 0.85;              
   line-height: 1.4;
 }
 
@@ -222,7 +222,6 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   background-color: #E5E5E5;
   border-radius: 12px;
   margin-bottom: 15px;
-  /* Dica: Podes substituir por URLs do Unsplash ou imagens da vossa equipa */
 }
 
 .legal-text {
@@ -306,9 +305,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 }
 
 .catalog-card {
-  flex: 1 1 350px; /* O '1' inicial é o flex-grow: permite que o cartão estique o que for preciso! */
-  
-  /* Retiramos o max-width que o impedia de crescer */
+  flex: 1 1 350px; 
   
   background-color: var(--bg-color);
   border: 1px solid rgba(0,0,0,0.08);
@@ -329,7 +326,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 /* Área superior da Imagem */
 .catalog-image {
   width: 100%;
-  height: 300px; /* Podes aumentar um pouco a altura para compensar a largura extra */
+  height: 300px; 
   background-color: var(--section-grey);
   background-size: cover;
   background-position: center;
@@ -370,13 +367,13 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 }
 
 .status-badge.available {
-  background-color: #E8F5E9; /* Verde claro */
-  color: #2E7D32;            /* Verde escuro */
+  background-color: #E8F5E9; 
+  color: #2E7D32;          
 }
 
 .status-badge.sold-out {
-  background-color: #FFEBEE; /* Vermelho claro */
-  color: #C62828;            /* Vermelho escuro */
+  background-color: #FFEBEE; 
+  color: #C62828;           
 }
 
 /* === CATÁLOGO NO MODO BUG (UNPROMPTED) === */
@@ -429,7 +426,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   margin-bottom: 40px;
 }
 
-/* Formulário BCI */
+/* Formulário */
 .bci-form-container {
   background: #F9F9FB;
   padding: 30px;
@@ -493,7 +490,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: inherit; /* Segue o fundo do tema (branco ou preto) */
+  background-color: inherit; 
 }
 
 .nav-container {
@@ -507,7 +504,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 
 /* Tipografia do Logótipo */
 .logo-urwell-text {
-  font-family: var(--fonte-titulo); /* Helvetica */
+  font-family: var(--fonte-titulo); 
   font-weight: bold;
   font-size: 1.6rem;
   letter-spacing: -1px;
@@ -530,7 +527,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 /* Links em Poppins */
 .nav-links a {
   text-decoration: none;
-  font-family: var(--fonte-ui); /* Poppins */
+  font-family: var(--fonte-ui); 
   font-weight: 500;
   font-size: 0.95rem;
   color: inherit;
@@ -545,7 +542,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 .nav-trigger {
   cursor: pointer;
   padding: 10px;
-  opacity: 0.05; /* Quase invisível para ser um easter egg */
+  opacity: 0.05;
   font-family: var(--fonte-mono);
 }
 
@@ -599,7 +596,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   align-items: center; 
   justify-content: center; 
   gap: 40px; 
-  background-color: var(--bg-color); /* Usa a cor de fundo do tema */
+  background-color: var(--bg-color);
 }
 
 .nav-arrow { 
@@ -663,7 +660,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 .footer-container {
   padding: 60px 5% 20px 5%;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  background-color: inherit; /* Segue a cor do tema */
+  background-color: inherit; 
   margin-top: 0;
 }
 
@@ -762,13 +759,12 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
    === PÁGINA: SOBRE A URWELL            ===
    ========================================= */
 
-/* 1. Hero Section */
 .sobre-hero {
   text-align: center;
   max-width: 800px;
-  width: 90%;             /* Substitui o padding lateral por uma largura fixa */
+  width: 90%;             
   margin: 0 auto;
-  padding: 80px 0 40px 0; /* Padding apenas em cima e em baixo */
+  padding: 80px 0 40px 0; 
 }
 
 .sobre-hero h1 {
@@ -783,16 +779,15 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   line-height: 1.6;
 }
 
-/* 2. Missão e Visão */
+/* Missão e Visão */
 .sobre-missao-visao {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   max-width: 1200px;
-  width: 90%;             /* Força o alinhamento perfeito */
+  width: 90%;            
   margin: 60px auto;
   align-items: center;
-  /* Retirámos o padding lateral que estava aqui a desalinhar a imagem */
 }
 
 .sobre-missao-visao h2 {
@@ -818,20 +813,19 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   transition: filter 0.3s ease;
 }
 
-/* 3. Pilares */
+/* Pilares */
 .sobre-valores {
   background-color: #E5E5E5;
   max-width: 1200px;
-  width: 90%;             /* Fica exatamente da mesma largura que a Missão e Visão */
+  width: 90%;            
   margin: 0 auto 80px auto;
-  padding: 80px 40px;     /* Usamos pixels em vez de % para o texto lá dentro respirar sem estragar a caixa */
+  padding: 80px 40px;     
   border-radius: 24px;
-  box-sizing: border-box; /* Garante que o padding interno não alarga a caixa */
+  box-sizing: border-box; 
 }
 
 .valores-grid {
   display: grid;
-  /* A solução: Forçamos a grelha a ter SEMPRE 3 colunas do mesmo tamanho (1fr) */
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   width: 100%;
@@ -859,10 +853,10 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   line-height: 1.5;
 }
 
-/* 4. A Equipa */
+/* A Equipa */
 .team-section {
   max-width: 1200px;
-  width: 90%;             /* Mais uma vez, perfeitamente alinhado com o resto */
+  width: 90%;           
   margin: 0 auto 80px auto;
 }
 
@@ -965,7 +959,6 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
    CORREÇÃO DOS TÍTULOS PEQUENOS
    ========================================= */
 
-/* Título "Os Pilares UrWell" (Página Sobre) */
 .sobre-valores h2, 
 .sobre-valores h1 {
   font-size: 2.5rem;
@@ -975,7 +968,6 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   color: var(--cor-preto);
 }
 
-/* Título "Os nossos Valores" (Homepage) */
 .values-section h2,
 .values-section h1 {
   font-size: 2.5rem;
@@ -989,8 +981,8 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 
 /* Tamanho do logótipo em imagem */
 .logo-urwell {
-  height: 40px; /* Controla a altura aqui (experimenta entre 30px e 60px) */
-  width: auto;  /* O auto garante que a imagem não fica esticada nem distorcida */
+  height: 40px; 
+  width: auto; 
   object-fit: contain;
   display: block;
 }
@@ -1000,7 +992,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
    EFEITOS DE GLITCH DA RESISTÊNCIA
    ========================================= */
 
-/* 1. AGRESSIVO (Rápido e forte) */
+/* AGRESSIVO (Rápido e forte) */
 @keyframes urwellGlitchAgressivo {
   0% { transform: translate(2px, 1px) skewX(0deg); filter: hue-rotate(0deg) contrast(150%); }
   20% { transform: translate(-2px, -2px) skewX(2deg); filter: invert(0.2) contrast(200%); }
@@ -1010,7 +1002,7 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   100% { transform: translate(1px, 2px) skewX(-1deg); filter: invert(0); }
 }
 
-/* 2. SUAVE (Lento e fraco) */
+/* SUAVE (Lento e fraco) */
 @keyframes urwellGlitchSuave {
   0% { transform: translate(1px, 0px) skewX(0deg); filter: hue-rotate(0deg) contrast(120%); }
   20% { transform: translate(-1px, -1px) skewX(0.5deg); filter: invert(0.1) contrast(150%); }
@@ -1031,25 +1023,92 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
 }
 
 .efeito-glitch-estatico {
-  /* Sem animação de tremer! Apenas aquele efeito 3D (vermelho e azul) das televisões antigas para dar a ideia de corrompido, mas 100% legível. */
   text-shadow: 2px 0 red, -2px 0 blue;
   filter: contrast(110%) saturate(120%);
 }
 
 
-
-
-/* Controla o logótipo Unprompted na Navbar e Footer */
 .logo-unprompted {
-  max-height: 40px; /* Ajusta este valor (30px, 40px, 50px) para caber bem na tua navbar */
-  width: auto;      /* Garante que a imagem não fica esticada nem distorcida */
+  max-height: 40px; 
+  width: auto;     
   object-fit: contain;
   display: block;
 }
 
-/* Se quiseres que o logótipo no Footer seja um pouco maior que na Navbar: */
 .footer-logo .logo-unprompted {
   max-height: 55px; 
+}
+
+
+/* ==========================================================================
+   COMPORTAMENTO DA NAVBAR NO DESKTOP
+   ========================================================================== */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+.nav-logo {
+  flex: 1; 
+}
+
+.nav-links {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-right-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.hamburger {
+  display: none; 
+}
+
+/* ==========================================================================
+   COMPORTAMENTO DA NAVBAR NO MOBILE (Telemóveis e Tablets)
+   ========================================================================== */
+@media (max-width: 768px) {
+  
+  .hamburger {
+    display: block; 
+  }
+
+  .nav-links {
+    position: fixed; 
+    top: 0;
+    left: -100%; 
+    width: 100vw; 
+    height: 100vh; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 40px;
+    transition: 0.4s ease-in-out;
+    z-index: 1500; 
+    font-size: 1.2rem;
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .admin-btn-container {
+    margin-top: 20px;
+  }
 }
 
 

@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Substitui por aquilo que copiaste do Firebase Console
+
 const firebaseConfig = {
   apiKey: "AIzaSyAtyyagLzVh1Npii1AfziVRNVDoW5dQbyc",
   authDomain: "urwell-arg.firebaseapp.com",
@@ -14,10 +14,10 @@ const firebaseConfig = {
   measurementId: "G-3QW7Y8V2QL"
 };
 
-// Inicializar Firebase
+
 const app = initializeApp(firebaseConfig);
 
-// Exportar a Autenticação e a Base de Dados para usarmos nas páginas
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);

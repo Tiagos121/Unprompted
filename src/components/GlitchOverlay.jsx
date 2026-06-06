@@ -21,7 +21,7 @@ function GlitchOverlay({ isBugged }) {
     
     let index = 0;
     
-    // O setTimeout com 0 milissegundos evita o erro de "cascading renders"
+    
     setTimeout(() => {
       setLogs([]);
     }, 0);
@@ -38,7 +38,7 @@ function GlitchOverlay({ isBugged }) {
 
     return () => {
       clearInterval(interval);
-      setLogs([]); // Limpa a consola quando o glitch for fechado
+      setLogs([]); 
     };
   }, [isBugged]);
 

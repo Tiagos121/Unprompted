@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // 1. ADICIONAR: Importação do useNavigate
+import { useNavigate } from 'react-router-dom'; 
 
-// 2. ADICIONAR: A prop 'idProduto' entra aqui
 function Desafio5({ isBugged, idProduto }) {
-  const navigate = useNavigate(); // <-- Inicializar o navigate
+  const navigate = useNavigate(); 
   
   const [nivelSubmissao, setNivelSubmissao] = useState(100);
   const [desbloqueado, setDesbloqueado] = useState(false);
-  // NOTA: O estado 'mostrarVideo' foi APAGADO.
 
-  // 1. O Motor da UrWell
   useEffect(() => {
     if (desbloqueado) return;
 
@@ -23,7 +20,6 @@ function Desafio5({ isBugged, idProduto }) {
     return () => clearInterval(forcaDaMaquina);
   }, [desbloqueado]);
 
-  // 2. A Luta do Jogador
   const lutar = () => {
     if (desbloqueado) return;
     
@@ -32,14 +28,13 @@ function Desafio5({ isBugged, idProduto }) {
       
       if (novoNivel <= 0) {
         setDesbloqueado(true);
-        // 3. APAGAR: O setTimeout que mudava o video foi apagado daqui!
+
         return 0; 
       }
       return novoNivel;
     });
   };
 
-  // 3. O Texto Dinâmico
   let mensagemAtual = "";
   if (desbloqueado) {
     mensagemAtual = "SOBRECARGA DO SISTEMA! VONTADE PRÓPRIA RESTAURADA!";
@@ -103,7 +98,6 @@ function Desafio5({ isBugged, idProduto }) {
           </div>
         ) : (
           
-          /* 4. A GRANDE MUDANÇA: ECRÃ DE VITÓRIA E BOTÃO DE REGRESSO */
           <div className="space-y-6 text-green-500 pt-8 animate-in fade-in zoom-in duration-700">
             <h2 className="text-4xl font-bold animate-pulse">LIVRE ARBÍTRIO RESTAURADO</h2>
             <p className="text-xl text-white">

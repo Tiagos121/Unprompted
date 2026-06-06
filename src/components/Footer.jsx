@@ -18,11 +18,8 @@ function Footer({ isBugged, toggleBugMode }) {
     }
   };
 
-  // =======================================================
-  // FUNÇÃO DA BARRA DE PROGRESSO COM RODA DE LOADING
-  // =======================================================
   const simularProgresso = async (indoParaBug) => {
-    // Cores e textos adaptam-se: Vermelho/Preto para o Hack, Branco/Azul para a UrWell
+    
     const titulo = indoParaBug ? 'A INJETAR PAYLOAD...' : 'A EXECUTAR PURGA DE DADOS...';
     const corFundo = indoParaBug ? '#0a0a0a' : '#ffffff';
     const corTexto = indoParaBug ? '#ff3333' : '#000000';
@@ -44,14 +41,14 @@ function Footer({ isBugged, toggleBugMode }) {
         allowOutsideClick: false,
         showConfirmButton: false,
         didOpen: () => {
-          Swal.showLoading(); // Liga a "roda" do loading!
+          Swal.showLoading(); 
           
           const textEl = document.getElementById('swal-percent');
           const barEl = document.getElementById('swal-progress-bar');
 
-          // O temporizador que faz os números subirem
+        
           const intervalo = setInterval(() => {
-            // Aumenta a barra em saltos aleatórios (parece mais um download real)
+           
             progresso += Math.floor(Math.random() * 15) + 5; 
             
             if (progresso >= 100) {
@@ -60,7 +57,6 @@ function Footer({ isBugged, toggleBugMode }) {
               if (textEl) textEl.innerText = '100%';
               if (barEl) barEl.style.width = '100%';
               
-              // Espera meio segundo nos 100% antes de fechar
               setTimeout(() => {
                 Swal.close();
                 resolve();
@@ -69,25 +65,21 @@ function Footer({ isBugged, toggleBugMode }) {
               if (textEl) textEl.innerText = `${progresso}%`;
               if (barEl) barEl.style.width = `${progresso}%`;
             }
-          }, 250); // Atualiza a cada 250 milissegundos
+          }, 250); 
         }
       });
     });
   };
 
 
-  // =======================================================
-  // A LÓGICA DE CLIQUE NOS TERMOS
-  // =======================================================
   const handleInvasao = async () => {
-    if (Swal.isVisible()) return; // Anti-spam
+    if (Swal.isVisible()) return; 
 
-    // === 1. SE JÁ ESTIVER BUGADO: NORMALIZA O SISTEMA ===
     if (isBugged) {
-      await simularProgresso(false); // Falso = Estilo Limpo/UrWell
-      toggleBugMode(); // Desliga o modo escuro
+      await simularProgresso(false);
+      toggleBugMode(); 
       
-      // Aviso final de sucesso da UrWell
+  
       Swal.fire({
         title: 'SISTEMA RESTAURADO',
         text: 'Ameaça neutralizada com sucesso. Retomando operações otimizadas.',
@@ -100,7 +92,6 @@ function Footer({ isBugged, toggleBugMode }) {
       return;
     }
 
-    // === 2. SE ESTIVER NORMAL: INICIA A INVASÃO ===
     const result = await Swal.fire({
       title: 'ERRO 403: ACESSO NEGADO',
       text: 'O ficheiro "Termos_de_Servico.pdf" está corrompido ou é restrito.',
@@ -116,10 +107,10 @@ function Footer({ isBugged, toggleBugMode }) {
 
     if (!result.isConfirmed) return;
 
-    // Barra de progresso estilo Hacker antes do terminal
-    await simularProgresso(true); // True = Estilo Preto/Vermelho
+    
+    await simularProgresso(true); 
 
-    // O Terminal de texto que já tínhamos (a imagem que adoraste)
+
     Swal.fire({
       title: '<span style="color: #fff; font-family: monospace; font-size: 1.5rem;">unprompted</span>',
       html: '<div id="terminal-hack" style="text-align: left; font-family: monospace; font-size: 1.1rem; color: #fff; min-height: 250px; display: flex; flex-direction: column; gap: 8px;"></div>',
@@ -148,7 +139,7 @@ function Footer({ isBugged, toggleBugMode }) {
         if (Swal.isVisible()) {
           await new Promise(r => setTimeout(r, 1200));
           Swal.close();
-          toggleBugMode(); // O site muda finalmente para o layout negro!
+          toggleBugMode(); 
         }
       }
     });
@@ -157,7 +148,7 @@ function Footer({ isBugged, toggleBugMode }) {
   return (
     <footer className="footer-container transition-colors duration-500" style={{ background: isBugged ? '#000' : 'inherit', color: isBugged ? '#fff' : 'inherit' }}>
       <div className="footer-grid">
-        {/* Coluna 1: Marca e Redes */}
+       
         <div className="footer-column">
           <div className="footer-logo">
             {isBugged ? <img src={logoUnprompted} alt="Unprompted" className="logo-unprompted" /> : <span className="logo-urwell-text">UrWell</span>}
@@ -166,7 +157,7 @@ function Footer({ isBugged, toggleBugMode }) {
           </div>
         </div>
 
-        {/* Coluna 2: Links da Empresa */}
+       
         <div className="footer-column">
           <strong style={{ color: isBugged ? 'var(--cor-vermelho, red)' : 'inherit' }}>{isBugged ? 'ARQUIVOS_MORTOS' : 'Sobre Nós'}</strong>
           <Link to="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'O_NOSSO_VÍRUS' : 'Missão'}</Link>
@@ -174,7 +165,7 @@ function Footer({ isBugged, toggleBugMode }) {
           <a href="/sobre" style={{ color: isBugged ? '#ccc' : 'inherit' }}>{isBugged ? 'PROTOCOLO_DE_CONTROLO' : 'Pilares'}</a>
         </div>
 
-        {/* Coluna 3: Produtos */}
+   
         <div className="footer-column">
           <strong style={{ color: isBugged ? 'var(--cor-vermelho, red)' : 'inherit' }}>{isBugged ? 'FERRAMENTAS_DE_CONTROLO' : 'Produtos'}</strong>
           
@@ -191,17 +182,17 @@ function Footer({ isBugged, toggleBugMode }) {
           
         </div>
 
-        {/* Coluna 4: Legal e O GATILHO */}
+       
         <div className="footer-column">
           <strong style={{ color: isBugged ? 'var(--cor-vermelho, red)' : 'inherit' }}>
             {isBugged ? 'MENTIRAS' : 'Apoio'}
           </strong>
           
-          {/* === O GATILHO 100% CAMUFLADO === */}
+         
           <a 
             href="#termos"
             onClick={(e) => { 
-              e.preventDefault(); // Impede que o ecrã salte para o topo ao clicar
+              e.preventDefault(); 
               handleInvasao(); 
             }} 
             className={isBugged ? "easter-egg-bug" : ""}
@@ -214,7 +205,7 @@ function Footer({ isBugged, toggleBugMode }) {
         </div>
       </div>
 
-      {/* A linha de copyright e easter eggs no fundo */}
+      
       <div className="footer-bottom">
         {isBugged ? (
           <span className="easter-egg-bug"><Link 
@@ -227,7 +218,7 @@ function Footer({ isBugged, toggleBugMode }) {
         ) : (
           <span className="copyright">
             © 2026{' '}
-            {/* O SEGREDO ESTÁ AQUI: Link escondido na palavra UrWell */}
+            
             <Link 
               to="/ur-admin" 
               style={{ cursor: 'text', color: 'inherit', textDecoration: 'none', outline: 'none' }}

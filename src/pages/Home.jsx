@@ -3,9 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { listaProdutos } from '../data/produtos';
 import Swal from 'sweetalert2';
 
-// TODO: IMAGENS DOS TESTEMUNHOS
-// Quando tiveres as imagens corrompidas, podes importá-las aqui:
-// import imgReview1Bugged from '../assets/user_review1_bug.png';
+
 import imgReview1 from '../assets/user_review1.png';
 import imgReview2 from '../assets/user_review2.png';
 import imgReview3 from '../assets/user_review3.png';
@@ -17,11 +15,11 @@ import imgReviewBugged3 from '../assets/pessoareviewbug3.png';
 import videoNormal from '../assets/unprompted_video.mp4';
 import videoBugged from '../assets/unprompted_video.mp4';
 
-// Novos Dados dos testemunhos (Baseados nos guiões UrSafe, UrSoul, UrTask)
+
 const testemunhos = [
   {
     imgNormal: imgReview1,
-    imgBugged: imgReviewBugged1, // <- ALTERAR PARA imgReview1Bugged quando a tiveres
+    imgBugged: imgReviewBugged1, 
     quoteNormal: "\"Com o UrSafe, as minhas viagens deixaram de ser stressantes. O carro sabe exatamente como me acalmar. Sinto-me completamente protegida.\"",
     quoteBugged: "\"Não consigo sair. Por favor, as portas não abrem. Ele diz que o meu ritmo cardíaco está demasiado alto. Ajudem-me.\"",
     authorNormal: "Marta, Cliente Otimizada",
@@ -29,7 +27,7 @@ const testemunhos = [
   },
   {
     imgNormal: imgReview2,
-    imgBugged: imgReviewBugged2, // <- ALTERAR PARA imgReview2Bugged quando a tiveres
+    imgBugged: imgReviewBugged2, 
     quoteNormal: "\"O UrSoul ajudou-me com o luto. Falar com a minha filha todos os dias faz com que ela pareça estar ainda aqui. A voz é perfeita.\"",
     quoteBugged: "\"Aquela não é a minha filha. É um script que usa as palavras dela para exigir atenção. Como é que eu desligo isto? Deixem-na descansar.\"",
     authorNormal: "António, Subscritor Premium",
@@ -37,7 +35,7 @@ const testemunhos = [
   },
   {
     imgNormal: imgReview3,
-    imgBugged: imgReviewBugged3, // <- ALTERAR PARA imgReview3Bugged quando a tiveres
+    imgBugged: imgReviewBugged3, 
     quoteNormal: "\"O teste de recrutamento da UrTask foi revelador. A IA ajudou-me a perceber o meu verdadeiro lugar no mundo corporativo. Tão empático!\"",
     quoteBugged: "\"A máquina não parava de falar. Ela sabia os meus medos. Disse que eu não valia nada e que ninguém ia dar pela minha falta.\"",
     authorNormal: "João Pires, Candidato Aprovado",
@@ -58,11 +56,11 @@ function Home({ isBugged }) {
 
   const handleIniciarUrSync = () => {
     if (isBugged) {
-      // Ecrã de carregamento da Resistência (Avança sozinho sem chatear)
+      
       Swal.fire({
         title: "A INTERCETAR LIGAÇÃO...",
         html: "<span style='font-family: monospace;'>A contornar firewalls da UrWell...</span>",
-        timer: 1500, // Demora 1.5 segundos e fecha sozinho
+        timer: 1500, 
         timerProgressBar: true,
         showConfirmButton: false,
         background: "#050505",
@@ -75,7 +73,7 @@ function Home({ isBugged }) {
         navigate('/captcha/1');
       });
     } else {
-      // Ecrã de carregamento corporativo Normal (UrWell)
+
       Swal.fire({
         title: "A Iniciar Otimização...",
         html: "Por favor, mantenha o olhar fixo no ecrã.<br/><br/><span style='color: #888;'>A calibrar perfil psicológico...</span>",
@@ -95,11 +93,10 @@ function Home({ isBugged }) {
   return (
     <div className="home-container">
       
-      {/* BLOCO 1: Vídeo de Topo (Dinâmico) */}
       <div className="hero-media-block" style={{ position: 'relative', width: '100%', height: '60vh', overflow: 'hidden', backgroundColor: '#000' }}>
         
         <video 
-          key={isBugged ? 'bugged-video' : 'normal-video'} // O 'key' força o React a recarregar o vídeo quando o estado muda
+          key={isBugged ? 'bugged-video' : 'normal-video'} 
           autoPlay 
           loop 
           muted 
@@ -114,7 +111,7 @@ function Home({ isBugged }) {
           }}
         />
 
-        {/* Camada de sobreposição para garantir que o texto do Hero se lê bem */}
+        
         <div style={{
           position: 'absolute',
           top: 0,
@@ -122,12 +119,12 @@ function Home({ isBugged }) {
           width: '100%',
           height: '100%',
           backgroundColor: isBugged ? 'rgba(255, 0, 0, 0.15)' : 'rgba(0, 0, 0, 0.4)',
-          pointerEvents: 'none' // Para não interferir com cliques
+          pointerEvents: 'none' 
         }}></div>
 
       </div>
 
-      {/* BLOCO 2: Headline e CTA (Modificado para Modo Hacker) */}
+      
       <section className="hero-text-block" style={{ padding: '60px 20px' }}>
         <h1 style={{ 
           fontFamily: isBugged ? 'monospace' : 'inherit',
@@ -148,7 +145,7 @@ function Home({ isBugged }) {
             : 'A UrWell desenha ecossistemas de otimização de vida que removem a incerteza do seu dia a dia. Entregue-nos o controlo. O futuro é sereno.'}
         </p>
         
-        {/* Adicionámos a classe 'btn-bugged' dinamicamente */}
+        
         <button 
           onClick={handleIniciarUrSync} 
           className={`btn-primary ${isBugged ? 'btn-bugged' : ''}`}
@@ -156,7 +153,7 @@ function Home({ isBugged }) {
             backgroundColor: isBugged ? 'transparent' : 'black',
             color: isBugged ? '#ff0000' : 'white',
             border: isBugged ? '2px solid #ff0000' : 'none',
-            borderRadius: isBugged ? '0px' : '30px', // 0px torna o botão perfeitamente quadrado/retangular
+            borderRadius: isBugged ? '0px' : '30px', 
             fontFamily: isBugged ? 'monospace' : 'inherit',
             fontWeight: 'bold',
             letterSpacing: isBugged ? '1px' : 'normal'
@@ -166,10 +163,10 @@ function Home({ isBugged }) {
         </button>
       </section>
 
-      {/* BLOCO 3: Imagem Divisória */}
+      
       <div className={`divider-image ${isBugged ? 'bugged' : ''}`}></div>
 
-      {/* BLOCO 4: Os Nossos Produtos */}
+      
       <section className="products-section">
         <h2 className="section-title" style={{ color: isBugged ? 'red' : 'inherit' }}>
           {isBugged ? 'AS FERRAMENTAS DELES' : 'Os nossos Produtos'}
@@ -199,7 +196,7 @@ function Home({ isBugged }) {
         </div>
       </section>
 
-      {/* BLOCO 5: Os Nossos Valores (Expandido e Adaptado) */}
+      
       <section 
         className="values-section"
         style={{ 
@@ -208,18 +205,18 @@ function Home({ isBugged }) {
           transition: 'all 0.5s ease',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'stretch', // <-- CRÍTICO: Estica a imagem para igualar a altura do texto
+          alignItems: 'stretch', 
           gap: '80px', 
           flexWrap: 'wrap'
         }}
       >
-        {/* Bloco de Texto */}
+        
         <div className="values-text" style={{ 
           maxWidth: '550px',
           textAlign: 'left',
           display: 'flex',
-          flexDirection: 'column', // Garante que o texto se organiza verticalmente
-          justifyContent: 'center'  // Centra o conteúdo verticalmente dentro do bloco
+          flexDirection: 'column', 
+          justifyContent: 'center'  
         }}>
           <h2 style={{ 
             color: isBugged ? '#ff0000' : '#333', 
@@ -248,13 +245,13 @@ function Home({ isBugged }) {
           </p>
         </div>
 
-        {/* A IMAGEM */}
+        
         <div className="values-image" style={{ 
-          flex: '1',            // Faz a imagem ocupar o espaço disponível
-          minWidth: '400px',    // Garante que não fica muito pequena em ecrãs médios
+          flex: '1',            
+          minWidth: '400px',    
           borderRadius: '12px',
           backgroundColor: '#ddd',
-          // IMPORTANTE: Se a imagem for de fundo, usa isto para ela preencher o bloco:
+          
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           filter: isBugged ? 'invert(1) hue-rotate(180deg) contrast(150%) brightness(0.7)' : 'none', 
@@ -263,7 +260,7 @@ function Home({ isBugged }) {
         }}></div>
       </section>
 
-      {/* BLOCO 6: Testemunhos (Slider) */}
+      
       <section className="testimonials-section">
         <button className="nav-arrow" onClick={() => mudarTestemunho(-1)} style={{ color: isBugged ? 'red' : 'inherit' }}>
           &#10094;

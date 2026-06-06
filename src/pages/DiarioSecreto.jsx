@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, updateDoc, doc, orderBy, query } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../config/firebase'; // Sem Storage, apenas Auth e DB!
+import { auth, db } from '../config/firebase';
 import Swal from 'sweetalert2';
 
 function DiarioSecreto({ isBugged }) {
@@ -10,21 +10,18 @@ function DiarioSecreto({ isBugged }) {
   const [carregando, setCarregando] = useState(true);
   const [atualizarLista, setAtualizarLista] = useState(0);
 
-  // ESTADOS DO FORMULÁRIO DE CRIAÇÃO
   const [mostrarForm, setMostrarForm] = useState(false);
   const [novoTitulo, setNovoTitulo] = useState('');
   const [novaData, setNovaData] = useState('');
   const [novoTexto, setNovoTexto] = useState('');
   const [novaImagemLink, setNovaImagemLink] = useState(''); 
 
-  // ESTADOS DE EDIÇÃO
   const [editandoId, setEditandoId] = useState(null);
   const [editTitulo, setEditTitulo] = useState('');
   const [editData, setEditData] = useState('');
   const [editTexto, setEditTexto] = useState('');
   const [editImagem, setEditImagem] = useState('');
 
-  // 1. Verifica se é o Admin
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsAdmin(!!user);
@@ -32,7 +29,6 @@ function DiarioSecreto({ isBugged }) {
     return () => unsubscribe();
   }, []);
 
-  // 2. BUSCAR DADOS AO FIREBASE
   useEffect(() => {
     const buscarDiario = async () => {
       try {
@@ -52,15 +48,13 @@ function DiarioSecreto({ isBugged }) {
     buscarDiario();
   }, [atualizarLista]);
 
-  // FUNÇÃO MÁGICA PARA O GOOGLE DRIVE
-  // Transforma o link de partilha num link de imagem direto!
   const converterLinkDrive = (url) => {
     if (!url) return '';
     if (url.includes('drive.google.com/file/d/')) {
       const id = url.split('/d/')[1].split('/')[0];
       return `https://drive.google.com/uc?export=view&id=${id}`;
     }
-    return url; // Se for link do Discord, Imgur, etc, deixa como está
+    return url; 
   };
 
   // 3. ADICIONAR NOVO POST
@@ -110,7 +104,6 @@ function DiarioSecreto({ isBugged }) {
     });
   };
 
-  // 5. INICIAR EDIÇÃO
   const iniciarEdicao = (post) => {
     setEditandoId(post.id);
     setEditTitulo(post.titulo);
@@ -119,7 +112,6 @@ function DiarioSecreto({ isBugged }) {
     setEditImagem(post.imagem || '');
   };
 
-  // 6. GUARDAR EDIÇÃO
   const guardarEdicao = async (id) => {
     try {
       const linkFinal = converterLinkDrive(editImagem);
@@ -138,7 +130,6 @@ function DiarioSecreto({ isBugged }) {
     }
   };
 
-  // 7. PREVIEW DA IMAGEM GIGANTE
   const abrirImagem = (urlImagem) => {
     Swal.fire({
       imageUrl: urlImagem,
@@ -151,7 +142,6 @@ function DiarioSecreto({ isBugged }) {
     });
   };
 
-  // 8. FAZER DOWNLOAD DA IMAGEM
   const fazerDownload = (url) => {
     const link = document.createElement('a');
     link.href = url;
@@ -168,7 +158,7 @@ function DiarioSecreto({ isBugged }) {
     <div className={`min-h-screen p-8 transition-colors duration-500 ${isBugged ? 'bg-black text-green-500 font-mono' : 'bg-neutral-50 text-neutral-800'}`}>
       
       <div className="max-w-4xl mx-auto">
-        {/* CABEÇALHO */}
+
         <header className={`border-b-2 pb-6 mb-10 ${isBugged ? 'border-green-500' : 'border-neutral-200'}`}>
           <div className="flex justify-between items-end">
             <div>
@@ -180,7 +170,7 @@ function DiarioSecreto({ isBugged }) {
               </p>
             </div>
             
-            {/* BOTÃO ADICIONAR (SÓ ADMIN) */}
+           
             {isAdmin && (
               <button 
                 onClick={() => setMostrarForm(!mostrarForm)}
@@ -196,7 +186,7 @@ function DiarioSecreto({ isBugged }) {
           </div>
         </header>
 
-        {/* FORMULÁRIO DE ADICIONAR */}
+       
         {isAdmin && mostrarForm && (
           <form onSubmit={handleAdicionar} className={`p-6 rounded-lg mb-10 border-2 ${isBugged ? 'border-red-600 bg-red-950/20 text-red-500' : 'border-neutral-200 bg-white shadow-sm text-neutral-800'}`}>
             <h3 className={`font-bold mb-4 ${isBugged ? 'text-red-500' : 'text-neutral-800'}`}>Adicionar Nova Documentação</h3>
@@ -235,7 +225,7 @@ function DiarioSecreto({ isBugged }) {
           </form>
         )}
 
-        {/* FEED DE POSTS */}
+        
         <div className="space-y-8">
           {posts.length === 0 ? (
             <p className="text-center italic opacity-50">A base de dados não contém registos.</p>
@@ -249,7 +239,7 @@ function DiarioSecreto({ isBugged }) {
                   : 'bg-white border-neutral-200'
                 }`}
               >
-                {/* MODO EDIÇÃO */}
+                
                 {editandoId === post.id ? (
                   <div className="space-y-4 text-black font-sans">
                     <div className="flex gap-4">
@@ -264,7 +254,7 @@ function DiarioSecreto({ isBugged }) {
                     </div>
                   </div>
                 ) : (
-                  /* MODO LEITURA */
+                  
                   <>
                     <div className="flex justify-between items-start mb-3">
                       <div>
@@ -279,7 +269,7 @@ function DiarioSecreto({ isBugged }) {
                         </div>
                       </div>
                       
-                      {/* ÍCONES DE ADMINISTRAÇÃO */}
+                     
                       {isAdmin && (
                         <div className="flex gap-2">
                           <button onClick={() => iniciarEdicao(post)} className="text-blue-500 hover:text-blue-700" title="Editar">
@@ -295,15 +285,13 @@ function DiarioSecreto({ isBugged }) {
                         </div>
                       )}
                     </div>
-
-                    {/* SÓ MOSTRA O TEXTO SE ELE EXISTIR */}
+                    
                     {post.texto && post.texto.trim() !== '' && (
                       <p className={`whitespace-pre-wrap ml-11 mb-4 ${isBugged ? 'text-green-400 font-mono' : 'text-neutral-600 font-sans'}`}>
                         {post.texto}
                       </p>
                     )}
-
-                    {/* ZONA DE ANEXOS / IMAGENS */}
+   
                     {post.imagem && (
                       <div className="ml-11 inline-block mt-2 max-w-full">
                         <div className={`p-2 rounded-lg border flex flex-col ${isBugged ? 'border-red-900/50 bg-[#050505]' : 'border-neutral-200 bg-neutral-50'}`}>
@@ -316,7 +304,7 @@ function DiarioSecreto({ isBugged }) {
                             onClick={() => abrirImagem(post.imagem)}
                             title="Clique para visualizar o documento"
                             onError={(e) => {
-                              // Se falhar a carregar, substitui por um aviso para não ficar feio
+                              
                               e.target.onerror = null; 
                               e.target.src = 'https://via.placeholder.com/400x200.png?text=Ficheiro+não+é+imagem+ou+link+inválido';
                             }}

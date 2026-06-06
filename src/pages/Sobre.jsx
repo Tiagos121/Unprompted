@@ -8,7 +8,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // 1. Verifica se é Admin para desligar os sustos
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsAdmin(!!user);
@@ -16,19 +16,13 @@ function Sobre({ isBugged: isBuggedGlobal }) {
     return () => unsubscribe();
   }, []);
 
-  // 2. Ativa o Glitch Automático (Independente do botão da Navbar!)
   const glitchLocal = useSobreGlitch(isAdmin, isBuggedGlobal);
 
-  // A página entra em modo rebelde se:
-  // - O utilizador clicou no ponto da Navbar (isBuggedGlobal)
-  // - OU o sistema disparou o glitch automático (glitchLocal)
   const modoRebelde = isAdmin ? false : (isBuggedGlobal || glitchLocal);
 
   return (
-    // A transição agora é de 0.3s para ser mais "nervosa" e parecer um erro de sistema
     <div className={`page-container transition-all duration-300 ${modoRebelde ? 'bg-black text-white' : 'bg-white text-black'} ${glitchLocal ? 'efeito-glitch-suave' : ''}`}>
       
-      {/* 1. HERO SECTION */}
       <section className="sobre-hero">
         <h1 className="transition-colors duration-300" style={{ 
           fontFamily: modoRebelde ? 'var(--fonte-mono)' : 'inherit', 
@@ -41,9 +35,9 @@ function Sobre({ isBugged: isBuggedGlobal }) {
             ? 'Nós não otimizamos. Nós subjugamos. O teu cérebro é o nosso novo hardware. Bem-vindo à tua prisão de carne.' 
             : (
               <>
-                A {/* LINK ESCONDIDO DA URWELL (TWITTER) */}
+                A{' '}
                 <a 
-                  href="https://twitter.com/UrWell_Oficial" 
+                  href="https://www.instagram.com/urwell_corp/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   style={{ color: 'inherit', textDecoration: 'none', cursor: 'pointer', fontWeight: 'bold' }}
@@ -51,11 +45,21 @@ function Sobre({ isBugged: isBuggedGlobal }) {
                   onMouseOut={(e) => e.target.style.color = 'inherit'}
                 >
                   UrWell
-                </a> foi fundada com um único propósito: libertar a humanidade do fardo exaustivo do pensamento crítico. Mantemos uma{' '}
+                </a>{' '}
+                foi fundada com um único propósito: libertar a humanidade do fardo exaustivo do{' '}
+                <a 
+                  href="https://x.com/urwell_corp" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ color: 'inherit', textDecoration: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                  onMouseOver={(e) => e.target.style.color = 'var(--cor-verde, #91D100)'}
+                  onMouseOut={(e) => e.target.style.color = 'inherit'}
+                >
+                  pensamento crítico
+                </a>. Mantemos uma{' '}
                 
-                {/* ======================================================== */}
-                {/* O TEU NOVO LINK SECRETO ESTÁ AQUI */}
-                {/* ======================================================== */}
+                
+                {/* LINK SECRETO ESTÁ AQUI */}
                 <Link 
                   to="/diario-secreto" 
                   style={{ 
@@ -72,7 +76,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
         </p>
       </section>
 
-      {/* 2. MISSÃO & VISÃO */}
+     
       <section className="sobre-missao-visao">
         <div className="text-block">
           <h2 className="transition-colors duration-300" style={{ color: modoRebelde ? 'var(--cor-vermelho)' : 'inherit' }}>
@@ -83,9 +87,9 @@ function Sobre({ isBugged: isBuggedGlobal }) {
             {modoRebelde 
               ? (
                 <>
-                  Infiltrar cada sinapse e destruir a {/* LINK DA RESISTÊNCIA COM TREMOR CONTÍNUO NO HOVER */}
+                  Infiltrar cada sinapse e destruir a 
                   <a 
-                    href="https://instagram.com/Unprompted_Resistencia" 
+                    href="https://www.instagram.com/unprompted2026/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     onMouseEnter={() => setIsHovered(true)}
@@ -123,7 +127,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
           </p>
         </div>
         
-        {/* IMAGEM QUE MUDA DE ASPETO */}
+        
         <div 
           className="image-block sobre-image-1 transition-all duration-500" 
           style={{ 
@@ -133,7 +137,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
         ></div>
       </section>
 
-      {/* 3. OS PILARES */}
+      
       <section 
         className="sobre-valores transition-colors duration-500" 
         style={{ 
@@ -144,7 +148,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
           textAlign: 'center', 
           marginBottom: '40px', 
           color: modoRebelde ? 'var(--cor-vermelho, red)' : 'var(--cor-preto, black)',
-          wordBreak: 'break-word' /* Impede que o título gigante parta o layout */
+          wordBreak: 'break-word' 
         }}>
           {modoRebelde ? 'PROTOCOLOS_DE_CONTROLO' : 'Os Pilares UrWell'}
         </h2>
@@ -158,7 +162,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
             <div key={i} className="valor-card transition-all duration-300" style={{ 
               background: modoRebelde ? '#0a0a0a' : 'white',
               borderColor: modoRebelde ? 'var(--cor-vermelho, red)' : '#eee',
-              wordBreak: 'break-word' /* A MAGIA: Garante que as palavras não expandem a grelha! */
+              wordBreak: 'break-word' 
             }}>
               <h3 style={{ color: modoRebelde ? 'var(--cor-vermelho, red)' : 'inherit' }}>
                 {modoRebelde ? pilar.b : pilar.t}

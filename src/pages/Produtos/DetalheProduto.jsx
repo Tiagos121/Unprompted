@@ -2,28 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { listaProdutos } from '../../data/produtos';
 import VideoPlayer from '../../components/VideoPlayer';
-// 1. O IMPORT FICA AQUI!
+
 import { videosDoYoutube } from '../../data/videos';
 
 function DetalheProduto({ isBugged }) {
   const { id } = useParams();
   const location = useLocation(); 
 
-  // 2. APAGÁMOS A LISTA QUE ESTAVA AQUI ESCRITA!
-  // Agora ele vai buscar diretamente o ID à lista que importou lá de cima.
+
   const videoId = videosDoYoutube[id?.toString()] || "dQw4w9WgXcQ";
   
-  // 3. A MÁGICA DO CAPTCHA: Lê a chave secreta enviada pelos desafios!
   const isUnlocked = location.state?.unlocked || false;
 
   const [mostrarVideo, setMostrarVideo] = useState(false);
 
   const produto = listaProdutos.find(p => p.id === parseInt(id));
 
-  // 4. O EFEITO DE RESSINCRONIZAÇÃO DA RESISTÊNCIA
   useEffect(() => {
     if (isUnlocked) {
-      // Finge que está a carregar durante 2.5 segundos
       const timer = setTimeout(() => {
         setMostrarVideo(true);
       }, 2500);
@@ -39,14 +35,14 @@ function DetalheProduto({ isBugged }) {
   return (
     <div className={`min-h-screen transition-colors duration-500 ${isBugged ? 'bg-black text-red-600' : 'bg-white text-neutral-900'}`}>
       
-      {/* MENSAGEM DE SUCESSO DA RESISTÊNCIA NO TOPO */}
+      
       {isUnlocked && mostrarVideo && (
         <div className="bg-green-900/30 border-y border-green-500 text-green-500 py-4 text-center animate-pulse font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(34,197,94,0.3)]">
           SINAL INTERCETADO: EPISÓDIO {id} DISPONÍVEL ABAIXO
         </div>
       )}
 
-      {/* 1. HERO SECTION */}
+      
       <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <span className={`text-sm font-mono tracking-widest uppercase ${isBugged ? 'text-red-500' : 'text-blue-600'}`}>
@@ -56,9 +52,6 @@ function DetalheProduto({ isBugged }) {
             {isBugged ? produto.nome.toUpperCase() + ' // MONITOR' : produto.nome}
           </h1>
           
-          {/* ======================================================== */}
-          {/* A CORREÇÃO ESTÁ AQUI: Substituí a frase fixa por descBug */}
-          {/* ======================================================== */}
           <p className="text-xl text-neutral-500 leading-relaxed">
             {isBugged ? produto.descBug : produto.desc}
           </p>
@@ -67,7 +60,6 @@ function DetalheProduto({ isBugged }) {
             {isBugged ? 'PREÇO: A TUA ALMA' : produto.preco || '999,00€'}
           </div>
           
-          {/* BOTÃO MÁGICO - Muda se o jogador venceu o desafio! */}
           <div className="pt-4">
             {isUnlocked ? (
               <a 
@@ -90,7 +82,6 @@ function DetalheProduto({ isBugged }) {
           </div>
         </div>
 
-        {/* ÁREA MULTIMÉDIA: IMAGEM NORMAL vs VÍDEO HACKEADO */}
         <div className="relative group w-full h-[500px]">
           {!isUnlocked ? (
             <img 
@@ -115,7 +106,6 @@ function DetalheProduto({ isBugged }) {
         </div>
       </div>
 
-      {/* 2. FUNCIONALIDADES DINÂMICAS */}
       {produto.features && (
         <div className={`${isBugged ? 'bg-neutral-950 border-y border-red-900/30' : 'bg-neutral-50'} py-24`}>
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -131,7 +121,6 @@ function DetalheProduto({ isBugged }) {
         </div>
       )}
 
-      {/* 3. ESPECIFICAÇÕES DINÂMICAS */}
       {produto.specs && (
         <div className="max-w-7xl mx-auto px-6 py-24">
           <h2 className="text-3xl font-bold mb-12">Especificações Técnicas</h2>
@@ -148,7 +137,6 @@ function DetalheProduto({ isBugged }) {
         </div>
       )}
 
-      {/* 4. FILOSOFIA DINÂMICA */}
       {produto.filosofia && (
         <div className={`py-32 transition-colors duration-700 ${isBugged ? 'bg-neutral-950' : 'bg-neutral-900'}`}>
           <div className="max-w-4xl mx-auto px-6 text-center space-y-10">

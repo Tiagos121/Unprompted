@@ -21,15 +21,13 @@ import DiarioSecreto from './pages/DiarioSecreto';
 import './styles/globais.css';
 
 function App() {
-  // 1. INICIALIZAÇÃO INTELIGENTE: Lê o localStorage ao abrir o site
   const [isBugged, setIsBugged] = useState(() => {
     const guardado = localStorage.getItem('urwell_modo_bug');
-    return guardado === 'true'; // Retorna true se a Resistência já estava ativa
+    return guardado === 'true';
   });
 
   useTema(isBugged);
 
-  // 2. A FUNÇÃO DE ALTERAÇÃO: Muda o estado e guarda a escolha no navegador
   const toggleBugMode = () => {
     setIsBugged((estadoAnterior) => {
       const novoEstado = !estadoAnterior;
@@ -43,31 +41,24 @@ function App() {
       <Router>
         <ScrollToTop />
         
-        {/* 3. Atualizamos a Navbar para usar a nova função */}
         <Navbar toggleBug={toggleBugMode} isBugged={isBugged} />
         
         <Routes>
-          {/* PÁGINAS PRINCIPAIS */}
           <Route path="/" element={<Home isBugged={isBugged} />} />
           <Route path="/novidades" element={<Novidades isBugged={isBugged} />} />
           <Route path="/sobre" element={<Sobre isBugged={isBugged} />} />
           <Route path="/diario-secreto" element={<DiarioSecreto isBugged={isBugged} />} />
           <Route path="/suporte" element={<Suporte isBugged={isBugged} />} />
 
-          {/* ROTA SECRETA */}
           <Route path="/ur-admin" element={<AdminLogin />} />
           
-          {/* CATÁLOGO DE PRODUTOS */}
           <Route path="/produtos" element={<ListaProdutos isBugged={isBugged} />} />
           
-          {/* 2. A ROLETA (A nova ponte obrigatória) */}
           <Route path="/captcha/:id" element={<CaptchaRandom isBugged={isBugged} />} />
           
-          {/* 3. PÁGINA FINAL DO PRODUTO */}
           <Route path="/produtos/:id" element={<DetalheProduto isBugged={isBugged} />} />
         </Routes>
 
-        {/* 4. Atualizamos o Footer para usar a nova função */}
         <Footer 
           isBugged={isBugged} 
           toggleBugMode={toggleBugMode} 

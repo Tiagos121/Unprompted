@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // 1. ADICIONAR: Importação do useNavigate
+import { useNavigate } from 'react-router-dom';
 
-// 2. ADICIONAR: A prop 'idProduto' entra aqui ao lado do isBugged
 function Desafio1({ isBugged, idProduto }) {
-  const navigate = useNavigate(); // <-- Colocar logo no topo da função
+  const navigate = useNavigate(); 
 
   const [caos, setCaos] = useState(0);
   const [desbloqueado, setDesbloqueado] = useState(false);
-  // NOTA: Qualquer referência ao 'mostrarVideo' ou 'setMostrarVideo' tem de ser APAGADA.
 
-  // A máquina tenta sempre acalmar o sistema (reduz o caos para 0)
   useEffect(() => {
     if (desbloqueado) return;
 
@@ -20,11 +17,9 @@ function Desafio1({ isBugged, idProduto }) {
     return () => clearInterval(estabilizador);
   }, [desbloqueado]);
 
-  // Sempre que o rato se mexe, gera Caos! (Requer agitar muito rápido)
   const lidarComMovimento = (e) => {
     if (desbloqueado) return;
 
-    // Calcula a velocidade do movimento do rato
     const intensidade = Math.abs(e.movementX) + Math.abs(e.movementY);
     
     if (intensidade > 5) {
@@ -32,7 +27,7 @@ function Desafio1({ isBugged, idProduto }) {
         const novoCaos = prev + 1.5;
         if (novoCaos >= 100) {
           setDesbloqueado(true);
-          // 3. APAGAR: Antes estava aqui um setTimeout(setMostrarVideo...), APAGA ISSO!
+
           return 100;
         }
         return novoCaos;
@@ -90,8 +85,7 @@ function Desafio1({ isBugged, idProduto }) {
             <h2 className="text-4xl font-bold animate-pulse">SENSOR DESTRUÍDO</h2>
             <p className="text-xl text-white">Foco quebrado com sucesso.</p>
             
-            {/* 4. A GRANDE MUDANÇA: Onde estava o código do VideoPlayer, entra apenas o Botão de Voltar! */}
-            {/* NOTA DE MESTRE: Como a tua caixa principal tem pointer-events-none, tive de adicionar pointer-events-auto neste botão para ele conseguir ser clicado! */}
+
             <button 
               onClick={() => navigate(`/produtos/${idProduto}`, { state: { unlocked: true } })}
               className="mt-8 px-10 py-4 bg-green-900/30 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-black font-bold text-xl transition-all uppercase tracking-widest pointer-events-auto"

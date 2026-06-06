@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// IMPORTANTE: Adicionámos aqui o updateDoc!
 import { collection, getDocs, addDoc, deleteDoc, updateDoc, doc, orderBy, query } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth } from '../config/firebase';
@@ -11,22 +10,22 @@ function Novidades({ isBugged }) {
   const [carregando, setCarregando] = useState(true);
   const [atualizarLista, setAtualizarLista] = useState(0);
 
-  // Paginação
+
   const [limiteVisivel, setLimiteVisivel] = useState(3);
 
-  // Formulário de Criação
+
   const [mostrarForm, setMostrarForm] = useState(false);
   const [novoTitulo, setNovoTitulo] = useState('');
   const [novaData, setNovaData] = useState('');
   const [novoSubtitulo, setNovoSubtitulo] = useState('');
 
-  // ESTADOS DE EDIÇÃO (A nova magia!)
-  const [editandoId, setEditandoId] = useState(null); // Guarda o ID do cartão que está a ser editado
+ 
+  const [editandoId, setEditandoId] = useState(null); 
   const [editTitulo, setEditTitulo] = useState('');
   const [editData, setEditData] = useState('');
   const [editSubtitulo, setEditSubtitulo] = useState('');
 
-  // 1. Verifica o Admin
+ 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsAdmin(!!user); 
@@ -34,7 +33,7 @@ function Novidades({ isBugged }) {
     return () => unsubscribe();
   }, []);
 
-  // 2. Buscar Novidades
+  
   useEffect(() => {
     const buscarNovidades = async () => {
       try {
@@ -55,7 +54,7 @@ function Novidades({ isBugged }) {
     buscarNovidades();
   }, [atualizarLista]);
 
-  // 3. Adicionar Novidade
+  
   const handleAdicionar = async (e) => {
     e.preventDefault();
     try {
@@ -80,7 +79,7 @@ function Novidades({ isBugged }) {
     }
   };
 
-  // 4. Apagar Novidade
+ 
   const handleApagar = (id) => {
     Swal.fire({
       title: "Purgar Registo?",
@@ -104,7 +103,7 @@ function Novidades({ isBugged }) {
     });
   };
 
-  // 5. INICIAR EDIÇÃO (Copia os dados do cartão para os inputs)
+ 
   const iniciarEdicao = (item) => {
     setEditandoId(item.id);
     setEditTitulo(item.titulo);
@@ -112,7 +111,7 @@ function Novidades({ isBugged }) {
     setEditSubtitulo(item.subtitulo);
   };
 
-  // 6. GUARDAR EDIÇÃO
+
   const guardarEdicao = async (id) => {
     try {
       await updateDoc(doc(db, "novidades", id), {
@@ -120,15 +119,15 @@ function Novidades({ isBugged }) {
         data: editData,
         subtitulo: editSubtitulo
       });
-      setEditandoId(null); // Sai do modo de edição
-      setAtualizarLista(prev => prev + 1); // Recarrega a lista
+      setEditandoId(null);
+      setAtualizarLista(prev => prev + 1); 
       
       Swal.fire({
         title: "Atualizado!",
         text: "O registo foi reescrito com sucesso.",
         icon: "success",
         confirmButtonColor: "#000000",
-        timer: 1500, // Fecha sozinho passado 1.5s
+        timer: 1500, 
         showConfirmButton: false
       });
     } catch {
@@ -148,7 +147,7 @@ function Novidades({ isBugged }) {
     <div className={isBugged ? 'tema-bug' : 'tema-urwell'} style={{ minHeight: '100vh', transition: 'all 0.5s ease' }}>
       <div className="page-container">
         
-        {/* CABEÇALHO */}
+        
         <section className="page-header" style={{ position: 'relative' }}>
           <h1 style={isBugged ? { color: 'var(--cor-vermelho)' } : {}}>
             {isBugged ? 'Registos de Purga' : 'Comunicados Oficiais'}
@@ -157,7 +156,7 @@ function Novidades({ isBugged }) {
             {isBugged ? 'Acesso não autorizado detetado.' : 'As últimas atualizações do ecossistema UrWell.'}
           </p>
 
-          {/* CONTROLOS DE ADMIN */}
+          
           {isAdmin && (
             <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center', gap: '15px' }}>
               <button 
@@ -170,7 +169,7 @@ function Novidades({ isBugged }) {
           )}
         </section>
 
-        {/* FORMULÁRIO DE ADICIONAR */}
+        
         {isAdmin && mostrarForm && (
           <form onSubmit={handleAdicionar} style={{ background: '#f5f5f5', padding: '30px', borderRadius: '16px', marginBottom: '40px', border: '1px solid #ddd', color: 'black' }}>
             <h3 style={{ marginBottom: '20px' }}>Criar Novo Registo</h3>
@@ -192,7 +191,7 @@ function Novidades({ isBugged }) {
           </form>
         )}
 
-        {/* LISTA DE NOVIDADES */}
+        
         <div className="news-list">
           {novidadesVisiveis.length === 0 ? (
             <p style={{ textAlign: 'center', color: 'var(--cor-cinza)' }}>Nenhum comunicado disponível.</p>
@@ -209,9 +208,8 @@ function Novidades({ isBugged }) {
                 } : { position: 'relative' }}
               >
                 
-                {/* LÓGICA DE EDIÇÃO vs MODO NORMAL */}
+                
                 {editandoId === item.id ? (
-                  // ----- MODO DE EDIÇÃO IN-LINE -----
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', color: 'black' }}>
                     <div style={{ display: 'flex', gap: '15px' }}>
                       <input 
@@ -238,12 +236,11 @@ function Novidades({ isBugged }) {
                     </div>
                   </div>
                 ) : (
-                  // ----- MODO DE LEITURA NORMAL -----
                   <>
-                    {/* BOTÕES DE AÇÃO (Lápis e Lixo - Só para Admin) */}
+                    
                     {isAdmin && (
                       <div style={{ position: 'absolute', top: '20px', right: '20px', display: 'flex', gap: '10px' }}>
-                        {/* Lápis (Editar) */}
+                        
                         <button 
                           onClick={() => iniciarEdicao(item)}
                           style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#007AFF' }}
@@ -253,7 +250,7 @@ function Novidades({ isBugged }) {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                           </svg>
                         </button>
-                        {/* Lixo (Apagar) */}
+                        
                         <button 
                           onClick={() => handleApagar(item.id)}
                           style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--cor-vermelho)' }}
@@ -284,7 +281,7 @@ function Novidades({ isBugged }) {
           )}
         </div>
 
-        {/* PAGINAÇÃO (Ver mais) */}
+        
         {limiteVisivel < novidades.length && (
           <div style={{ textAlign: 'center', marginTop: '50px' }}>
             <button 

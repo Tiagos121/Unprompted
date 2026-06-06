@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { db, auth } from '../config/firebase'; // <- Adicionámos o db aqui!
-// IMPORTANTÍSSIMO: Importar os comandos do Firestore
+import { db, auth } from '../config/firebase'; 
+
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore'; 
 import Swal from 'sweetalert2';
 import emailjs from '@emailjs/browser';
 import { useGlitchDinamico } from '../hooks/useGlitchDinamico';
 
 function Suporte({ isBugged }) {
-  const [faqs, setFaqs] = useState([]); // Começa vazio, vai buscar à net
+  const [faqs, setFaqs] = useState([]); 
   const [carregandoFaqs, setCarregandoFaqs] = useState(true);
   const [indiceAtual, setIndiceAtual] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -22,7 +22,7 @@ function Suporte({ isBugged }) {
   const [editANormal, setEditANormal] = useState('');
   const [editABugged, setEditABugged] = useState('');
 
-  // 1. VERIFICAR ADMIN
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsAdmin(!!user); 
@@ -30,13 +30,13 @@ function Suporte({ isBugged }) {
     return () => unsubscribe();
   }, []);
 
-  // 2. BUSCAR FAQS À BASE DE DADOS (FIRESTORE)
+ 
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'faqs'));
         const faqsData = querySnapshot.docs.map(doc => ({
-          id: doc.id, // O ID agora é a chave única gerada pelo Firebase
+          id: doc.id, 
           ...doc.data()
         }));
         setFaqs(faqsData);
@@ -67,16 +67,16 @@ function Suporte({ isBugged }) {
 
   const faqsVisiveis = faqs.slice(indiceAtual, indiceAtual + 2);
 
-  // 3. ADICIONAR FAQ À BASE DE DADOS
+  
   const handleAdicionar = async (e) => {
     e.preventDefault();
     try {
       const novaFaqData = { q: novaQ, aNormal: novaANormal, aBugged: novaABugged, dataCriacao: new Date() };
       
-      // Envia para o Firebase
+      
       const docRef = await addDoc(collection(db, 'faqs'), novaFaqData);
       
-      // Atualiza o ecrã com o ID real que veio do Firebase
+      
       const novaFaq = { id: docRef.id, ...novaFaqData };
       setFaqs([...faqs, novaFaq]);
       
@@ -88,7 +88,7 @@ function Suporte({ isBugged }) {
     }
   };
 
-  // 4. APAGAR FAQ DA BASE DE DADOS
+  
   const handleApagar = (id) => {
     Swal.fire({
       title: "Purgar Pergunta?",
@@ -98,10 +98,9 @@ function Suporte({ isBugged }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          // Apaga no Firebase
           await deleteDoc(doc(db, 'faqs', id));
           
-          // Apaga no ecrã
+          
           const novasFaqs = faqs.filter(f => f.id !== id);
           setFaqs(novasFaqs);
           if (indiceAtual >= novasFaqs.length) setIndiceAtual(Math.max(0, novasFaqs.length - 2));
@@ -114,18 +113,16 @@ function Suporte({ isBugged }) {
     });
   };
 
-  // 5. EDITAR FAQ NA BASE DE DADOS
+
   const iniciarEdicao = (faq) => {
     setEditandoId(faq.id); setEditQ(faq.q); setEditANormal(faq.aNormal); setEditABugged(faq.aBugged);
   };
 
   const guardarEdicao = async (id) => {
     try {
-      // Atualiza no Firebase
       const faqRef = doc(db, 'faqs', id);
       await updateDoc(faqRef, { q: editQ, aNormal: editANormal, aBugged: editABugged });
 
-      // Atualiza no ecrã
       const novasFaqs = faqs.map(f => f.id === id ? { ...f, q: editQ, aNormal: editANormal, aBugged: editABugged } : f);
       setFaqs(novasFaqs);
       setEditandoId(null);
@@ -183,7 +180,7 @@ function Suporte({ isBugged }) {
         <div className="faq-section">
           <h2 style={{ marginBottom: '30px', textAlign: 'center' }}>Perguntas Frequentes</h2>
           
-          {/* Mostra um aviso enquanto carrega da net */}
+          
           {carregandoFaqs ? (
             <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
                A ligar aos servidores Centrais UrWell...
@@ -254,7 +251,7 @@ function Suporte({ isBugged }) {
           )}
         </div>
 
-        {/* ... FORMULÁRIO DE CONTACTO DA URWELL (CÓDIGO MANTIDO INTACTO) ... */}
+        
         <div className="bci-form-container transition-colors duration-700" style={{ marginTop: '60px', background: modoRebelde ? '#111' : '#f5f5f7', padding: '30px', borderRadius: '8px' }}>
           <h3 className="transition-colors duration-500" style={{ color: modoRebelde ? 'red' : 'inherit' }}>
             {modoRebelde ? 'REPORTAR_DISSIDÊNCIA' : 'Submeter Relatório de Incidente'}

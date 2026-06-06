@@ -13,7 +13,7 @@ function AdminLogin() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/novidades'); // Se acertar, é atirado para as novidades!
+      navigate('/novidades'); 
     } catch {
       setErro('Acesso Negado. Credenciais inválidas.');
     }

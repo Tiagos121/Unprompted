@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // 1. ADICIONAR: Importação do useNavigate
+import { useNavigate } from 'react-router-dom';
 
-// 2. ADICIONAR: A prop 'idProduto' entra aqui
 function Desafio3({ isBugged, idProduto }) {
-  const navigate = useNavigate(); // <-- Inicializar o navigate
+  const navigate = useNavigate();
 
   const [statusJogo, setStatusJogo] = useState('idle'); 
   const [fragmento, setFragmento] = useState(null);
   const [apanhados, setApanhados] = useState(0);
   const [perdidos, setPerdidos] = useState(0);
-  // NOTA: O estado 'mostrarVideo' foi APAGADO.
 
   const temporizadorRemocao = useRef(null);
 
@@ -54,7 +52,7 @@ function Desafio3({ isBugged, idProduto }) {
       const novosApanhados = prev + 1;
       if (novosApanhados >= 10) { 
         setStatusJogo('won');
-        // 3. APAGAR: O setTimeout que ligava o vídeo foi removido.
+        
       }
       return novosApanhados;
     });
@@ -129,7 +127,7 @@ function Desafio3({ isBugged, idProduto }) {
           </div>
         )}
 
-        {/* 4. A GRANDE MUDANÇA: Substituição do VideoPlayer pelo botão de retorno */}
+        
         {statusJogo === 'won' && (
           <div className="space-y-6 text-green-500 pt-8 animate-in fade-in zoom-in duration-700">
             <h2 className="text-4xl font-bold animate-pulse">ACORDASTE.</h2>

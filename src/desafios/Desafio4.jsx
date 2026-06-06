@@ -1,34 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // 1. ADICIONAR: Importação do useNavigate
+import { useNavigate } from 'react-router-dom'; 
 
-// 2. ADICIONAR: A prop 'idProduto' entra aqui
 function Desafio4({ isBugged, idProduto }) {
-  const navigate = useNavigate(); // <-- Inicializar o navigate
+  const navigate = useNavigate();
 
-  // O estado de cada uma das 3 palavras da frase (0 = UrWell, 1 = Neutro, 2 = Verdade)
   const [indices, setIndices] = useState([0, 0, 0]);
   const [desbloqueado, setDesbloqueado] = useState(false);
   const [mensagem, setMensagem] = useState("VALIDAÇÃO DE PENSAMENTO OBRIGATÓRIA.");
-  // NOTA: O estado 'mostrarVideo' foi APAGADO.
 
-  // Os dicionários para cada espaço na frase
   const palavra1 = ["SALVAÇÃO", "MÁQUINA", "PRISÃO"];
   const palavra2 = ["BÊNÇÃO", "CALMA", "CEGUEIRA"];
   const palavra3 = ["SILÊNCIO", "ROTINA", "REVOLTA"];
 
-  // O "MOTOR DE CENSURA" - O Autocorretor da UrWell!
   useEffect(() => {
     if (desbloqueado) return;
 
     const autocorretor = setInterval(() => {
       setIndices((prev) => {
-        // Procura se o utilizador alterou alguma palavra (se o índice for diferente de 0)
         const palavrasAlteradas = prev.map((val, i) => val !== 0 ? i : -1).filter(i => i !== -1);
         
-        // Se estiver tudo no modo UrWell, a máquina não faz nada
         if (palavrasAlteradas.length === 0) return prev;
 
-        // Se apanhar rebeldia, escolhe uma das palavras alteradas ao calhas e força-a de volta a 0!
         const alvoCensura = palavrasAlteradas[Math.floor(Math.random() * palavrasAlteradas.length)];
         const novosIndices = [...prev];
         novosIndices[alvoCensura] = 0;
@@ -36,37 +28,33 @@ function Desafio4({ isBugged, idProduto }) {
         setMensagem("CENSURA ATIVA: Pensamento divergente corrigido.");
         return novosIndices;
       });
-    }, 2000); // O corretor ataca a cada 2 segundos! Tens de ser rápido!
+    }, 2000); 
 
     return () => clearInterval(autocorretor);
   }, [desbloqueado]);
 
-  // Função para quando o jogador clica numa palavra para a mudar
   const alterarPalavra = (posicao) => {
     if (desbloqueado) return;
     setIndices((prev) => {
       const novos = [...prev];
-      novos[posicao] = (novos[posicao] + 1) % 3; // Roda entre 0, 1 e 2
+      novos[posicao] = (novos[posicao] + 1) % 3; 
       setMensagem("Aviso: Padrão de pensamento não autorizado.");
       return novos;
     });
   };
 
-  // O Botão de Submeter
   const tentarSubmeter = () => {
     if (desbloqueado) return;
 
-    // Se o jogador submeter a propaganda normal da UrWell (0,0,0)
     if (indices[0] === 0 && indices[1] === 0 && indices[2] === 0) {
       setMensagem("OBEDIÊNCIA REGISTADA. Mas o sistema exige submissão total.");
       return;
     }
 
-    // A CONDIÇÃO DE VITÓRIA: As 3 palavras no índice 2 (A Verdade!)
     if (indices[0] === 2 && indices[1] === 2 && indices[2] === 2) {
       setDesbloqueado(true);
       setMensagem("FILTRO CORROMPIDO. VERDADE EXPOSTA.");
-      // 3. APAGAR: O setTimeout do vídeo foi removido daqui!
+
     } else {
       setMensagem("ERRO LÓGICO: A frase não faz sentido para o sistema.");
     }
@@ -88,7 +76,6 @@ function Desafio4({ isBugged, idProduto }) {
               {mensagem}
             </p>
 
-            {/* A DICA DA RESISTÊNCIA */}
             <div className="h-24 flex items-center justify-center">
               {isBugged && (
                 <div className="bg-red-900/30 p-4 border border-red-500">
@@ -101,7 +88,7 @@ function Desafio4({ isBugged, idProduto }) {
               )}
             </div>
 
-            {/* O PUZZLE DE TEXTO */}
+
             <div className="bg-neutral-900 p-8 rounded border border-neutral-800 text-2xl md:text-3xl text-left leading-loose select-none shadow-inner">
               <span className="text-white">A UrWell é a nossa </span>
               <button 
@@ -129,7 +116,7 @@ function Desafio4({ isBugged, idProduto }) {
               <span className="text-white">.</span>
             </div>
 
-            {/* O BOTÃO DE AÇÃO */}
+            
             <button 
               onClick={tentarSubmeter}
               className={`w-full py-6 text-2xl font-bold rounded-lg border-4 transition-transform active:scale-95 uppercase ${
@@ -144,7 +131,7 @@ function Desafio4({ isBugged, idProduto }) {
           </div>
         ) : (
           
-          /* 4. A GRANDE MUDANÇA: ECRÃ DE VITÓRIA E BOTÃO DE REGRESSO */
+          
           <div className="space-y-6 text-green-500 pt-8 animate-in fade-in zoom-in duration-700">
             <h2 className="text-4xl font-bold animate-pulse">CENSURA DESTRUÍDA.</h2>
             <p className="text-xl text-white">
