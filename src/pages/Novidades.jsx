@@ -12,6 +12,7 @@ function Novidades({ isBugged }) {
 
 
   const [limiteVisivel, setLimiteVisivel] = useState(3);
+  const [ordem, setOrdem] = useState("desc");
 
 
   const [mostrarForm, setMostrarForm] = useState(false);
@@ -37,7 +38,7 @@ function Novidades({ isBugged }) {
   useEffect(() => {
     const buscarNovidades = async () => {
       try {
-        const q = query(collection(db, "novidades"), orderBy("data", "asc"));
+       const q = query(collection(db, "novidades"), orderBy("data", ordem));
         const querySnapshot = await getDocs(q);
         const listaNovidades = querySnapshot.docs.map(doc => ({
           id: doc.id,
@@ -52,7 +53,7 @@ function Novidades({ isBugged }) {
     };
 
     buscarNovidades();
-  }, [atualizarLista]);
+  }, [atualizarLista, ordem]);
 
   
   const handleAdicionar = async (e) => {
@@ -191,7 +192,31 @@ function Novidades({ isBugged }) {
           </form>
         )}
 
-        
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '40px' }}>
+          <select 
+            value={ordem} 
+            onChange={(e) => setOrdem(e.target.value)}
+            style={{
+              
+              padding: '10px 35px 10px 15px', 
+              borderRadius: '8px', 
+              border: isBugged ? '2px solid var(--cor-vermelho)' : '1px solid #ccc',
+              background: isBugged ? '#0a0a0a' : '#fff',
+              color: isBugged ? 'var(--cor-vermelho)' : '#333',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontFamily: 'inherit',
+              fontSize: '0.95rem',
+              outline: 'none',
+              boxShadow: isBugged ? 'none' : '0 2px 4px rgba(0,0,0,0.05)',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            <option value="desc">↓ Mais Recentes Primeiro</option>
+            <option value="asc">↑ Mais Antigos Primeiro</option>
+          </select>
+        </div>
+
         <div className="news-list">
           {novidadesVisiveis.length === 0 ? (
             <p style={{ textAlign: 'center', color: 'var(--cor-cinza)' }}>Nenhum comunicado disponível.</p>

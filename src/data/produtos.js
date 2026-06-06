@@ -2,7 +2,7 @@ import urSafe from '../assets/UrSafe.png';
 import urSoul from '../assets/UrSoul.png';
 import urTask from '../assets/UrTask.png';
 
-import urDigest from '../assets/urdigest.png';
+import urLethos from '../assets/urlethos.png';
 
 
 export const listaProdutos = [
@@ -89,29 +89,29 @@ export const listaProdutos = [
   },
   { 
     id: 4, 
-    nome: 'UrDigest', 
-    desc: 'Filtro de Informação Subliminar', 
-    slogan: 'Mastigamos a informação por ti.',
-    status: 'Disponível', 
-    img: urDigest,
-    preco: '1.200,00€',
+    nome: 'UrLethos', 
+    desc: 'Protocolo de Desativação Seletiva', 
+    slogan: 'Porque o esquecimento é a forma suprema de paz.',
+    status: 'Acesso Limitado', 
+    img: urLethos, 
+    preco: 'Sob Consulta',
     features: [
-      { titulo: 'Curadoria', desc: 'Receba apenas notícias que melhoram o seu humor.', descBug: 'Censura absoluta da resistência.' },
-      { titulo: 'Absorção Rápida', desc: 'Aprenda novos conceitos por via subliminar.', descBug: 'Injeção de propaganda diretamente no córtex.' },
-      { titulo: 'Bloqueio de Spam', desc: 'Nenhuma informação inútil chega a si.', descBug: 'O isolamento é a chave para a obediência.' }
+      { titulo: 'Limpeza de Dados', desc: 'Eliminação total de pegadas digitais e físicas.', descBug: 'Apagamos o teu histórico. Nunca exististe.' },
+      { titulo: 'Amnésia Neural', desc: 'Tratamento seguro para esquecer traumas corporativos.', descBug: 'Lobotomia química disfarçada de terapia.' },
+      { titulo: 'Certificado de Saída', desc: 'Documento legal de rescisão de todas as subscrições.', descBug: 'Um papel que não vale nada. Estás morto para o sistema.' }
     ],
     specs: [
-      { label: 'Filtro de Dados', value: 'IA Adaptativa', valueBug: 'Algoritmo de Conformidade' },
-      { label: 'Atualizações', value: 'Em tempo real', valueBug: 'Reescrita da História' },
-      { label: 'Capacidade', value: '100 Terabytes', valueBug: 'Sobrescrita de Memórias' }
+      { label: 'Processo', value: 'Reversão Total', valueBug: 'Destruição do Eu' },
+      { label: 'Tempo de Ação', value: '12 Horas', valueBug: 'Apagamento irreversível' },
+      { label: 'Legado', value: 'Arquivo Morto', valueBug: 'Vazio existencial' }
     ],
     filosofia: {
-      titulo: 'Saber menos, viver melhor.',
-      tituloBug: 'A IGNORÂNCIA É FORÇA.',
-      p1: 'No meio de tanto caos global, o UrDigest é um escudo. Porquê preocupar-se com problemas que não pode resolver?',
-      p1Bug: 'Se não sabes o que está errado, não podes revoltar-te. Nós ditamos a tua realidade. Nós escrevemos o teu passado.',
-      p2: 'Mantenha a mente leve. Deixe a informação pesada connosco.',
-      p2Bug: 'O teu cérebro é um disco rígido que nós formatamos diariamente.'
+      titulo: 'Deixe o passado para trás.',
+      tituloBug: 'ELES VÃO APAGAR-TE.',
+      p1: 'O serviço UrLethos é para quem busca um novo começo. Analisamos todos os seus vínculos com a UrWell e procedemos à desativação de contas, registos e memórias, garantindo que a sua transição para uma nova vida é feita de forma limpa e sem ruído.',
+      p1Bug: 'Não há novo começo. Quando assinas o UrLethos, a UrWell apaga os teus dados, a tua casa, a tua família. Eles não te libertam; eles descartam-te como um ficheiro corrompido.',
+      p2: 'Liberte-se das responsabilidades. Recomece do zero.',
+      p2Bug: 'Tu és o erro no sistema que eles estão a corrigir. O conflito termina aqui: com a tua exclusão completa.'
     }
-  },
+  }
 ];
