@@ -2,22 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { listaProdutos } from '../../data/produtos';
 import VideoPlayer from '../../components/VideoPlayer';
-
-import { videosDoYoutube } from '../../data/videos';
+import { db } from '../../config/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 function DetalheProduto({ isBugged }) {
   const { id } = useParams();
   const location = useLocation(); 
-
-
-  const videoId = videosDoYoutube[id?.toString()] || "dQw4w9WgXcQ";
-  
   const isUnlocked = location.state?.unlocked || false;
 
   const [mostrarVideo, setMostrarVideo] = useState(false);
+  
+  
+  const [videoIdFirestore, setVideoIdFirestore] = useState("iMf9765Ks1U"); 
 
   const produto = listaProdutos.find(p => p.id === parseInt(id));
 
+  
+  useEffect(() => {
+    const fetchVideo = async () => {
+      try {
+        const docRef = doc(db, "config", "videos");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists() && docSnap.data().links) {
+          const linkAtual = docSnap.data().links[id?.toString()];
+          if (linkAtual) setVideoIdFirestore(linkAtual);
+        }
+      } catch (error) {
+        console.error("Erro a carregar vídeo do Firebase:", error);
+      }
+    };
+    fetchVideo();
+  }, [id]);
+
+  
   useEffect(() => {
     if (isUnlocked) {
       const timer = setTimeout(() => {
@@ -35,14 +52,12 @@ function DetalheProduto({ isBugged }) {
   return (
     <div className={`min-h-screen transition-colors duration-500 ${isBugged ? 'bg-black text-red-600' : 'bg-white text-neutral-900'}`}>
       
-      
       {isUnlocked && mostrarVideo && (
         <div className="bg-green-900/30 border-y border-green-500 text-green-500 py-4 text-center animate-pulse font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(34,197,94,0.3)]">
           SINAL INTERCETADO: EPISÓDIO {id} DISPONÍVEL ABAIXO
         </div>
       )}
 
-      
       <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <span className={`text-sm font-mono tracking-widest uppercase ${isBugged ? 'text-red-500' : 'text-blue-600'}`}>
@@ -63,7 +78,7 @@ function DetalheProduto({ isBugged }) {
           <div className="pt-4">
             {isUnlocked ? (
               <a 
-                href={`https://www.youtube.com/watch?v=${videoId}`} 
+                href={`https://www.youtube.com/watch?v=${videoIdFirestore}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-block px-10 py-4 bg-red-600 text-white font-bold rounded-full shadow-[0_0_20px_rgba(220,38,38,0.5)] hover:bg-red-700 hover:scale-105 transition-all transform tracking-widest uppercase"
@@ -100,7 +115,7 @@ function DetalheProduto({ isBugged }) {
             </div>
           ) : (
             <div className="absolute inset-0 w-full h-full bg-black rounded-2xl overflow-hidden border-2 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.3)]">
-              <VideoPlayer idProduto={id} />
+              <VideoPlayer videoId={videoIdFirestore} />
             </div>
           )}
         </div>

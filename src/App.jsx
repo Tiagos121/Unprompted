@@ -17,6 +17,7 @@ import DetalheProduto from './pages/Produtos/DetalheProduto';
 import AdminLogin from './pages/AdminLogin';
 import CaptchaRandom from './pages/CaptchaRandom';
 import DiarioSecreto from './pages/DiarioSecreto';
+import AdminVideos from './pages/AdminVideos';
 
 import './styles/globais.css';
 
@@ -53,6 +54,8 @@ function App() {
           <Route path="/ur-admin" element={<AdminLogin />} />
           
           <Route path="/produtos" element={<ListaProdutos isBugged={isBugged} />} />
+
+          <Route path="/admin-videos" element={<AdminVideos />} />
           
           <Route path="/captcha/:id" element={<CaptchaRandom isBugged={isBugged} />} />
           

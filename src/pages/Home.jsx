@@ -12,7 +12,7 @@ import imgReviewBugged2 from '../assets/pessoareviewbug2.png';
 import imgReviewBugged3 from '../assets/pessoareviewbug3.png';
 
 
-import videoNormal from '../assets/unprompted_video.mp4';
+import videoNormal from '../assets/urwell_temp_video.mp4';
 import videoBugged from '../assets/unprompted_video.mp4';
 
 

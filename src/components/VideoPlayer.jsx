@@ -1,14 +1,15 @@
 import React from 'react';
-import { videosDoYoutube } from '../data/videos'; 
 
-function VideoPlayer({ idProduto }) {
-  const videoId = videosDoYoutube[idProduto?.toString()] || "dQw4w9WgXcQ";
+
+function VideoPlayer({ videoId }) {
+  
+  const finalId = videoId || "iMf9765Ks1U";
 
   return (
     <iframe 
       className="w-full h-full" 
-      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`} 
-      title={`Episódio UrWell ${idProduto}`} 
+      src={`https://www.youtube.com/embed/${finalId}?autoplay=1&rel=0&modestbranding=1`} 
+      title={`Episódio UrWell`} 
       frameBorder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
       allowFullScreen
