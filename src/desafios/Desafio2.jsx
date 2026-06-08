@@ -52,41 +52,40 @@ function Desafio2({ isBugged, idProduto }) {
   });
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center p-6 font-mono text-center transition-colors duration-500 ${isBugged ? 'bg-neutral-950 text-red-600' : 'bg-white text-neutral-900'}`}>
+    <div className={`min-h-screen flex flex-col items-center justify-center p-4 md:p-6 font-mono text-center transition-colors duration-500 ${isBugged ? 'bg-neutral-950 text-red-600' : 'bg-white text-neutral-900'}`}>
       
-      <div className="max-w-4xl w-full border border-current p-8 rounded-lg shadow-2xl bg-black relative overflow-hidden">
+      <div className="max-w-4xl w-full border border-current p-6 md:p-8 rounded-lg shadow-2xl bg-black relative overflow-hidden">
         
-        <h1 className="text-3xl font-bold mb-4 border-b border-current pb-4 text-red-600">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 border-b border-current pb-4 text-red-600">
           URWELL // TESTE DE CEGUEIRA SELETIVA
         </h1>
 
         {!desbloqueado ? (
           <div className="space-y-6">
             
-            <div className="h-16 flex items-center justify-center">
+            <div className="min-h-[4rem] md:h-16 flex items-center justify-center">
               {isBugged && (
-                <div className="bg-red-900/30 px-4 py-2 border border-red-500">
-                  <p className="text-lg text-white font-bold animate-pulse">
+                <div className="bg-red-900/30 px-3 md:px-4 py-2 border border-red-500">
+                  <p className="text-sm md:text-lg text-white font-bold animate-pulse">
                     ENCONTRA A PALAVRA "ACORDA" ANTES QUE A TUA VISÃO SEJA APAGADA.
                   </p>
                 </div>
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3 justify-center text-sm md:text-base p-6 bg-neutral-900 rounded border border-neutral-800 select-none">
+            <div className="flex flex-wrap gap-2 md:gap-3 justify-center text-xs md:text-base p-4 md:p-6 bg-neutral-900 rounded border border-neutral-800 select-none">
               {grelha}
             </div>
 
           </div>
         ) : (
-          <div className="space-y-6 text-green-500 pt-10">
-            <h2 className="text-4xl font-bold animate-pulse">ILUSÃO DESFEITA</h2>
-            <p className="text-xl text-white">Os teus olhos agora veem a verdade.</p>
-            
+          <div className="space-y-6 text-green-500 pt-8 md:pt-10">
+            <h2 className="text-3xl md:text-4xl font-bold animate-pulse">ILUSÃO DESFEITA</h2>
+            <p className="text-lg md:text-xl text-white">Os teus olhos agora veem a verdade.</p>
             
             <button 
               onClick={() => navigate(`/produtos/${idProduto}`, { state: { unlocked: true } })}
-              className="mt-8 px-10 py-4 bg-green-900/30 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-black font-bold text-xl transition-all uppercase tracking-widest pointer-events-auto"
+              className="mt-6 md:mt-8 px-6 md:px-10 py-3 md:py-4 bg-green-900/30 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-black font-bold text-lg md:text-xl transition-all uppercase tracking-widest pointer-events-auto"
             >
               Voltar à Loja e Ver Produto
             </button>

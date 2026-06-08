@@ -39,6 +39,19 @@ body {
 h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: bold; }
 button { font-family: var(--fonte-ui); cursor: pointer; }
 
+/* Força a quebra de palavras gigantes  */
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.tema-bug h1, 
+.tema-bug h2, 
+.tema-bug h3 {
+  word-break: break-all;
+}
+
 /* === ESTILOS DA HOMEPAGE === */
 .hero-image-block {
   width: 100%; height: 50vh;
@@ -1109,6 +1122,16 @@ button { font-family: var(--fonte-ui); cursor: pointer; }
   .admin-btn-container {
     margin-top: 20px;
   }
+
+  .values-section { grid-template-columns: 1fr; }
+  .hero-text-block h1 { font-size: 2.5rem; }
+  
+  /* BANNER NO MOBILE */
+  .hero-image-block,
+  .hero-media-block {
+    height: 30vh !important; 
+  }
+  
 }
 
 

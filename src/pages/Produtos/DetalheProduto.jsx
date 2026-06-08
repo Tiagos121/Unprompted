@@ -53,7 +53,7 @@ function DetalheProduto({ isBugged }) {
     <div className={`min-h-screen transition-colors duration-500 ${isBugged ? 'bg-black text-red-600' : 'bg-white text-neutral-900'}`}>
       
       {isUnlocked && mostrarVideo && (
-        <div className="bg-green-900/30 border-y border-green-500 text-green-500 py-4 text-center animate-pulse font-bold tracking-widest uppercase shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+        <div className="bg-green-900/30 border-y border-green-500 text-green-500 py-2 md:py-4 px-2 text-xs md:text-base text-center animate-pulse font-bold tracking-wider md:tracking-widest uppercase shadow-[0_0_15px_rgba(34,197,94,0.3)]">
           SINAL INTERCETADO: EPISÓDIO {id} DISPONÍVEL ABAIXO
         </div>
       )}
