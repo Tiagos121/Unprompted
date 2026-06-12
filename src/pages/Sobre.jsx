@@ -41,7 +41,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
                   target="_blank" 
                   rel="noopener noreferrer"
                   style={{ color: 'inherit', textDecoration: 'none', cursor: 'pointer', fontWeight: 'bold' }}
-                  onMouseOver={(e) => e.target.style.color = 'var(--cor-verde, #91D100)'}
+                  onMouseOver={(e) => e.target.style.color = 'var(--cor-azul, #283e78)'}
                   onMouseOut={(e) => e.target.style.color = 'inherit'}
                 >
                   UrWell
@@ -52,7 +52,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
                   target="_blank" 
                   rel="noopener noreferrer"
                   style={{ color: 'inherit', textDecoration: 'none', cursor: 'pointer', fontWeight: 'bold' }}
-                  onMouseOver={(e) => e.target.style.color = 'var(--cor-verde, #91D100)'}
+                  onMouseOver={(e) => e.target.style.color = 'var(--cor-azul, #283e78)'}
                   onMouseOut={(e) => e.target.style.color = 'inherit'}
                 >
                   pensamento crítico
@@ -173,6 +173,53 @@ function Sobre({ isBugged: isBuggedGlobal }) {
             </div>
           ))}
         </div>
+      </section>
+
+      
+      <section 
+        className="sobre-equipa text-center transition-colors duration-500" 
+        style={{ 
+          padding: '60px 20px',
+          backgroundColor: modoRebelde ? 'black' : 'white',
+          borderTop: modoRebelde ? '1px dashed var(--cor-vermelho, red)' : '1px solid #eee'
+        }}
+      >
+        <h2 style={{ 
+          color: modoRebelde ? 'var(--cor-vermelho, red)' : 'var(--cor-preto, black)',
+          fontFamily: modoRebelde ? 'var(--fonte-mono)' : 'inherit'
+        }}>
+          {modoRebelde ? 'OS_ARQUITETOS_DA_PRISÃO' : 'As Mentes por Trás da UrWell'}
+        </h2>
+        <p style={{ 
+          margin: '20px auto', 
+          maxWidth: '600px',
+          color: modoRebelde ? '#ccc' : '#666'
+        }}>
+          {modoRebelde 
+            ? 'Aqueles que escreveram o código da nossa subjugação. Conhece os teus carcereiros.' 
+            : 'Uma equipa de elite focada exclusivamente em otimizar a tua experiência cognitiva.'}
+        </p>
+        
+        <Link 
+          to="/equipa" 
+          className="transition-all duration-300 hover:scale-105"
+          style={{
+            display: 'inline-block',
+            marginTop: '20px',
+            padding: '14px 36px',
+            backgroundColor: modoRebelde ? 'transparent' : 'black',
+            color: modoRebelde ? 'var(--cor-vermelho, red)' : 'white',
+            border: modoRebelde ? '2px solid var(--cor-vermelho, red)' : 'none',
+            borderRadius: modoRebelde ? '0' : '50px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            fontFamily: modoRebelde ? 'var(--fonte-mono)' : 'inherit',
+            textTransform: 'uppercase',
+            boxShadow: modoRebelde ? '0 0 10px rgba(255,0,0,0.3)' : '0 4px 15px rgba(0,0,0,0.2)'
+          }}
+        >
+          {modoRebelde ? 'INSPECIONAR_REGISTOS_DE_PESSOAL' : 'Conhecer os Desenvolvedores'}
+        </Link>
       </section>
 
     </div>
