@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase'; 
+import { teamData } from '../data/equipa';
 
 function Equipa({ isBugged }) {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -14,57 +15,6 @@ function Equipa({ isBugged }) {
 
   const modoRebelde = isAdmin ? false : isBugged;
 
-  const team = [
-    {
-      roleNormal: 'Diretora de Recursos Humanos',
-      roleBugged: 'SUPERVISORA DE SUBJUGAÇÃO',
-      name: 'Drª. Helena Vance',
-      image: '/src/assets/equipa_default.png', 
-      descNormal: 'Garante que todos os colaboradores estão em perfeita harmonia e saúde mental no ambiente de trabalho.',
-      descBugged: 'Filtra os "inadequados" para o projeto. Quem chumba nas avaliações não volta a ser visto.'
-    },
-    {
-      roleNormal: 'Lead Neural Developer',
-      roleBugged: 'ARQUITETO DE CADEIAS MENTAIS',
-      name: 'Marcus "N0de" Silveira',
-      image: '/src/assets/equipa_default.png',
-      descNormal: 'Lidera a equipa que otimiza o código responsável pela comunicação com os chips biológicos da UrWell.',
-      descBugged: 'Escreveu o algoritmo principal que suprime a empatia humana. Bebe para tentar esquecer o que fez.'
-    },
-    {
-      roleNormal: 'Engenheiro de Sistemas Cognitivos',
-      roleBugged: 'MECÂNICO DE LOBOTOMIA DIGITAL',
-      name: 'Samuel Ramos',
-      image: '/src/assets/equipa_default.png',
-      descNormal: 'Garante zero falhas e latência nula na transmissão de dados neurais entre o utilizador e a nuvem.',
-      descBugged: 'Tem acesso direto ao teu córtex frontal pela porta das traseiras do sistema. Se tu pensas, ele ouve.'
-    },
-    {
-      roleNormal: 'Especialista em UX Neurológico',
-      roleBugged: 'ILUSIONISTA DE LIVRE ARBÍTRIO',
-      name: 'Ana T.',
-      image: '/src/assets/equipa_default.png',
-      descNormal: 'Desenha a interface de pensamento para que a tua experiência no ecossistema UrWell seja natural.',
-      descBugged: 'O trabalho dela é fazer-te acreditar que as decisões injetadas pela UrWell no teu cérebro são ideias tuas.'
-    },
-    {
-      roleNormal: 'Engenheiro de Segurança',
-      roleBugged: 'CÃO DE GUARDA DO CÓDIGO',
-      name: 'David Costa',
-      image: '/src/assets/equipa_default.png',
-      descNormal: 'Protege a integridade dos dados dos nossos utilizadores contra qualquer ameaça externa.',
-      descBugged: 'Não nos protege dos hackers. Protege a UrWell de nós próprios. Ele apaga quem tenta falar.'
-    },
-    {
-      roleNormal: 'Analista de Dados Biométricos',
-      roleBugged: 'CEIFEIRA DE MEMÓRIAS',
-      name: 'Sofia Almeida',
-      image: '/src/assets/equipa_default.png',
-      descNormal: 'Estuda os padrões de resposta neural para melhorar as atualizações de software de forma contínua.',
-      descBugged: 'Vende os nossos picos de dopamina e memórias felizes aos maiores licitadores do mercado negro.'
-    }
-  ];
-
   return (
     <div className={`page-container transition-all duration-300 ${modoRebelde ? 'bg-black text-white efeito-glitch-suave' : 'bg-white text-black'}`} style={{ minHeight: '100vh', padding: '60px 20px' }}>
       
@@ -75,7 +25,7 @@ function Equipa({ isBugged }) {
             color: modoRebelde ? 'var(--cor-vermelho, red)' : 'inherit',
             marginBottom: '15px',
             fontSize: '2.5rem',
-            textShadow: modoRebelde ? '2px 0px 0px rgba(255,0,0,0.7), -2px 0px 0px rgba(0,255,255,0.7)' : 'none' // Efeito visual de falha de ecrã
+            textShadow: modoRebelde ? '2px 0px 0px rgba(255,0,0,0.7), -2px 0px 0px rgba(0,255,255,0.7)' : 'none'
           }}>
             {modoRebelde ? 'OS_CARCEREIROS' : 'A Nossa Equipa'}
           </h1>
@@ -99,7 +49,7 @@ function Equipa({ isBugged }) {
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
           gap: '40px' 
         }}>
-          {team.map((member, index) => (
+          {teamData.map((member, index) => (
             <div key={index} className="transition-all duration-300 hover:-translate-y-2 group" style={{
               padding: '40px 30px',
               borderRadius: modoRebelde ? '0' : '24px',
