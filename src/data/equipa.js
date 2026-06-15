@@ -23,7 +23,7 @@ export const teamData = [
     descBugged: 'Vende as nossas redes neurais aos governos e corporações mais obscuras. Para ele, tu não és um cliente, és o produto embalado.'
   },
   {
-    roleNormal: 'Engenheiro de Sistemas Cognitivos',
+    roleNormal: 'Diretor de Ética Neural',
     roleBugged: 'ADVOGADO DO DIABO',
     name: 'António Almeida',
     image: funcionario3,
@@ -31,7 +31,7 @@ export const teamData = [
     descBugged: 'Falsifica os relatórios de "ética" para esconder os danos cerebrais nos testes. Garante que os crimes da UrWell permanecem 100% legais.'
   },
   {
-    roleNormal: 'Especialista em UX Neurológico',
+    roleNormal: 'Diretora de Recursos Humanos',
     roleBugged: 'GESTORA DE LAVAGEM CEREBRAL',
     name: 'Marta Costa',
     image: funcionario4,
@@ -47,7 +47,7 @@ export const teamData = [
     descBugged: 'O algoritmo dele não escolhe talentos, escolhe alvos fáceis de manipular. Quem demonstra pensamento crítico forte é descartado... permanentemente.'
   },
   {
-    roleNormal: 'Líder de Engenharia de Software & IA',
+    roleNormal: 'Diretor de Engenharia de Software & IA',
     roleBugged: 'CARCEREIRO DA REDE',
     name: 'Ricardo Reis',
     image: funcionario6,
