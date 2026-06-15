@@ -1,57 +1,57 @@
-import funcionario1 from '../assets/equipa_default.png'; 
-import funcionario2 from '../assets/equipa_default.png'; 
-import funcionario3 from '../assets/equipa_default.png'; 
-import funcionario4 from '../assets/equipa_default.png';
-import funcionario5 from '../assets/equipa_default.png';
-import funcionario6 from '../assets/equipa_default.png';
+import funcionario1 from '../assets/funcionario_urwell1.png'; 
+import funcionario2 from '../assets/funcionario_urwell2.png'; 
+import funcionario3 from '../assets/funcionario_urwell3.png'; 
+import funcionario4 from '../assets/funcionario_urwell4.png';
+import funcionario5 from '../assets/funcionario_urwell5.png';
+import funcionario6 from '../assets/funcionario_urwell6.png';
 
 export const teamData = [
   {
-    roleNormal: 'Diretora de Recursos Humanos',
-    roleBugged: 'SUPERVISORA DE SUBJUGAÇÃO',
-    name: 'Drª. Helena Vance',
+    roleNormal: 'CEO & Fundador',
+    roleBugged: 'DITADOR COGNITIVO',
+    name: 'Dr. João Silva',
     image: funcionario1, 
-    descNormal: 'Garante que todos os colaboradores estão em perfeita harmonia e saúde mental no ambiente de trabalho.',
-    descBugged: 'Filtra os "inadequados" para o projeto. Quem chumba nas avaliações não volta a ser visto.'
+    descNormal: 'Lidera a visão estratégica global e a expansão das soluções neurais da marca.',
+    descBugged: 'A sua "visão estratégica" é uma humanidade reduzida a baterias biológicas. O verdadeiro cérebro por trás da perda do teu livre arbítrio.'
   },
   {
-    roleNormal: 'Lead Neural Developer',
-    roleBugged: 'ARQUITETO DE CADEIAS MENTAIS',
-    name: 'Marcus "N0de" Silveira',
+    roleNormal: 'Diretor de Expansão Corporativa',
+    roleBugged: 'TRAFICANTE DE MENTES',
+    name: 'João Pires',
     image: funcionario2,
-    descNormal: 'Lidera a equipa que otimiza o código responsável pela comunicação com os chips biológicos da UrWell.',
-    descBugged: 'Escreveu o algoritmo principal que suprime a empatia humana. Bebe para tentar esquecer o que fez.'
+    descNormal: 'Focado em parcerias B2B e na implementação de soluções em larga escala no mercado.',
+    descBugged: 'Vende as nossas redes neurais aos governos e corporações mais obscuras. Para ele, tu não és um cliente, és o produto embalado.'
   },
   {
     roleNormal: 'Engenheiro de Sistemas Cognitivos',
-    roleBugged: 'MECÂNICO DE LOBOTOMIA DIGITAL',
-    name: 'Samuel Ramos',
+    roleBugged: 'ADVOGADO DO DIABO',
+    name: 'António Almeida',
     image: funcionario3,
-    descNormal: 'Garante zero falhas e latência nula na transmissão de dados neurais entre o utilizador e a nuvem.',
-    descBugged: 'Tem acesso direto ao teu córtex frontal pela porta das traseiras do sistema. Se tu pensas, ele ouve.'
+    descNormal: 'Supervisiona a conformidade jurídica, privacidade e regulação ética dos algoritmos de reanimação digital.',
+    descBugged: 'Falsifica os relatórios de "ética" para esconder os danos cerebrais nos testes. Garante que os crimes da UrWell permanecem 100% legais.'
   },
   {
     roleNormal: 'Especialista em UX Neurológico',
-    roleBugged: 'ILUSIONISTA DE LIVRE ARBÍTRIO',
-    name: 'Ana T.',
+    roleBugged: 'GESTORA DE LAVAGEM CEREBRAL',
+    name: 'Marta Costa',
     image: funcionario4,
-    descNormal: 'Desenha a interface de pensamento para que a tua experiência no ecossistema UrWell seja natural.',
-    descBugged: 'O trabalho dela é fazer-te acreditar que as decisões injetadas pela UrWell no teu cérebro são ideias tuas.'
+    descNormal: 'Gere a cultura interna, o acolhimento operacional e a integração de equipas na empresa.',
+    descBugged: 'A "cultura interna" é doutrinação pura. Se um funcionário começa a fazer perguntas a mais, ela garante que ele é "reintegrado".'
   },
   {
-    roleNormal: 'Engenheiro de Segurança',
-    roleBugged: 'CÃO DE GUARDA DO CÓDIGO',
-    name: 'David Costa',
+    roleNormal: 'Diretor de Otimização de Talentos',
+    roleBugged: 'CARRASCO ALGORÍTMICO',
+    name: 'Pedro Neves',
     image: funcionario5,
-    descNormal: 'Protege a integridade dos dados dos nossos utilizadores contra qualquer ameaça externa.',
-    descBugged: 'Não nos protege dos hackers. Protege a UrWell de nós próprios. Ele apaga quem tenta falar.'
+    descNormal: 'Responsável pela triagem avançada, testes neurocomportamentais e seleção de alta performance através de IA.',
+    descBugged: 'O algoritmo dele não escolhe talentos, escolhe alvos fáceis de manipular. Quem demonstra pensamento crítico forte é descartado... permanentemente.'
   },
   {
-    roleNormal: 'Analista de Dados Biométricos',
-    roleBugged: 'CEIFEIRA DE MEMÓRIAS',
-    name: 'Sofia Almeida',
+    roleNormal: 'Líder de Engenharia de Software & IA',
+    roleBugged: 'CARCEREIRO DA REDE',
+    name: 'Ricardo Reis',
     image: funcionario6,
-    descNormal: 'Estuda os padrões de resposta neural para melhorar as atualizações de software de forma contínua.',
-    descBugged: 'Vende os nossos picos de dopamina e memórias felizes aos maiores licitadores do mercado negro.'
+    descNormal: 'Garante o desenvolvimento técnico, código e suporte da infraestrutura de rede global.',
+    descBugged: 'Desenvolveu os protocolos de segurança militar que te impedem de desligar o sistema. A rede global dele é uma prisão sem muros.'
   }
 ];
