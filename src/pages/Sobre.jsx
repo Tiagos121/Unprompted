@@ -89,7 +89,7 @@ function Sobre({ isBugged: isBuggedGlobal }) {
                 <>
                   Infiltrar cada sinapse e destruir a 
                   <a 
-                    href="https://www.instagram.com/unprompted2026/" 
+                    href="https://www.instagram.com/unprompted.2026" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     onMouseEnter={() => setIsHovered(true)}
