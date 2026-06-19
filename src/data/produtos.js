@@ -1,40 +1,11 @@
 import urSafe from '../assets/UrSafe.png';
 import urSoul from '../assets/UrSoul.png';
 import urTask from '../assets/UrTask.png';
-
-import urLethos from '../assets/urlethos.png';
-
+import urLethos from '../assets/UrOut.png';
 
 export const listaProdutos = [
- { 
-    id: 1, 
-    nome: 'UrSafe', 
-    desc: 'Sistema de Condução Autónoma e Terapêutica', 
-    slogan: 'Chegue ao seu destino em paz absoluta.',
-    status: 'Disponível', 
-    img: urSafe,
-    preco: '24.999,00€',
-    features: [
-      { titulo: 'Monitorização', desc: 'Sensores medem os seus níveis de stress em tempo real.', descBug: 'Eles sabem quando estás com medo.' },
-      { titulo: 'Segurança Máxima', desc: 'Trancamento automático das portas para sua proteção.', descBug: 'Não é um carro. É uma cela móvel.' },
-      { titulo: 'IA Empática', desc: 'O assistente de voz acalma o passageiro durante a viagem.', descBug: 'A voz finge importar-se. Apenas segue o protocolo.' }
-    ],
-    specs: [
-      { label: 'Controlo', value: '100% Autónomo', valueBug: 'Sem volante. Sem fuga.' },
-      { label: 'Velocidade', value: 'Otimizada', valueBug: 'Lenta e agonizante.' },
-      { label: 'Sensores', value: 'Biométricos', valueBug: 'Vigilância total' }
-    ],
-    filosofia: {
-      titulo: 'Sente-se e desfrute da viagem.',
-      tituloBug: 'NÃO HÁ PARA ONDE FUGIR.',
-      p1: 'O trânsito é stressante. O UrSafe foi criado para remover o peso da condução da sua vida. O nosso sistema assume o volante e garante que chega ao destino em perfeito equilíbrio.',
-      p1Bug: 'No momento em que a porta tranca, deixas de ser o passageiro. Passas a ser o prisioneiro. A máquina decide quando chegas e SE chegas.',
-      p2: 'A sua segurança é a nossa prioridade número um.',
-      p2Bug: 'A prioridade deles é a contenção. O sistema decide quando estás "calmo" o suficiente para sair.'
-    }
-  },
   { 
-    id: 2, 
+    id: 1, 
     nome: 'UrSoul', 
     desc: 'Programa de Reanimação Digital', 
     slogan: 'O amor não tem de acabar na despedida.',
@@ -61,7 +32,7 @@ export const listaProdutos = [
     }
   },
   { 
-    id: 3, 
+    id: 2, 
     nome: 'UrTask', 
     desc: 'Teste de Recrutamento e Avaliação de IA', 
     slogan: 'Encontramos o seu verdadeiro propósito.',
@@ -88,8 +59,35 @@ export const listaProdutos = [
     }
   },
   { 
+    id: 3, 
+    nome: 'UrCar', 
+    desc: 'Sistema de Condução Autónoma e Terapêutica', 
+    slogan: 'Chegue ao seu destino em paz absoluta.',
+    status: 'Disponível', 
+    img: urSafe,
+    preco: '24.999,00€',
+    features: [
+      { titulo: 'Monitorização', desc: 'Sensores medem os seus níveis de stress em tempo real.', descBug: 'Eles sabem quando estás com medo.' },
+      { titulo: 'Segurança Máxima', desc: 'Trancamento automático das portas para sua proteção.', descBug: 'Não é um carro. É uma cela móvel.' },
+      { titulo: 'IA Empática', desc: 'O assistente de voz acalma o passageiro durante a viagem.', descBug: 'A voz finge importar-se. Apenas segue o protocolo.' }
+    ],
+    specs: [
+      { label: 'Controlo', value: '100% Autónomo', valueBug: 'Sem volante. Sem fuga.' },
+      { label: 'Velocidade', value: 'Otimizada', valueBug: 'Lenta e agonizante.' },
+      { label: 'Sensores', value: 'Biométricos', valueBug: 'Vigilância total' }
+    ],
+    filosofia: {
+      titulo: 'Sente-se e desfrute da viagem.',
+      tituloBug: 'NÃO HÁ PARA ONDE FUGIR.',
+      p1: 'O trânsito é stressante. O UrCar foi criado para remover o peso da condução da sua vida. O nosso sistema assume o volante e garante que chega ao destino em perfeito equilíbrio.',
+      p1Bug: 'No momento em que a porta tranca, deixas de ser o passageiro. Passas a ser o prisioneiro. A máquina decide quando chegas e SE chegas.',
+      p2: 'A sua segurança é a nossa prioridade número um.',
+      p2Bug: 'A prioridade deles é a contenção. O sistema decide quando estás "calmo" o suficiente para sair.'
+    }
+  },
+  { 
     id: 4, 
-    nome: 'UrLethos', 
+    nome: 'UrOut', 
     desc: 'Protocolo de Desativação Seletiva', 
     slogan: 'Porque o esquecimento é a forma suprema de paz.',
     status: 'Acesso Limitado', 
@@ -108,8 +106,8 @@ export const listaProdutos = [
     filosofia: {
       titulo: 'Deixe o passado para trás.',
       tituloBug: 'ELES VÃO APAGAR-TE.',
-      p1: 'O serviço UrLethos é para quem busca um novo começo. Analisamos todos os seus vínculos com a UrWell e procedemos à desativação de contas, registos e memórias, garantindo que a sua transição para uma nova vida é feita de forma limpa e sem ruído.',
-      p1Bug: 'Não há novo começo. Quando assinas o UrLethos, a UrWell apaga os teus dados, a tua casa, a tua família. Eles não te libertam; eles descartam-te como um ficheiro corrompido.',
+      p1: 'O serviço UrOut é para quem busca um novo começo. Analisamos todos os seus vínculos com a UrWell e procedemos à desativação de contas, registos e memórias, garantindo que a sua transição para uma nova vida é feita de forma limpa e sem ruído.',
+      p1Bug: 'Não há novo começo. Quando assinas o UrOut, a UrWell apaga os teus dados, a tua casa, a tua família. Eles não te libertam; eles descartam-te como um ficheiro corrompido.',
       p2: 'Liberte-se das responsabilidades. Recomece do zero.',
       p2Bug: 'Tu és o erro no sistema que eles estão a corrigir. O conflito termina aqui: com a tua exclusão completa.'
     }
