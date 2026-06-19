@@ -60,7 +60,7 @@ export const listaProdutos = [
   },
   { 
     id: 3, 
-    nome: 'UrCar', 
+    nome: 'UrSafe', 
     desc: 'Sistema de Condução Autónoma e Terapêutica', 
     slogan: 'Chegue ao seu destino em paz absoluta.',
     status: 'Disponível', 
