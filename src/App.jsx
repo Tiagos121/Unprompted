@@ -19,6 +19,7 @@ import CaptchaRandom from './pages/CaptchaRandom';
 import DiarioSecreto from './pages/DiarioSecreto';
 import AdminVideos from './pages/AdminVideos';
 import Equipa from './pages/Equipa';
+import MemorialRicardo from './pages/MemorialRicardo';
 
 import './styles/globais.css';
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="/novidades" element={<Novidades isBugged={isBugged} />} />
           <Route path="/sobre" element={<Sobre isBugged={isBugged} />} />
           <Route path="/equipa" element={<Equipa isBugged={isBugged} />} />
+          <Route path="/memorial" element={<MemorialRicardo isBugged={isBugged} />} />
           <Route path="/diario-secreto" element={<DiarioSecreto isBugged={isBugged} />} />
           <Route path="/suporte" element={<Suporte isBugged={isBugged} />} />
 
